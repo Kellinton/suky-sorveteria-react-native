@@ -55,7 +55,7 @@ export const styles = ({
     color: '#8A19D6',
     },
  
-  btn: {
+  btnLogin: {
     width: '80%',
     height: 50,
     padding: 10,

@@ -32,9 +32,11 @@ function LoginScreen() {
        {/* <button style={styles.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
  
        <TouchableOpacity
-        onPress={() => navigation.navigate('Dashboard')} style={styles.btn}>
+        onPress={() => navigation.navigate('Dashboard')} style={styles.btnLogin}>
           <Text>ENTRAR</Text>
         </TouchableOpacity>
+
+        <Text>Desenvolvido por CodeForge @2024</Text>
 
 </View> 
 </View>
