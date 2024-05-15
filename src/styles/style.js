@@ -1,4 +1,4 @@
-export const styles = ({
+export const loginStyle = ({
 
   container: {
     flex: 1,
@@ -50,8 +50,8 @@ export const styles = ({
   txtLogin: {
     fontFamily: 'Inter_700Bold',
     fontSize: 30,
-    marginBottom: 30,
-    marginTop: 30,
+    marginBottom: 20,
+    marginTop: 20,
     color: '#8A19D6',
     },
  
@@ -60,13 +60,18 @@ export const styles = ({
     height: 50,
     padding: 10,
     borderRadius: 30,
-    marginTop: 30,
+    marginTop: 20,
     border: 'none',
     backgroundColor: 'blue',
     alignSelf: 'center',
     backgroundColor: '#8A19D6',
+    fontFamily:  'Inter_600SemiBold',
+  },
+
+  entrarLogin: {
     color: 'white',
-    fontFamily:  'Inter_600SemiBold'
+    textAlign: 'center',
+    marginTop: 5,
   },
  
   TextInput: {
@@ -74,7 +79,7 @@ export const styles = ({
     height: 50,
     backgroundColor: 'white',
     borderTopRadius: 10,
-    marginTop: 10,
+    marginTop: 15,
     paddingLeft: 10,
     alignSelf: 'center',
     borderWidth: 1,
@@ -91,5 +96,33 @@ export const styles = ({
     marginRight: 50,
     marginTop: 20,
   },  
+
+  txtcodeForge: {
+    color: '#64748B',
+    textAlign: 'center',
+    marginTop: 35,
+  },
  
+});
+
+export const dashboardStyle = ({
+  topDash: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+
+  btnNotificacao: {
+    backgroundColor: 'blue',
+    width: 50,
+    height: 50,
+    borderRadius: 5,
+  },
+
+  nomeDash: {
+    textAlign: 'left',
+  },
 });
