@@ -124,5 +124,47 @@ export const dashboardStyle = ({
 
   nomeDash: {
     textAlign: 'left',
+    fontWeight: 'bold',
+    fontSize: 20,
+   },
+
+  cargoDash: {
+    color: '#8C8C8C',
+  },
+
+  bannerDash: {
+    backgroundColor: '#B66DFF',
+    width: 335,
+    height: 155,
+    borderRadius: 15,
+    marginTop: 40,
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  btnBanner: {
+    backgroundColor: '#8A19D6',
+    width: 130,
+    height: 45,
+    borderRadius: 15,
+    marginTop: 20,
+  },
+
+  txtBtnBanner: {
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+
+  txtBanner: {
+    color: 'white',
+  },
+
+  spanBanner: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: 'white',
   },
 });

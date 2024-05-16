@@ -78,12 +78,33 @@ function DashboardScreen() {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <View style={dashboardStyle.topDash}>
         <Image source={require("./assets/fotoPerfil.png")}></Image>
-        <Text style={dashboardStyle.nomeDash}>Gustavo Soier</Text>
+        <View>
+          <Text style={dashboardStyle.nomeDash}>Gustavo Soier</Text>
+          <Text style={dashboardStyle.cargoDash}>administrador</Text>
+        </View>
+
         <TouchableOpacity
           onPress={() => navigation.navigate("dashboard")}
           style={dashboardStyle.btnNotificacao} >
-
         </TouchableOpacity>
+      </View>
+
+      <View style={dashboardStyle.bannerDash}>
+        <View>
+          <Text style={dashboardStyle.txtBanner}>Gerenciar</Text>
+          <span style={dashboardStyle.spanBanner}>Estoque</span>
+          <TouchableOpacity
+          onPress={() => navigation.navigate("dashboard")} style={dashboardStyle.btnBanner} >
+            <Text style={dashboardStyle.txtBtnBanner}>Acessar</Text>
+        </TouchableOpacity>
+        </View>
+        <View>
+          <Image source={require("./assets/bannerDashboard.png")}></Image>
+        </View>
+      </View>
+
+      <View>
+        <Text>Estatísticas</Text>
       </View>
     </View>
   );
