@@ -106,28 +106,29 @@ function DashboardScreen() {
       <View style={dashboardStyle.boxTituloEstatisticas}>
         <Text style={dashboardStyle.tituloEstatisticas}>Estatísticas</Text>
       </View>
-
     <View style={dashboardStyle.containerEstatisticas}>
       <View style={dashboardStyle.boxEstatisticas}>
-        <View>
           <span>920</span>
-          <Text>Estoque</Text>
-        </View>
+          <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
       </View>
 
       <View style={dashboardStyle.boxEstatisticas}>
         <span>52</span>
-        <Text>Vendidos</Text>
+        <span style={dashboardStyle.txtBoxEstatisticas}>Vendidos</span>
       </View>
 
       <View style={dashboardStyle.boxEstatisticas}>
         <span>R$ 9 mil</span>
-        <Text>Lucro</Text>
+        <span style={dashboardStyle.txtBoxEstatisticas}>Lucro</span>
       </View>
     </View>
+
+    <View style={dashboardStyle.boxTituloMensagem}>
+        <Text style={dashboardStyle.tituloMensagem}>Mensagens Recentes</Text>
     </View>
 
-    
+
+    </View>
   );
 }
 

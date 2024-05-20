@@ -177,6 +177,9 @@ export const dashboardStyle = ({
 
   containerEstatisticas: {
     flexDirection: 'row',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   boxEstatisticas: {
@@ -185,17 +188,40 @@ export const dashboardStyle = ({
     backgroundColor: '#8A19D6',
     borderRadius: 15,
     border: 'none',
+    marginRight: 15,
+    marginLeft: 15,
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+
   },
 
   boxTituloEstatisticas: {
     textAlign: 'left',
     width: '90%',
     marginTop: 30,
-    marginBottom: 20,
+    marginBottom: 10,
   },
 
   tituloEstatisticas: {
     fontSize: 22,
     fontWeight: 'bold',
   },
+
+  txtBoxEstatisticas: {
+    color: 'white',
+  },
+
+  boxTituloMensagem: {
+    textAlign: 'left',
+    width: '90%',
+    marginTop: 30,
+    marginBottom: 10,
+  },
+
+  tituloMensagem: {
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+
 });
