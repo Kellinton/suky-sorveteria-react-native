@@ -14,7 +14,7 @@ export const loginStyle = ({
   img: {
     position: 'relative',
     width: '100%',
-    height: 260,
+    height: 280,
   },
  
   txtFundo: {
@@ -111,8 +111,8 @@ export const dashboardStyle = ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingLeft: '5%',
+    paddingRight: '5%',
   },
 
   btnNotificacao: {
@@ -125,7 +125,7 @@ export const dashboardStyle = ({
   nomeDash: {
     textAlign: 'left',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 22,
    },
 
   cargoDash: {
@@ -134,7 +134,7 @@ export const dashboardStyle = ({
 
   bannerDash: {
     backgroundColor: '#B66DFF',
-    width: 335,
+    width: '90%',
     height: 155,
     borderRadius: 15,
     marginTop: 40,
@@ -166,5 +166,36 @@ export const dashboardStyle = ({
     fontWeight: 'bold',
     fontSize: 25,
     color: 'white',
+  },
+
+  tituloEstatisticas: {
+    textAlign: 'left',
+    justifyContent: 'left',
+    alignItems: 'left',
+    color: 'red',
+  },
+
+  containerEstatisticas: {
+    flexDirection: 'row',
+  },
+
+  boxEstatisticas: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#8A19D6',
+    borderRadius: 15,
+    border: 'none',
+  },
+
+  boxTituloEstatisticas: {
+    textAlign: 'left',
+    width: '90%',
+    marginTop: 30,
+    marginBottom: 20,
+  },
+
+  tituloEstatisticas: {
+    fontSize: 22,
+    fontWeight: 'bold',
   },
 });

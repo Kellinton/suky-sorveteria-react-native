@@ -103,10 +103,31 @@ function DashboardScreen() {
         </View>
       </View>
 
-      <View>
-        <Text>Estatísticas</Text>
+      <View style={dashboardStyle.boxTituloEstatisticas}>
+        <Text style={dashboardStyle.tituloEstatisticas}>Estatísticas</Text>
+      </View>
+
+    <View style={dashboardStyle.containerEstatisticas}>
+      <View style={dashboardStyle.boxEstatisticas}>
+        <View>
+          <span>920</span>
+          <Text>Estoque</Text>
+        </View>
+      </View>
+
+      <View style={dashboardStyle.boxEstatisticas}>
+        <span>52</span>
+        <Text>Vendidos</Text>
+      </View>
+
+      <View style={dashboardStyle.boxEstatisticas}>
+        <span>R$ 9 mil</span>
+        <Text>Lucro</Text>
       </View>
     </View>
+    </View>
+
+    
   );
 }
 
