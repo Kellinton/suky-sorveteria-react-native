@@ -205,7 +205,7 @@ export const dashboardStyle = ({
 
   tituloEstatisticas: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: 'semi-bold',
   },
 
   txtBoxEstatisticas: {
@@ -221,7 +221,28 @@ export const dashboardStyle = ({
 
   tituloMensagem: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: 'semi-bold',
+  },
+
+  boxMensagem: {
+    width: '90%',
+    flexDirection: 'row',
+    backgroundColor: '#E2E8F0',
+    padding: 10,
+    borderRadius: 15,
+  },
+
+  imgMensagem: {
+    marginRight: '5%',
+  },
+
+  assuntoMensagem: {
+    fontWeight: 200,
+    color: '#8C8C8C',
+  },
+
+  horarioMensagem: {
+    marginLeft: '15%'
   },
 
 });

@@ -7,6 +7,8 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
+  Button,
+  Modal,
 } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -74,6 +76,9 @@ function LoginScreen({ navigation }) {
 }
 
 function DashboardScreen() {
+
+  // const [visivel,deleteMensagemVisivel]=useState(false)
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <View style={dashboardStyle.topDash}>
@@ -127,6 +132,26 @@ function DashboardScreen() {
         <Text style={dashboardStyle.tituloMensagem}>Mensagens Recentes</Text>
     </View>
 
+    <View style={dashboardStyle.boxMensagem}>
+      <Image source={require("./assets/fotoPerfil.png")} style={dashboardStyle.imgMensagem}></Image>
+
+      <View>
+        <Text>Gustavo Sampaio Soier</Text>
+        <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>        
+      </View>
+
+      <Text style={dashboardStyle.horarioMensagem}>1h</Text>
+
+      {/* <Modal animationType="fade" transparent={true} visible={visivel}>
+        <View>
+          <Text>Deseja mesmo excluir essa mensagem?</Text>
+          <Button onPress={()=>{deleteMensagemVisivel(false)}}></Button>
+        </View>
+      </Modal> */}
+
+      {/* <Button onPress={()=>{deleteMensagemVisivel(true)}}></Button> */}
+
+    </View>
 
     </View>
   );
