@@ -9,11 +9,15 @@ import {
   TouchableOpacity,
   Button,
   Modal,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
+
+
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   useFonts,
   Inter_300Light,
@@ -26,8 +30,10 @@ import {
 import { loginStyle } from "./src/styles/style";
 import { dashboardStyle } from "./src/styles/style";
 import { Feather } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 
-function LoginScreen({ navigation }) {
+
+export function LoginScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <View style={loginStyle.boxFundo}>
@@ -75,12 +81,18 @@ function LoginScreen({ navigation }) {
   );
 }
 
-function DashboardScreen() {
 
-  // const [visivel,deleteMensagemVisivel]=useState(false)
+
+export function DashboardScreen({ navigation }) {
+
+  // const [visivel, setVisivel]=useState(false)
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <SafeAreaView>
+
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", marginTop: '5%' }}>
       <View style={dashboardStyle.topDash}>
         <Image source={require("./assets/fotoPerfil.png")}></Image>
         <View>
@@ -132,6 +144,7 @@ function DashboardScreen() {
         <Text style={dashboardStyle.tituloMensagem}>Mensagens Recentes</Text>
     </View>
 
+
     <View style={dashboardStyle.boxMensagem}>
       <Image source={require("./assets/fotoPerfil.png")} style={dashboardStyle.imgMensagem}></Image>
 
@@ -142,30 +155,88 @@ function DashboardScreen() {
 
       <Text style={dashboardStyle.horarioMensagem}>1h</Text>
 
-      {/* <Modal animationType="fade" transparent={true} visible={visivel}>
+     {/* <Modal animationType="fade" transparent={true} visible={visivel}>
         <View>
           <Text>Deseja mesmo excluir essa mensagem?</Text>
-          <Button onPress={()=>{deleteMensagemVisivel(false)}}></Button>
+          <Button onPress={()=>{setVisivel(false)}}></Button>
         </View>
       </Modal> */}
 
-      {/* <Button onPress={()=>{deleteMensagemVisivel(true)}}></Button> */}
+      <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
+        <Ionicons name="trash-outline" size={18}></Ionicons>
+      </TouchableOpacity>
+
+    </View>
+
+    <View style={dashboardStyle.boxMensagem}>
+      <Image source={require("./assets/fotoPerfil.png")} style={dashboardStyle.imgMensagem}></Image>
+
+      <View>
+        <Text>Gustavo Sampaio Soier</Text>
+        <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>        
+      </View>
+
+      <Text style={dashboardStyle.horarioMensagem}>2h</Text>
+
+      <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
+        <Ionicons name="trash-outline" size={18}></Ionicons>
+      </TouchableOpacity>
+
+    </View>
+
+    <View style={dashboardStyle.boxMensagem}>
+      <Image source={require("./assets/fotoPerfil.png")} style={dashboardStyle.imgMensagem}></Image>
+
+      <View>
+        <Text>Gustavo Sampaio Soier</Text>
+        <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>        
+      </View>
+
+      <Text style={dashboardStyle.horarioMensagem}>3h</Text>
+
+      <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
+        <Ionicons name="trash-outline" size={18}></Ionicons>
+      </TouchableOpacity>
 
     </View>
 
     </View>
+
+
+    </SafeAreaView>
+    </ScrollView>
+
   );
 }
 
+
+const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-export default function App() {
+function MyTab(){
+  return (
+    <Tab.Navigator>
+      {/* <Tab.Screen name="dashboard" component={DashboardScreen} options={{headerShown : false}} /> */}
+      <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
+    }} />
+      {/* <Tab.Screen name="Serviços" component={Servicos} options={{headerShown : false}}/> */}
+    </Tab.Navigator>
+  );
+}
+ 
+ function Routes(){
+ return(
+   <Stack.Navigator >
+    <Stack.Screen name="Login" component={LoginScreen} options={{headerShown : false}} />
+    <Stack.Screen name="dashboard" component={MyTab} options={{headerShown : false}} />
+  </Stack.Navigator>
+ );
+ }
+
+ export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="dashboard" component={DashboardScreen}/>
-      </Stack.Navigator>
+      <Routes />
     </NavigationContainer>
   );
 }

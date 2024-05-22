@@ -4,7 +4,7 @@ export const loginStyle = ({
     flex: 1,
     position: 'relative',
   },
- 
+
   boxFundo: {
     width: '100%',
     height: '30%',
@@ -230,6 +230,8 @@ export const dashboardStyle = ({
     backgroundColor: '#E2E8F0',
     padding: 10,
     borderRadius: 15,
+    marginTop: '3%',
+    alignItems: 'center',
   },
 
   imgMensagem: {
@@ -242,7 +244,14 @@ export const dashboardStyle = ({
   },
 
   horarioMensagem: {
-    marginLeft: '15%'
+    marginLeft: '10%',
+    marginBottom: '5%',
+  },
+
+  lixeiraDashboard: {
+    marginBottom: '5%',
+    fontSize: 20,
+    marginLeft: '10%',
   },
 
 });
