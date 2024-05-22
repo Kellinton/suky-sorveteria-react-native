@@ -209,6 +209,19 @@ export function DashboardScreen({ navigation }) {
   );
 }
 
+export function MenuScreen ({ navigation }) {
+  <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <SafeAreaView>
+
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
+
+    </View>
+
+
+    </SafeAreaView>
+  </ScrollView>
+};
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -216,10 +229,11 @@ const Stack = createStackNavigator();
 function MyTab(){
   return (
     <Tab.Navigator>
-      {/* <Tab.Screen name="dashboard" component={DashboardScreen} options={{headerShown : false}} /> */}
       <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
-    }} />
-      {/* <Tab.Screen name="Serviços" component={Servicos} options={{headerShown : false}}/> */}
+        }} />
+
+      <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
+       }} />
     </Tab.Navigator>
   );
 }
