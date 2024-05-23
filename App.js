@@ -209,6 +209,7 @@ export function DashboardScreen({ navigation }) {
 }
 
 export function MenuScreen ({ navigation }) {
+  
   return (
   <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <SafeAreaView>
@@ -219,8 +220,12 @@ export function MenuScreen ({ navigation }) {
 
       <View style={menuStyle.buscarMenu}>
         <Ionicons name="search-outline" size={18}></Ionicons>
-        <Text style={menuStyle.titleBuscarMenu}>Buscar...</Text>
+        <TextInput style={menuStyle.titleBuscarMenu}
+        placeholder="Buscar"
+       />
       </View>
+
+
 
       <View style={menuStyle.containerMenu}>
 
@@ -256,6 +261,20 @@ export function MenuScreen ({ navigation }) {
   );
 }
 
+export function EstoqueScreen ({ navigation }) {
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SafeAreaView>
+  
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'red' }}>
+
+      </View>
+
+</SafeAreaView>
+</ScrollView>
+); 
+}
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -269,6 +288,9 @@ function MyTab(){
       <Tab.Screen name="Menu" component={MenuScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='document-text-outline' color={color} size={size} />
         }} />
 
+      <Tab.Screen name="Estoque" component={EstoqueScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='swap-vertical-outline' color={color} size={size} />
+        }} />   
+
       {/* <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
        }} /> */}
     </Tab.Navigator>
@@ -281,6 +303,7 @@ function MyTab(){
     <Stack.Screen name="Login" component={LoginScreen} options={{headerShown : false}} />
     <Stack.Screen name="dashboard" component={MyTab} options={{headerShown : false}} />
     <Stack.Screen name="Menu" component={MyTab} options={{headerShown : false}} />
+    <Stack.Screen name="Estoque" component={MyTab} options={{headerShown : false}} />
   </Stack.Navigator>
  );
  }
