@@ -29,6 +29,7 @@ import {
 } from "@expo-google-fonts/inter";
 import { loginStyle } from "./src/styles/style";
 import { dashboardStyle } from "./src/styles/style";
+import { menuStyle } from "./src/styles/style";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -210,18 +211,35 @@ export function DashboardScreen({ navigation }) {
 }
 
 export function MenuScreen ({ navigation }) {
+  return (
   <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <SafeAreaView>
 
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
 
-      <Text>Soier</Text>
+      <Text>Menu</Text>
+
+      <View>
+        <Ionicons name="search-ouline"></Ionicons>
+        <Text>Buscar...</Text>
+      </View>
+
+      <View>
+
+        <View></View>
+
+        <View></View>
+        
+        <View></View>
+
+      </View>
 
     </View>
 
     </SafeAreaView>
   </ScrollView>
-};
+  );
+}
 
 
 const Tab = createBottomTabNavigator();
@@ -233,7 +251,7 @@ function MyTab(){
       <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
         }} />
 
-      <Tab.Screen name="Menu" component={MenuScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
+      <Tab.Screen name="Menu" component={MenuScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='document-text-outline' color={color} size={size} />
         }} />
 
       {/* <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
