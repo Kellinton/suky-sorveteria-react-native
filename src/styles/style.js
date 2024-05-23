@@ -257,5 +257,81 @@ export const dashboardStyle = ({
 });
 
 export const menuStyle = ({
+  tituloMenu: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: '5%',
+  },
+
+  buscarMenu: {
+    backgroundColor: '#E2E8F0',
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'center', 
+    padding: 10,
+    borderRadius: 15,
+    marginTop: '5%',
+  },
+
+  titleBuscarMenu: {
+    marginLeft: 10,
+  },
+
+  containerMenu: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+
+  boxMenu: {
+    backgroundColor: '#F6E8FF',
+    width: 105,
+    height: 100,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: '5%',
+    marginTop: '10%',
+  },
+
+  boxMenuActive: {
+    backgroundColor: '#8A19D6',
+    width: 105,
+    height: 100,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: '5%',
+    marginTop: '10%',
+  },
+
+  txtBoxMenuActive: {
+    color: 'white',
+    marginTop: 5,
+  },  
+
+  txtBoxMenu: {
+    color: '#8A19D6',
+    marginTop: 5,
+  },
+
+  imgSemEstoque: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20%'
+  },
+
+  addProduto: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#8A19D6',
+    borderRadius: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: '-25%',
+    right: '5%',
+  },
 
 });

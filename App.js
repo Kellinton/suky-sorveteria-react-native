@@ -82,8 +82,6 @@ export function LoginScreen({ navigation }) {
   );
 }
 
-
-
 export function DashboardScreen({ navigation }) {
 
   // const [visivel, setVisivel]=useState(false)
@@ -215,23 +213,40 @@ export function MenuScreen ({ navigation }) {
   <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <SafeAreaView>
 
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", position: 'relative' }}>
 
-      <Text>Menu</Text>
+      <Text style={menuStyle.tituloMenu}>Menu</Text>
 
-      <View>
-        <Ionicons name="search-ouline"></Ionicons>
-        <Text>Buscar...</Text>
+      <View style={menuStyle.buscarMenu}>
+        <Ionicons name="search-outline" size={18}></Ionicons>
+        <Text style={menuStyle.titleBuscarMenu}>Buscar...</Text>
       </View>
 
-      <View>
+      <View style={menuStyle.containerMenu}>
 
-        <View></View>
+        <View style={menuStyle.boxMenuActive}>
+          <Image source={require("./assets/acai-icon1.png")}></Image>
+          <Text style={menuStyle.txtBoxMenuActive}>Açai</Text>
+        </View>
 
-        <View></View>
-        
-        <View></View>
+        <View style={menuStyle.boxMenu}>
+          <Image source={require("./assets/pote-roxo-icon1.png")}></Image>
+          <Text style={menuStyle.txtBoxMenu}>Sorvete de Pote</Text>
+        </View>
 
+        <View style={menuStyle.boxMenu}>
+          <Image source={require("./assets/picole-roxo-icon1.png")}></Image>
+          <Text style={menuStyle.txtBoxMenu}>Picolé</Text>
+        </View>
+
+      </View>
+
+      <View style={menuStyle.imgSemEstoque}>
+        <Image  source={require("./assets/semEstoque.png")}></Image>
+      </View>
+
+      <View style={menuStyle.addProduto}>
+          <Ionicons name="add-outline" size={20} color="#FFF"></Ionicons>
       </View>
 
     </View>
