@@ -215,8 +215,9 @@ export function MenuScreen ({ navigation }) {
 
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
 
-    </View>
+      <Text>Soier</Text>
 
+    </View>
 
     </SafeAreaView>
   </ScrollView>
@@ -232,8 +233,11 @@ function MyTab(){
       <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
         }} />
 
-      <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
-       }} />
+      <Tab.Screen name="Menu" component={MenuScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
+        }} />
+
+      {/* <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
+       }} /> */}
     </Tab.Navigator>
   );
 }
@@ -243,6 +247,7 @@ function MyTab(){
    <Stack.Navigator >
     <Stack.Screen name="Login" component={LoginScreen} options={{headerShown : false}} />
     <Stack.Screen name="dashboard" component={MyTab} options={{headerShown : false}} />
+    <Stack.Screen name="Menu" component={MyTab} options={{headerShown : false}} />
   </Stack.Navigator>
  );
  }
