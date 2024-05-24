@@ -337,5 +337,8 @@ export const menuStyle = ({
 });
 
 export const estoqueStyle = ({
-  
+  valorEstoque: {
+    color: '#8A19D6',
+    fontWeight: 'bold',
+  },
 });

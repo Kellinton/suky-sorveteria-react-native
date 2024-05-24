@@ -278,6 +278,18 @@ export function EstoqueScreen ({ navigation }) {
  />
           </View>
 
+          <View style={dashboardStyle.boxMensagem}>
+            <Image source={require("./assets/acaiEstoque.png")} style={dashboardStyle.imgMensagem}></Image>
+
+          <View>
+            <Text>Açai com cereal</Text>
+            <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>        
+          </View>
+
+    
+
+          </View>
+
       </View>
 
       </SafeAreaView>
