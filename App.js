@@ -267,9 +267,9 @@ export function EstoqueScreen ({ navigation }) {
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
   
-      {/* <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 
-        <Text style={menuStyle.tituloMenu}>Menu</Text>
+        <Text style={menuStyle.tituloMenu}>Estoque</Text>
 
           <View style={menuStyle.buscarMenu}>
   <Ionicons name="search-outline" size={18}></Ionicons>
@@ -278,7 +278,7 @@ export function EstoqueScreen ({ navigation }) {
  />
           </View>
 
-      </View> */}
+      </View>
 
       </SafeAreaView>
     </ScrollView>
