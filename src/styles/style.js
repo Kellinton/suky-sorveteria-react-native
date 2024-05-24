@@ -335,3 +335,7 @@ export const menuStyle = ({
   },
 
 });
+
+export const estoqueStyle = ({
+  
+});

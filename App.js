@@ -30,6 +30,7 @@ import {
 import { loginStyle } from "./src/styles/style";
 import { dashboardStyle } from "./src/styles/style";
 import { menuStyle } from "./src/styles/style";
+import { estoqueStyle } from "./src/styles/style";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -266,13 +267,22 @@ export function EstoqueScreen ({ navigation }) {
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
   
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'red' }}>
+      {/* <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 
-      </View>
+        <Text style={menuStyle.tituloMenu}>Menu</Text>
 
-</SafeAreaView>
-</ScrollView>
-); 
+          <View style={menuStyle.buscarMenu}>
+  <Ionicons name="search-outline" size={18}></Ionicons>
+  <TextInput style={menuStyle.titleBuscarMenu}
+  placeholder="Buscar"
+ />
+          </View>
+
+      </View> */}
+
+      </SafeAreaView>
+    </ScrollView>
+  ); 
 }
 
 
