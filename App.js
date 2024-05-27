@@ -103,6 +103,7 @@ export function DashboardScreen({ navigation }) {
         <TouchableOpacity
           onPress={() => navigation.navigate("dashboard")}
           style={dashboardStyle.btnNotificacao} >
+            <Ionicons name="notifications-outline" size={28} color="#000"></Ionicons>
         </TouchableOpacity>
       </View>
 
@@ -125,16 +126,19 @@ export function DashboardScreen({ navigation }) {
       </View>
     <View style={dashboardStyle.containerEstatisticas}>
       <View style={dashboardStyle.boxEstatisticas}>
+        <Ionicons name="layers-outline" size={22} color="#FFF"></Ionicons>
           <span>920</span>
           <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
       </View>
 
       <View style={dashboardStyle.boxEstatisticas}>
+        <Ionicons name="bag-check-outline" size={22} color="#FFF"></Ionicons>
         <span>52</span>
         <span style={dashboardStyle.txtBoxEstatisticas}>Vendidos</span>
       </View>
 
       <View style={dashboardStyle.boxEstatisticas}>
+        <Ionicons name="bar-chart-outline" size={22} color="#FFF"></Ionicons>
         <span>R$ 9 mil</span>
         <span style={dashboardStyle.txtBoxEstatisticas}>Lucro</span>
       </View>

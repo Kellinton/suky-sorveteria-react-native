@@ -116,10 +116,12 @@ export const dashboardStyle = ({
   },
 
   btnNotificacao: {
-    backgroundColor: 'blue',
+    backgroundColor: '#EBEBEB',
     width: 50,
     height: 50,
     borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   nomeDash: {
