@@ -77,15 +77,14 @@ export function LoginScreen({ navigation }) {
           <Text style={loginStyle.entrarLogin}>ENTRAR</Text>
         </TouchableOpacity>
 
-        <Text style={loginStyle.txtcodeForge}>Desenvolvido por CodeForge @2024</Text>
+        <Text style={loginStyle.txtcodeForge}>Desenvolvido por CodeForge @2024
+        </Text>
       </View>
     </View>
   );
 }
 
 export function DashboardScreen({ navigation }) {
-
-  // const [visivel, setVisivel]=useState(false)
 
   return (
 
@@ -94,7 +93,17 @@ export function DashboardScreen({ navigation }) {
 
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", marginTop: '5%' }}>
       <View style={dashboardStyle.topDash}>
-        <Image source={require("./assets/fotoPerfil.png")}></Image>
+        <TouchableOpacity>
+          <Image source={require("./assets/fotoPerfil.png")}></Image>
+        </TouchableOpacity>
+
+        {/* <Modal animationType="fade" transparent={true} visible={visivel}>
+          <View>
+            <Text>Teste</Text>
+            <Button title="fechar" onPress={()=>{setVisivel(false)}}></Button>
+          </View>
+        </Modal> */}
+
         <View>
           <Text style={dashboardStyle.nomeDash}>Gustavo Soier</Text>
           <Text style={dashboardStyle.cargoDash}>administrador</Text>
@@ -112,7 +121,7 @@ export function DashboardScreen({ navigation }) {
           <Text style={dashboardStyle.txtBanner}>Gerenciar</Text>
           <span style={dashboardStyle.spanBanner}>Estoque</span>
           <TouchableOpacity
-          onPress={() => navigation.navigate("dashboard")} style={dashboardStyle.btnBanner} >
+          onPress={() => navigation.navigate("dashboard")} style={dashboardStyle.btnBanner}>
             <Text style={dashboardStyle.txtBtnBanner}>Acessar</Text>
         </TouchableOpacity>
         </View>
@@ -159,15 +168,8 @@ export function DashboardScreen({ navigation }) {
 
       <Text style={dashboardStyle.horarioMensagem}>1h</Text>
 
-     {/* <Modal animationType="fade" transparent={true} visible={visivel}>
-        <View>
-          <Text>Deseja mesmo excluir essa mensagem?</Text>
-          <Button onPress={()=>{setVisivel(false)}}></Button>
-        </View>
-      </Modal> */}
-
       <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-        <Ionicons name="trash-outline" size={18}></Ionicons>
+        <Ionicons name="trash-outline" size={22}></Ionicons>
       </TouchableOpacity>
 
     </View>
@@ -183,7 +185,7 @@ export function DashboardScreen({ navigation }) {
       <Text style={dashboardStyle.horarioMensagem}>2h</Text>
 
       <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-        <Ionicons name="trash-outline" size={18}></Ionicons>
+        <Ionicons name="trash-outline" size={22}></Ionicons>
       </TouchableOpacity>
 
     </View>
@@ -199,10 +201,19 @@ export function DashboardScreen({ navigation }) {
       <Text style={dashboardStyle.horarioMensagem}>3h</Text>
 
       <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-        <Ionicons name="trash-outline" size={18}></Ionicons>
+        <Ionicons name="trash-outline" size={22}></Ionicons>
       </TouchableOpacity>
 
     </View>
+
+    {/* <Modal animationType="fade" transparent={true} visible={modalVisible}>
+            <View style={dashboardStyle.modalContainer}>
+              <View style={dashboardStyle.modalContent}>
+                <Text>Deseja mesmo excluir essa mensagem?</Text>
+                <Button title="Cancelar" onPress={closeModal} />
+              </View>
+            </View>
+    </Modal> */}
 
     </View>
 
@@ -299,6 +310,31 @@ export function EstoqueScreen ({ navigation }) {
       </SafeAreaView>
     </ScrollView>
   ); 
+}
+
+export function EditarPerfil ({ navigation }) {
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <SafeAreaView>
+
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+
+    <View style={loginStyle.boxFundo}>
+        <ImageBackground
+          source={require("./assets/fundoLogin.png")}
+          style={loginStyle.img}
+        ></ImageBackground>
+        <text style={loginStyle.txtFundo}>
+          <span style={loginStyle.spanFundo}>Sorveteria</span> <br></br>Faça o login
+          para acessar a área administrativa da sorveteria.
+        </text>
+      </View>
+
+    </View>
+
+    </SafeAreaView>
+  </ScrollView>
+  );
 }
 
 
