@@ -375,18 +375,24 @@ export function EditarPerfil ({ navigation }) {
 
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 
-    <View style={loginStyle.boxFundo}>
-        <ImageBackground
-          source={require("./assets/fundoLogin.png")}
-          style={loginStyle.img}
-        ></ImageBackground>
-        <text style={loginStyle.txtFundo}>
-          <span style={loginStyle.spanFundo}>Sorveteria</span> <br></br>Faça o login
-          para acessar a área administrativa da sorveteria.
-        </text>
-      </View>
+        <View style={loginStyle.boxFundo}>
+          <ImageBackground
+            source={require("./assets/fundoLogin.png")}
+            style={loginStyle.img}
+          ></ImageBackground>
+        </View>
 
-    </View>
+        <View>
+          <View style={ editarPerfilStyle.boxEditarFoto }>
+            <Image source={require("./assets/fotoPerfil.png")} style={editarPerfilStyle.fotoEditarPerfil}></Image>
+          </View>
+        </View>
+
+        <View style={editarPerfilStyle.containerPerfil}>
+        <Text>Informações</Text>
+        </View>
+
+        </View>
 
     </SafeAreaView>
   </ScrollView>
