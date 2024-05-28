@@ -31,6 +31,7 @@ import { loginStyle } from "./src/styles/style";
 import { dashboardStyle } from "./src/styles/style";
 import { menuStyle } from "./src/styles/style";
 import { estoqueStyle } from "./src/styles/style";
+import { editarPerfilStyle } from "./src/styles/style";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -93,9 +94,10 @@ export function DashboardScreen({ navigation }) {
 
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", marginTop: '5%' }}>
       <View style={dashboardStyle.topDash}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("editarPerfil")}>
           <Image source={require("./assets/fotoPerfil.png")}></Image>
         </TouchableOpacity>
+
 
         {/* <Modal animationType="fade" transparent={true} visible={visivel}>
           <View>
@@ -420,6 +422,7 @@ function MyTab(){
     <Stack.Screen name="dashboard" component={MyTab} options={{headerShown : false}} />
     <Stack.Screen name="Menu" component={MyTab} options={{headerShown : false}} />
     <Stack.Screen name="Estoque" component={MyTab} options={{headerShown : false}} />
+    <Stack.Screen name="editarPerfil" component={EditarPerfil} options={{headerShown : false}} />
   </Stack.Navigator>
  );
  }

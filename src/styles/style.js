@@ -387,3 +387,7 @@ export const estoqueStyle = ({
     right: '5%',
   },
 });
+
+export const editarPerfilStyle = ({
+  
+});
