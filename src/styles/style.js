@@ -343,4 +343,47 @@ export const estoqueStyle = ({
     color: '#8A19D6',
     fontWeight: 'bold',
   },
+
+  boxContEstoque: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: '5%'
+  },
+
+  btnDiminuirEstoque: {
+    width: 30,
+    height: 30,
+    borderRadius: 10,
+    backgroundColor: '#F1ECFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  btnAdicionarEstoque: {
+    width: 30,
+    height: 30,
+    borderRadius: 10,
+    backgroundColor: '#8A19D6',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  qtdEstoque: {
+    margin: 10,
+    fontSize: 18,
+  },
+
+  addProdutoEstoque: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#8A19D6',
+    borderRadius: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: '-58%',
+    right: '5%',
+  },
 });

@@ -287,10 +287,9 @@ export function EstoqueScreen ({ navigation }) {
         <Text style={menuStyle.tituloMenu}>Estoque</Text>
 
           <View style={menuStyle.buscarMenu}>
-  <Ionicons name="search-outline" size={18}></Ionicons>
-  <TextInput style={menuStyle.titleBuscarMenu}
-  placeholder="Buscar"
- />
+            <Ionicons name="search-outline" size={18}></Ionicons>
+            <TextInput style={menuStyle.titleBuscarMenu}
+            placeholder="Buscar"/>
           </View>
 
           <View style={dashboardStyle.boxMensagem}>
@@ -301,8 +300,63 @@ export function EstoqueScreen ({ navigation }) {
             <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>        
           </View>
 
-    
+          <View style={estoqueStyle.boxContEstoque}>
+            <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
+              <Ionicons name="remove-outline" size={22} color="#6B50F6"></Ionicons>
+            </TouchableOpacity>
 
+            <span style={estoqueStyle.qtdEstoque}>10</span>
+
+            <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
+              <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
+            </TouchableOpacity>
+          </View>
+          </View>
+
+          <View style={dashboardStyle.boxMensagem}>
+            <Image source={require("./assets/acaiEstoque.png")} style={dashboardStyle.imgMensagem}></Image>
+
+          <View>
+            <Text>Açai com morango</Text>
+            <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>        
+          </View>
+
+          <View style={estoqueStyle.boxContEstoque}>
+            <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
+              <Ionicons name="remove-outline" size={22} color="#6B50F6"></Ionicons>
+            </TouchableOpacity>
+
+            <span style={estoqueStyle.qtdEstoque}>14</span>
+
+            <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
+              <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
+            </TouchableOpacity>
+          </View>
+          </View>
+          
+          <View style={dashboardStyle.boxMensagem}>
+            <Image source={require("./assets/acaiEstoque.png")} style={dashboardStyle.imgMensagem}></Image>
+
+          <View>
+            <Text>Açai com banana</Text>
+            <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>        
+          </View>
+
+          <View style={estoqueStyle.boxContEstoque}>
+            <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
+              <Ionicons name="remove-outline" size={22} color="#6B50F6"></Ionicons>
+            </TouchableOpacity>
+
+            <span style={estoqueStyle.qtdEstoque}>17</span>
+
+            <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
+              <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
+            </TouchableOpacity>
+          </View>
+          </View>
+
+          <View style={estoqueStyle.addProdutoEstoque}>
+            <Ionicons name="add-outline" size={20} color="#FFF"></Ionicons>
           </View>
 
       </View>
