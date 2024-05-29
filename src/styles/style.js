@@ -410,4 +410,8 @@ export const editarPerfilStyle = ({
     borderRadius: 25,
     width: '100%',
   },
+
+  boxTitlePerfil: {
+    
+  },
 });

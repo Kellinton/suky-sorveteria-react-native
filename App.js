@@ -389,7 +389,9 @@ export function EditarPerfil ({ navigation }) {
         </View>
 
         <View style={editarPerfilStyle.containerPerfil}>
-        <Text>Informações</Text>
+          <View style={editarPerfilStyle.boxTitlePerfil}>
+            <Text>Informações</Text>
+          </View>
         </View>
 
         </View>
