@@ -226,8 +226,7 @@ export function DashboardScreen({ navigation }) {
   );
 }
 
-export function MenuScreen ({ navigation }) {
-  
+export function MenuScreen ({ navigation }) { 
   return (
   <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <SafeAreaView>
@@ -389,9 +388,9 @@ export function EditarPerfil ({ navigation }) {
         </View>
 
         <View style={editarPerfilStyle.containerPerfil}>
-          <View style={editarPerfilStyle.boxTitlePerfil}>
-            <Text>Informações</Text>
-          </View>
+            <Text style={editarPerfilStyle.titlePerfil}>Informações</Text> 
+
+            
         </View>
 
         </View>

@@ -411,7 +411,12 @@ export const editarPerfilStyle = ({
     width: '100%',
   },
 
-  boxTitlePerfil: {
-    
+  titlePerfil: {
+    marginLeft: 15,
+    marginTop: 25,
+    fontWeight: 'bold',
+    fontSize: 22,
   },
+
+  
 });
