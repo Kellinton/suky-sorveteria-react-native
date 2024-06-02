@@ -391,16 +391,50 @@ export function EditarPerfil ({ navigation }) {
             <Text style={editarPerfilStyle.titlePerfil}>Informações</Text> 
 
             <View style={editarPerfilStyle.boxInput50}> 
-              <TextInput placeholder="Nome: " style={editarPerfilStyle.input50}>
+              <TextInput placeholder="Nome: " autoCapitalize="words"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
               </TextInput>
-              <TextInput placeholder="Sobrenome: " style={editarPerfilStyle.input50}>
+              <TextInput placeholder="Sobrenome: " autoCapitalize="words"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
               </TextInput>
             </View>
 
             <View style={editarPerfilStyle.boxInput100}> 
-              <TextInput placeholder="Senha: " style={editarPerfilStyle.input100}>
+              <TextInput placeholder="Email: " keyboardType="email-address" placeholderTextColor="gray" style={editarPerfilStyle.input100}>
               </TextInput>
             </View>
+
+            <View style={editarPerfilStyle.boxInput100}> 
+              <TextInput placeholder="Senha: " secureTextEntry={true} placeholderTextColor="gray" style={editarPerfilStyle.input100}>
+              </TextInput>
+            </View>
+
+            <View style={editarPerfilStyle.boxInput50}> 
+              <TextInput placeholder="DD/MM/AAAA: " keyboardType="number-pad"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              </TextInput>
+              <TextInput placeholder="Telefone: " keyboardType="number-pad"         placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              </TextInput>
+            </View>
+
+            <View style={editarPerfilStyle.boxInput50}> 
+              <TextInput placeholder="Cargo: "autoCapitalize="words"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              </TextInput>
+              <TextInput placeholder="Salário: " keyboardType="number-pad"         placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              </TextInput>
+            </View>
+
+            <View style={editarPerfilStyle.boxInput50}> 
+              <TextInput placeholder="Cidade: "autoCapitalize="words"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              </TextInput>
+              <TextInput placeholder="Estado: " autoCapitalize="characters"        placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              </TextInput>
+            </View>
+
+            <View style={editarPerfilStyle.boxInput50}> 
+              <TextInput placeholder="CEP: " keyboardType="number-pad"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              </TextInput>
+              <TextInput placeholder="Endereço: " autoCapitalize="words" placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              </TextInput>
+            </View>
+
 
         </View>
 
