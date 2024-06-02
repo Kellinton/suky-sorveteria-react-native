@@ -416,7 +416,36 @@ export const editarPerfilStyle = ({
     marginTop: 25,
     fontWeight: 'bold',
     fontSize: 22,
+    marginBottom: 20,
   },
 
-  
+  boxInput50: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+
+  input50:{
+    borderWidth: 1,
+    borderColor: 'gray',
+    width: '45%',
+    margin: 5,
+    padding: 10,
+    borderRadius: 10,
+  },
+
+  boxInput100: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+
+  input100: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    width: '92%',
+    margin: 5,
+    padding: 10,
+    borderRadius: 10,
+  },
+
+
 });

@@ -390,7 +390,18 @@ export function EditarPerfil ({ navigation }) {
         <View style={editarPerfilStyle.containerPerfil}>
             <Text style={editarPerfilStyle.titlePerfil}>Informações</Text> 
 
-            
+            <View style={editarPerfilStyle.boxInput50}> 
+              <TextInput placeholder="Nome: " style={editarPerfilStyle.input50}>
+              </TextInput>
+              <TextInput placeholder="Sobrenome: " style={editarPerfilStyle.input50}>
+              </TextInput>
+            </View>
+
+            <View style={editarPerfilStyle.boxInput100}> 
+              <TextInput placeholder="Senha: " style={editarPerfilStyle.input100}>
+              </TextInput>
+            </View>
+
         </View>
 
         </View>
