@@ -415,14 +415,14 @@ export function EditarPerfil ({ navigation }) {
             </View>
 
             <View style={editarPerfilStyle.boxInput50}> 
-              <TextInput placeholder="Cargo: "autoCapitalize="words"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              <TextInput placeholder="Cargo: " autoCapitalize="words"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
               </TextInput>
               <TextInput placeholder="Salário: " keyboardType="number-pad"         placeholderTextColor="gray" style={editarPerfilStyle.input50}>
               </TextInput>
             </View>
 
             <View style={editarPerfilStyle.boxInput50}> 
-              <TextInput placeholder="Cidade: "autoCapitalize="words"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
+              <TextInput placeholder="Cidade: " autoCapitalize="words"           placeholderTextColor="gray" style={editarPerfilStyle.input50}>
               </TextInput>
               <TextInput placeholder="Estado: " autoCapitalize="characters"        placeholderTextColor="gray" style={editarPerfilStyle.input50}>
               </TextInput>
@@ -434,7 +434,6 @@ export function EditarPerfil ({ navigation }) {
               <TextInput placeholder="Endereço: " autoCapitalize="words" placeholderTextColor="gray" style={editarPerfilStyle.input50}>
               </TextInput>
             </View>
-
 
         </View>
 
