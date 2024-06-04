@@ -263,6 +263,7 @@ export const menuStyle = ({
     fontSize: 22,
     fontWeight: 'bold',
     marginTop: '5%',
+    color: 'white'
   },
 
   buscarMenu: {
@@ -334,6 +335,10 @@ export const menuStyle = ({
     position: 'absolute',
     bottom: '-25%',
     right: '5%',
+  },
+
+  boxTopoMenu: {
+    backgroundColor: '#922ADE',
   },
 
 });
@@ -451,6 +456,22 @@ export const editarPerfilStyle = ({
     width: '100%',
     height: 100,
     backgroundColor: 'red'
+  },
+
+  teste: {
+    backgroundColor: 'red',
+    height: 200,
+    width:'100%'
+  },
+
+  boxFundo: {
+    width: '100%',
+    color: 'white',
+  },
+
+  imgFundo: {
+    width: '100%',
+    height: 400,
   },
 
 
