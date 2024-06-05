@@ -250,84 +250,109 @@ export function DashboardScreen({ navigation }) {
 
 export function MenuScreen({ navigation }) {
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SafeAreaView>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            position: "relative",
-          }}
-        >
+    <View style={{ flex: 1, backgroundColor: '#F4F8FF' }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SafeAreaView>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
 
-          <View style={menuStyle.boxTopoMenu}>
-            <Text style={menuStyle.tituloMenu}>Menu</Text>
+            <View style={menuStyle.boxTopoMenu}>
+              <Text style={menuStyle.tituloMenu}>Menu</Text>
               <View style={dashboardStyle.containerEstatisticas}>
-            <View style={dashboardStyle.boxEstatisticas}>
-              <Ionicons name="ice-cream" size={25} color="#FFF"></Ionicons>
-              <span>920</span>
-              <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="ice-cream" size={25} color="#FFF" />
+                  <span>920</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
+                </View>
+
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="logo-usd" size={25} color="#FFF" />
+                  <span>52</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Vendidos</span>
+                </View>
+
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="eye-off" size={25} color="#FFF" />
+                  <span>R$ 9 mil</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Lucro</span>
+                </View>
+              </View>
             </View>
 
-            <View style={dashboardStyle.boxEstatisticas}>
-              <Ionicons
-                name="logo-usd"
-                size={25}
-                color="#FFF"
-              ></Ionicons>
-              <span>52</span>
-              <span style={dashboardStyle.txtBoxEstatisticas}>Vendidos</span>
+            <View style={menuStyle.buscarMenu}>
+              <Ionicons name="search-outline" size={18} />
+              <TextInput style={menuStyle.titleBuscarMenu} placeholder="Buscar" />
             </View>
 
-            <View style={dashboardStyle.boxEstatisticas}>
-              <Ionicons
-                name="eye-off"
-                size={25}
-                color="#FFF"
-              ></Ionicons>
-              <span>R$ 9 mil</span>
-              <span style={dashboardStyle.txtBoxEstatisticas}>Lucro</span>
+            <View style={menuStyle.containerMainmenu}>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                </View>
+              </View>
+
             </View>
+
+            {/* <View style={menuStyle.containerMenu}>
+              <View style={menuStyle.boxMenuActive}>
+                <Image source={require("./assets/acai-icon1.png")} />
+                <Text style={menuStyle.txtBoxMenuActive}>Açai</Text>
+              </View>
+
+              <View style={menuStyle.boxMenu}>
+                <Image source={require("./assets/pote-roxo-icon1.png")} />
+                <Text style={menuStyle.txtBoxMenu}>Sorvete de Pote</Text>
+              </View>
+
+              <View style={menuStyle.boxMenu}>
+                <Image source={require("./assets/picole-roxo-icon1.png")} />
+                <Text style={menuStyle.txtBoxMenu}>Picolé</Text>
+              </View>
+            </View> */}
+
+            {/* <View style={menuStyle.imgSemEstoque}>
+              <Image source={require("./assets/semEstoque.png")} />
+            </View> */}
+
           </View>
-
-          </View>
-
-
-          <View style={menuStyle.buscarMenu}>
-            <Ionicons name="search-outline" size={18}></Ionicons>
-            <TextInput style={menuStyle.titleBuscarMenu} placeholder="Buscar" />
-          </View>
-
-
-
-          {/* <View style={menuStyle.containerMenu}>
-            <View style={menuStyle.boxMenuActive}>
-              <Image source={require("./assets/acai-icon1.png")}></Image>
-              <Text style={menuStyle.txtBoxMenuActive}>Açai</Text>
-            </View>
-
-            <View style={menuStyle.boxMenu}>
-              <Image source={require("./assets/pote-roxo-icon1.png")}></Image>
-              <Text style={menuStyle.txtBoxMenu}>Sorvete de Pote</Text>
-            </View>
-
-            <View style={menuStyle.boxMenu}>
-              <Image source={require("./assets/picole-roxo-icon1.png")}></Image>
-              <Text style={menuStyle.txtBoxMenu}>Picolé</Text>
-            </View>
-          </View> */}
-
-          <View style={menuStyle.imgSemEstoque}>
-            <Image source={require("./assets/semEstoque.png")}></Image>
-          </View>
-
-          <View style={menuStyle.addProduto}>
-            <Ionicons name="add-outline" size={20} color="#FFF"></Ionicons>
-          </View>
-        </View>
-      </SafeAreaView>
-    </ScrollView>
+        </SafeAreaView>
+      </ScrollView>
+      
+      <View style={[menuStyle.addProduto, { position: 'absolute', bottom: 20, right: 20 }]}>
+        <Ionicons name="add-outline" size={20} color="#FFF" />
+      </View>
+    </View>
   );
 }
 

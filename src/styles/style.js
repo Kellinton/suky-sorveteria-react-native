@@ -336,13 +336,41 @@ export const menuStyle = ({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    bottom: '-25%',
+    bottom: '5%',
     right: '5%',
   },
 
   boxTopoMenu: {
     backgroundColor: '#922ADE',
     paddding: '5%',
+  },
+
+  boxEstatisticasMenu: {
+    marginBottom: '5%',
+    width: 100,
+    height: 100,
+    backgroundColor: '#8A19D6',
+    borderRadius: 15,
+    border: 'none',
+    marginRight: 15,
+    marginLeft: 15,
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  containerMainmenu: {
+    width: '90%',
+    backgroundColor: 'white',
+    height: 'fit-content',
+    borderRadius: 20,
+    padding: 20,
+    marginTop: '5%',
+  },
+
+  boxContainerMenu: {
+    backgroundColor: 'red',
+    marginBottom: '3%',
   },
 
 });
