@@ -212,6 +212,7 @@ export const dashboardStyle = ({
 
   txtBoxEstatisticas: {
     color: 'white',
+    fontSize: 14,
   },
 
   boxTituloMensagem: {
@@ -263,7 +264,9 @@ export const menuStyle = ({
     fontSize: 22,
     fontWeight: 'bold',
     marginTop: '5%',
-    color: 'white'
+    color: 'white',
+    textAlign: 'center',
+    marginBottom: '5%',
   },
 
   buscarMenu: {
@@ -339,6 +342,7 @@ export const menuStyle = ({
 
   boxTopoMenu: {
     backgroundColor: '#922ADE',
+    paddding: '5%',
   },
 
 });

@@ -265,15 +265,15 @@ export function MenuScreen({ navigation }) {
             <Text style={menuStyle.tituloMenu}>Menu</Text>
               <View style={dashboardStyle.containerEstatisticas}>
             <View style={dashboardStyle.boxEstatisticas}>
-              <Ionicons name="layers-outline" size={22} color="#FFF"></Ionicons>
+              <Ionicons name="ice-cream" size={25} color="#FFF"></Ionicons>
               <span>920</span>
               <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
             </View>
 
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons
-                name="bag-check-outline"
-                size={22}
+                name="logo-usd"
+                size={25}
                 color="#FFF"
               ></Ionicons>
               <span>52</span>
@@ -282,17 +282,15 @@ export function MenuScreen({ navigation }) {
 
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons
-                name="bar-chart-outline"
-                size={22}
+                name="eye-off"
+                size={25}
                 color="#FFF"
               ></Ionicons>
               <span>R$ 9 mil</span>
               <span style={dashboardStyle.txtBoxEstatisticas}>Lucro</span>
             </View>
           </View>
-            <View>
-              
-            </View>
+
           </View>
 
 
@@ -301,7 +299,9 @@ export function MenuScreen({ navigation }) {
             <TextInput style={menuStyle.titleBuscarMenu} placeholder="Buscar" />
           </View>
 
-          <View style={menuStyle.containerMenu}>
+
+
+          {/* <View style={menuStyle.containerMenu}>
             <View style={menuStyle.boxMenuActive}>
               <Image source={require("./assets/acai-icon1.png")}></Image>
               <Text style={menuStyle.txtBoxMenuActive}>Açai</Text>
@@ -316,7 +316,7 @@ export function MenuScreen({ navigation }) {
               <Image source={require("./assets/picole-roxo-icon1.png")}></Image>
               <Text style={menuStyle.txtBoxMenu}>Picolé</Text>
             </View>
-          </View>
+          </View> */}
 
           <View style={menuStyle.imgSemEstoque}>
             <Image source={require("./assets/semEstoque.png")}></Image>
