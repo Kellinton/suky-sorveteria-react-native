@@ -299,72 +299,19 @@ export function MenuScreen({ navigation }) {
                     <span style={menuStyle.precoMenu}>R$ 15,00</span>
                 </View>
 
-                <View>
-                  <Text>Açai Tropical - 500ml</Text>
-                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
 
-                  <View>
-                    <span>
-                      <Ionicons name="ice-cream" size={25} color="#FFF" />
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
                       <Text>Açaí</Text>
-                    </span>
-                  </View>
-                </View>
-              </View>
+                    </View>
 
-              <View style={menuStyle.boxContainerMenu}>
-                <View style={menuStyle.cardImgMenu}>
-                  <Image source={require("./assets/acai_morango.png")} />
-                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
-                </View>
-
-                <View>
-                  <Text>Açai Tropical - 500ml</Text>
-                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
-
-                  <View>
-                    <span>
-                      <Ionicons name="ice-cream" size={25} color="#FFF" />
-                      <Text>Açaí</Text>
-                    </span>
-                  </View>
-                </View>
-              </View>
-
-              <View style={menuStyle.boxContainerMenu}>
-                <View>
-                  <Image source={require("./assets/acai_morango.png")} />
-                   <span style={menuStyle.precoMenu}>R$ 15,00</span>
-                </View>
-
-                <View>
-                  <Text>Açai Tropical - 500ml</Text>
-                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
-
-                  <View>
-                    <span>
-                      <Ionicons name="ice-cream" size={25} color="#FFF" />
-                      <Text>Açaí</Text>
-                    </span>
-                  </View>
-                </View>
-              </View>
-
-              <View style={menuStyle.boxContainerMenu}>
-                <View>
-                  <Image source={require("./assets/acai_morango.png")} />
-                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
-                </View> 
-
-                <View>
-                  <Text>Açai Tropical - 500ml</Text>
-                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
-
-                  <View>
-                    <span>
-                      <Ionicons name="ice-cream" size={25} color="#FFF" />
-                      <Text>Açaí</Text>
-                    </span>
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -375,18 +322,87 @@ export function MenuScreen({ navigation }) {
                     <span style={menuStyle.precoMenu}>R$ 15,00</span>
                 </View>
 
-                <View>
-                  <Text>Açai Tropical - 500ml</Text>
-                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
 
-                  <View>
-                    <span>
-                      <Ionicons name="ice-cream" size={25} color="#FFF" />
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
                       <Text>Açaí</Text>
-                    </span>
+                    </View>
 
-                    <TouchableOpacity>
-                      <Ionicons name="ice-cream" size={25} color="#FFF" />
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+                      <Text>Açaí</Text>
+                    </View>
+
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+                      <Text>Açaí</Text>
+                    </View>
+
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+                      <Text>Açaí</Text>
+                    </View>
+
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
                     </TouchableOpacity>
                   </View>
                 </View>

@@ -369,7 +369,8 @@ export const menuStyle = ({
   },
 
   boxContainerMenu: {
-    marginBottom: '3%',
+    marginBottom: '5%',
+    flexDirection: 'row',
   },
 
   cardImgMenu: {
@@ -391,7 +392,47 @@ export const menuStyle = ({
     justifyContent: 'center',
   },  
 
+  cardMenu: {
+    width: '65%',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '5%',
+  },
 
+  tituloCardMenu: {
+    fontWeight: 'bold',
+    marginBottom: '5%',
+  },
+
+  descricaoCardMenu: {
+    color: 'gray',
+  },
+
+  btnCardMenu: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '3%',
+  },
+
+  btnSetaMenu: {
+    backgroundColor: '#8A19D6',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 25,
+    width: 25,
+    borderRadius: '50%',
+  },
+
+  iconAcaiMenu: {
+    backgroundColor:'#F7EBFF',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    textAlign: 'center',
+    alignItems: 'center',
+    padding: 5,
+    borderRadius: 10,
+  }
 });
 
 export const estoqueStyle = ({
