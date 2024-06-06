@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Image,
+  Span,
   TextInput,
   ImageBackground,
   TouchableOpacity,
@@ -267,20 +268,20 @@ export function MenuScreen({ navigation }) {
               <View style={dashboardStyle.containerEstatisticas}>
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="ice-cream" size={25} color="#FFF" />
-                  <span>920</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
+                  <span>52</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Produtos</span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="logo-usd" size={25} color="#FFF" />
-                  <span>52</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Vendidos</span>
+                  <span>R$ 20.780</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Valor em Produtos</span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="eye-off" size={25} color="#FFF" />
-                  <span>R$ 9 mil</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Lucro</span>
+                  <span>2</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Indisponíveis</span>
                 </View>
               </View>
             </View>
@@ -295,30 +296,99 @@ export function MenuScreen({ navigation }) {
               <View style={menuStyle.boxContainerMenu}>
                 <View>
                   <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View>
+                  <Text>Açai Tropical - 500ml</Text>
+                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View>
+                    <span>
+                      <Ionicons name="ice-cream" size={25} color="#FFF" />
+                      <Text>Açaí</Text>
+                    </span>
+                  </View>
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View style={menuStyle.cardImgMenu}>
+                  <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View>
+                  <Text>Açai Tropical - 500ml</Text>
+                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View>
+                    <span>
+                      <Ionicons name="ice-cream" size={25} color="#FFF" />
+                      <Text>Açaí</Text>
+                    </span>
+                  </View>
                 </View>
               </View>
 
               <View style={menuStyle.boxContainerMenu}>
                 <View>
                   <Image source={require("./assets/acai_morango.png")} />
+                   <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View>
+                  <Text>Açai Tropical - 500ml</Text>
+                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View>
+                    <span>
+                      <Ionicons name="ice-cream" size={25} color="#FFF" />
+                      <Text>Açaí</Text>
+                    </span>
+                  </View>
                 </View>
               </View>
 
               <View style={menuStyle.boxContainerMenu}>
                 <View>
                   <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View> 
+
+                <View>
+                  <Text>Açai Tropical - 500ml</Text>
+                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View>
+                    <span>
+                      <Ionicons name="ice-cream" size={25} color="#FFF" />
+                      <Text>Açaí</Text>
+                    </span>
+                  </View>
                 </View>
               </View>
 
               <View style={menuStyle.boxContainerMenu}>
                 <View>
                   <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
                 </View>
-              </View>
 
-              <View style={menuStyle.boxContainerMenu}>
                 <View>
-                  <Image source={require("./assets/acai_morango.png")} />
+                  <Text>Açai Tropical - 500ml</Text>
+                  <Text>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View>
+                    <span>
+                      <Ionicons name="ice-cream" size={25} color="#FFF" />
+                      <Text>Açaí</Text>
+                    </span>
+
+                    <TouchableOpacity>
+                      <Ionicons name="ice-cream" size={25} color="#FFF" />
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
 

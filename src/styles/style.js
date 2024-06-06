@@ -369,9 +369,28 @@ export const menuStyle = ({
   },
 
   boxContainerMenu: {
-    backgroundColor: 'red',
     marginBottom: '3%',
   },
+
+  cardImgMenu: {
+    position: 'relative',
+  },
+
+  precoMenu: {
+    backgroundColor: '#8A19D6',
+    paddingTop: 7,
+    paddingBottom: 7,
+    position: 'absolute',
+    borderRadius: 10,
+    top: 0,
+    width: '25%',
+    left: '15.5%',
+    textAlign: 'center',
+    color: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },  
+
 
 });
 
