@@ -116,7 +116,7 @@ export const dashboardStyle = ({
   },
 
   btnNotificacao: {
-    backgroundColor: '#EBEBEB',
+    backgroundColor: '#8A19D6',
     width: 50,
     height: 50,
     borderRadius: 5,
@@ -567,4 +567,30 @@ export const editarPerfilStyle = ({
   },
 
 
+});
+
+export const funcionarioStyle = ({
+  containerFuncionarios: {
+    padding: 15,
+    flexDirection: 'row',
+  },
+
+  boxFuncionario: {
+    width: 90,
+    height: 'min-content',
+    borderRadius: '50%',
+    backgroundColor: '#8A19D6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '5%',
+  },
+
+  nomeFuncionario: {
+    color: 'white',
+    fontSize: '22',
+  },
+
+  boxNomeFuncionario: {
+    marginTop: '10%'
+  },
 });
