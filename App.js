@@ -709,7 +709,196 @@ export function EditarPerfilScreen({ navigation }) {
 }
 
 export function FuncionarioScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, backgroundColor: '#F4F8FF' }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SafeAreaView>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
 
+            <View style={menuStyle.boxTopoMenu}>
+              <Text style={menuStyle.tituloMenu}>Menu</Text>
+              <View style={dashboardStyle.containerEstatisticas}>
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="ice-cream" size={25} color="#FFF" />
+                  <span>52</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Produtos</span>
+                </View>
+
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="logo-usd" size={25} color="#FFF" />
+                  <span>R$ 20.780</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Valor em Produtos</span>
+                </View>
+
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="eye-off" size={25} color="#FFF" />
+                  <span>2</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Indisponíveis</span>
+                </View>
+              </View>
+            </View>
+
+            <View style={menuStyle.buscarMenu}>
+              <Ionicons name="search-outline" size={18} />
+              <TextInput style={menuStyle.titleBuscarMenu} placeholder="Buscar" />
+            </View>
+
+            <View style={menuStyle.containerMainmenu}>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+                      <Text>Açaí</Text>
+                    </View>
+
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+                      <Text>Açaí</Text>
+                    </View>
+
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+                      <Text>Açaí</Text>
+                    </View>
+
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+                      <Text>Açaí</Text>
+                    </View>
+
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+
+              <View style={menuStyle.boxContainerMenu}>
+                <View>
+                  <Image source={require("./assets/acai_morango.png")} />
+                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                </View>
+
+                <View style={menuStyle.cardMenu}>
+                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
+                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+
+                  <View style={menuStyle.btnCardMenu}>
+                    <View style={menuStyle.iconAcaiMenu}>
+                      <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+                      <Text>Açaí</Text>
+                    </View>
+
+                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+              
+            </View>
+
+            {/* <View style={menuStyle.containerMenu}>
+              <View style={menuStyle.boxMenuActive}>
+                <Image source={require("./assets/acai-icon1.png")} />
+                <Text style={menuStyle.txtBoxMenuActive}>Açai</Text>
+              </View>
+
+              <View style={menuStyle.boxMenu}>
+                <Image source={require("./assets/pote-roxo-icon1.png")} />
+                <Text style={menuStyle.txtBoxMenu}>Sorvete de Pote</Text>
+              </View>
+
+              <View style={menuStyle.boxMenu}>
+                <Image source={require("./assets/picole-roxo-icon1.png")} />
+                <Text style={menuStyle.txtBoxMenu}>Picolé</Text>
+              </View>
+            </View> */}
+
+            {/* <View style={menuStyle.imgSemEstoque}>
+              <Image source={require("./assets/semEstoque.png")} />
+            </View> */}
+
+          </View>
+        </SafeAreaView>
+      </ScrollView>
+      
+      <View style={[menuStyle.addProduto, { position: 'absolute', bottom: 20, right: 20 }]}>
+        <Ionicons name="add-outline" size={20} color="#FFF" />
+      </View>
+    </View>
+  );
 }
 
 const Tab = createBottomTabNavigator();
