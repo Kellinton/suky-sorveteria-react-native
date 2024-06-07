@@ -149,14 +149,14 @@ export function DashboardScreen({ navigation }) {
 
           <View style={dashboardStyle.containerEstatisticas}>
             <View style={dashboardStyle.boxEstatisticas}>
-              <Ionicons name="layers-outline" size={22} color="#FFF"></Ionicons>
+              <Ionicons name="cube" size={22} color="#FFF"></Ionicons>
               <span>920</span>
               <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
             </View>
 
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons
-                name="bag-check-outline"
+                name="ice-cream"
                 size={22}
                 color="#FFF"
               ></Ionicons>
@@ -166,7 +166,7 @@ export function DashboardScreen({ navigation }) {
 
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons
-                name="bar-chart-outline"
+                name="people"
                 size={22}
                 color="#FFF"
               ></Ionicons>
