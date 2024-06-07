@@ -407,7 +407,7 @@ export function MenuScreen({ navigation }) {
                   </View>
                 </View>
               </View>
-
+              
             </View>
 
             {/* <View style={menuStyle.containerMenu}>
@@ -444,12 +444,32 @@ export function MenuScreen({ navigation }) {
 
 export function EstoqueScreen({ navigation }) {
   return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", position: "relative", justifyContent: 'center' }}>
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <Text style={menuStyle.tituloMenu}>Estoque</Text>
+
+          <View style={menuStyle.boxTopoMenu}>
+              <Text style={menuStyle.tituloMenu}>Estoque</Text>
+              <View style={dashboardStyle.containerEstatisticas}>
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="file-tray" size={25} color="#FFF" />
+                  <span>52</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
+                </View>
+
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="cash" size={25} color="#FFF" />
+                  <span>R$ 20.780</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Despesa Mensal</span>
+                </View>
+
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="eye-off" size={25} color="#FFF" />
+                  <span>2</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Estoque Baixo</span>
+                </View>
+              </View>
+            </View>
 
           <View style={menuStyle.buscarMenu}>
             <Ionicons name="search-outline" size={18}></Ionicons>
@@ -539,13 +559,16 @@ export function EstoqueScreen({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
+     
+        </SafeAreaView>
+      </ScrollView>
 
-          <View style={estoqueStyle.addProdutoEstoque}>
-            <Ionicons name="add-outline" size={20} color="#FFF"></Ionicons>
-          </View>
-        </View>
-      </SafeAreaView>
-    </ScrollView>
+      <View style={[menuStyle.addProduto, { position: 'absolute', bottom: 20, right: 20 }]}>
+        <Ionicons name="add-outline" size={20} color="#FFF" />
+      </View>
+    </View>
+
+    
   );
 }
 
@@ -685,6 +708,10 @@ export function EditarPerfilScreen({ navigation }) {
   );
 }
 
+export function FuncionarioScreen({ navigation }) {
+
+}
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -716,6 +743,17 @@ function MyTab() {
       <Tab.Screen
         name="Estoque"
         component={EstoqueScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="swap-vertical-outline" color={color} size={size} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="Funcionários"
+        component={FuncionarioScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -756,6 +794,11 @@ function Routes() {
       <Stack.Screen
         name="editarPerfil"
         component={EditarPerfilScreen}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="Funcionários"
+        component={MyTab}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

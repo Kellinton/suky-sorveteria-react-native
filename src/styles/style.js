@@ -384,8 +384,8 @@ export const menuStyle = ({
     position: 'absolute',
     borderRadius: 10,
     top: 0,
-    width: '25%',
-    left: '15.5%',
+    width: '60%',
+    left: '40%',
     textAlign: 'center',
     color: 'white',
     alignItems: 'center',
@@ -394,9 +394,7 @@ export const menuStyle = ({
 
   cardMenu: {
     width: '65%',
-    textAlign: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
     padding: '5%',
   },
 
@@ -413,6 +411,8 @@ export const menuStyle = ({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: '3%',
+    width: '100%',  
+    justifyContent: 'space-between',
   },
 
   btnSetaMenu: {
