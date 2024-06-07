@@ -869,27 +869,6 @@ export function FuncionarioScreen({ navigation }) {
               
             </View>
 
-            {/* <View style={menuStyle.containerMenu}>
-              <View style={menuStyle.boxMenuActive}>
-                <Image source={require("./assets/acai-icon1.png")} />
-                <Text style={menuStyle.txtBoxMenuActive}>Açai</Text>
-              </View>
-
-              <View style={menuStyle.boxMenu}>
-                <Image source={require("./assets/pote-roxo-icon1.png")} />
-                <Text style={menuStyle.txtBoxMenu}>Sorvete de Pote</Text>
-              </View>
-
-              <View style={menuStyle.boxMenu}>
-                <Image source={require("./assets/picole-roxo-icon1.png")} />
-                <Text style={menuStyle.txtBoxMenu}>Picolé</Text>
-              </View>
-            </View> */}
-
-            {/* <View style={menuStyle.imgSemEstoque}>
-              <Image source={require("./assets/semEstoque.png")} />
-            </View> */}
-
           </View>
         </SafeAreaView>
       </ScrollView>
@@ -946,7 +925,7 @@ function MyTab() {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="swap-vertical-outline" color={color} size={size} />
+            <Ionicons name="people" color={color} size={size} />
           ),
         }}
       />
