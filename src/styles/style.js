@@ -573,21 +573,21 @@ export const funcionarioStyle = ({
   containerFuncionarios: {
     padding: 15,
     flexDirection: 'row',
+    width: '100%',  
   },
 
   boxFuncionario: {
-    width: 90,
     height: 'min-content',
-    borderRadius: '50%',
-    backgroundColor: '#8A19D6',
     justifyContent: 'center',
     alignItems: 'center',
     margin: '5%',
   },
 
   nomeFuncionario: {
-    color: 'white',
+    color: 'black',
     fontSize: '22',
+    alignItems: 'center',
+    fontWeight: 'bold'
   },
 
   boxNomeFuncionario: {

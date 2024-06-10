@@ -66,7 +66,7 @@ export function LoginScreen({ navigation }) {
           style={[loginStyle.TextInput]}
         />
 
-        <text style={loginStyle.txtForgetPassword}>Esqueceu a senha?</text>
+        <TouchableOpacity style={loginStyle.txtForgetPassword}>Esqueceu a senha?</TouchableOpacity>
 
         {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
 
@@ -754,12 +754,16 @@ export function FuncionarioScreen({ navigation }) {
             <View style={funcionarioStyle.containerFuncionarios}>
               <View style={funcionarioStyle.boxFuncionario}>
                 <Image source={require("./assets/funcionarioAna.png")}></Image>
-                <View style={funcionarioStyle.boxNomeFuncionario}><Text style={funcionarioStyle.nomeFuncionario}>Ana</Text></View>
+                <View style={funcionarioStyle.boxNomeFuncionario}>
+                  <Text style={funcionarioStyle.nomeFuncionario}>Ana</Text>
+                  </View>
               </View>
 
               <View style={funcionarioStyle.boxFuncionario}>
                 <Image source={require("./assets/funcionarioJoao.png")}></Image>
-                <View><Text style={funcionarioStyle.nomeFuncionario}>João</Text></View>
+                <View style={funcionarioStyle.boxNomeFuncionario}>
+                  <Text style={funcionarioStyle.nomeFuncionario}>João</Text>
+                  </View>
               </View>
             </View>
 
