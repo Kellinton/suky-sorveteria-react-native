@@ -66,6 +66,56 @@ export function LoginScreen({ navigation }) {
           style={[loginStyle.TextInput]}
         />
 
+        <TouchableOpacity style={loginStyle.txtForgetPassword} onPress={() => navigation.navigate("EsqueciSenha")}>Esqueceu a senha?</TouchableOpacity>
+
+        {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate("dashboard")}
+          style={loginStyle.btnLogin}
+        >
+          <Text style={loginStyle.entrarLogin}>ENTRAR</Text>
+        </TouchableOpacity>
+
+        <Text style={loginStyle.txtcodeForge}>
+          Desenvolvido por CodeForge @2024
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+export function EsqueceuSenhaScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={loginStyle.boxFundo}>
+        <ImageBackground
+          source={require("./assets/fundoLogin.png")}
+          style={loginStyle.img}
+        ></ImageBackground>
+        <text style={loginStyle.txtFundo}>
+          <span style={loginStyle.spanFundo}>Sorveteria</span> <br></br>Faça o
+          login para acessar a área administrativa da sorveteria.
+        </text>
+      </View>
+
+      {/* <StatusBar style="auto" /> */}
+
+      <View style={loginStyle.container2}>
+        <text style={loginStyle.txtLogin}>Login</text>
+        <TextInput
+          placeholder="Seu Login:"
+          placeholderTextColor="gray"
+          style={loginStyle.TextInput}
+        />
+
+        <TextInput
+          secureTextEntry={true}
+          placeholder="Sua Senha:"
+          placeholderTextColor="gray"
+          style={[loginStyle.TextInput]}
+        />
+
         <TouchableOpacity style={loginStyle.txtForgetPassword}>Esqueceu a senha?</TouchableOpacity>
 
         {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
@@ -84,6 +134,7 @@ export function LoginScreen({ navigation }) {
     </View>
   );
 }
+
 
 export function DashboardScreen({ navigation }) {
   return (
@@ -842,6 +893,11 @@ function Routes() {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="EsqueciSenha"
+        component={EsqueceuSenhaScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
