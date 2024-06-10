@@ -66,7 +66,8 @@ export function LoginScreen({ navigation }) {
           style={[loginStyle.TextInput]}
         />
 
-        <TouchableOpacity style={loginStyle.txtForgetPassword} onPress={() => navigation.navigate("EsqueciSenha")}>Esqueceu a senha?</TouchableOpacity>
+        <TouchableOpacity style={loginStyle.txtForgetPassword}
+         onPress={() => navigation.navigate("EsqueciSenha")}>Esqueceu a senha?</TouchableOpacity>
 
         {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
 
@@ -85,7 +86,7 @@ export function LoginScreen({ navigation }) {
   );
 }
 
-export function EsqueceuSenhaScreen({ navigation }) {
+export function EsqueciSenhaScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <View style={loginStyle.boxFundo}>
@@ -93,25 +94,21 @@ export function EsqueceuSenhaScreen({ navigation }) {
           source={require("./assets/fundoLogin.png")}
           style={loginStyle.img}
         ></ImageBackground>
-        <text style={loginStyle.txtFundo}>
-          <span style={loginStyle.spanFundo}>Sorveteria</span> <br></br>Faça o
-          login para acessar a área administrativa da sorveteria.
-        </text>
       </View>
 
       {/* <StatusBar style="auto" /> */}
 
       <View style={loginStyle.container2}>
-        <text style={loginStyle.txtLogin}>Login</text>
+        <text style={loginStyle.txtLogin}>Recuperar Senha</text>
         <TextInput
-          placeholder="Seu Login:"
+          placeholder="Informe seu Email:"
           placeholderTextColor="gray"
           style={loginStyle.TextInput}
         />
 
         <TextInput
           secureTextEntry={true}
-          placeholder="Sua Senha:"
+          placeholder="Informe o Token:"
           placeholderTextColor="gray"
           style={[loginStyle.TextInput]}
         />
@@ -124,7 +121,7 @@ export function EsqueceuSenhaScreen({ navigation }) {
           onPress={() => navigation.navigate("dashboard")}
           style={loginStyle.btnLogin}
         >
-          <Text style={loginStyle.entrarLogin}>ENTRAR</Text>
+          <Text style={loginStyle.entrarLogin}>Recuperar</Text>
         </TouchableOpacity>
 
         <Text style={loginStyle.txtcodeForge}>
@@ -897,7 +894,7 @@ function Routes() {
       />
        <Stack.Screen
         name="EsqueciSenha"
-        component={EsqueceuSenhaScreen}
+        component={EsqueciSenhaScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
