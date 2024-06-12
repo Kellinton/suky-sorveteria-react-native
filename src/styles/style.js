@@ -498,14 +498,10 @@ export const editarPerfilStyle = ({
 
   containerPerfil: {
     backgroundColor: 'white',
-    height: '70%',
     textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',
-    borderWidth: 1,
     borderColor: 'white',
-    borderRadius: 25,
-    width: '100%',
   },
 
   titlePerfil: {

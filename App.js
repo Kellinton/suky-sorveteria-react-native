@@ -113,8 +113,6 @@ export function EsqueciSenhaScreen({ navigation }) {
           style={[loginStyle.TextInput]}
         />
 
-        <TouchableOpacity style={loginStyle.txtForgetPassword}>Esqueceu a senha?</TouchableOpacity>
-
         {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
 
         <TouchableOpacity
@@ -623,17 +621,17 @@ export function EstoqueScreen({ navigation }) {
 
 export function EditarPerfilScreen({ navigation }) {
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SafeAreaView>
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <View style={editarPerfilStyle.boxFundo}>
-            <ImageBackground
-              source={require("./assets/fundoLogin.png")}
-              style={editarPerfilStyle.imgFundo}
-            ></ImageBackground>
-
+    <View style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SafeAreaView>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
 
           <View style={editarPerfilStyle.containerPerfil}>
             <View style={editarPerfilStyle.boxEditarFoto}>
@@ -642,9 +640,9 @@ export function EditarPerfilScreen({ navigation }) {
                 style={editarPerfilStyle.fotoEditarPerfil}
               ></Image>
             </View>
-
+ 
             <Text style={editarPerfilStyle.titlePerfil}>Informações</Text>
-
+ 
             <View style={editarPerfilStyle.boxInput50}>
               <TextInput
                 placeholder="Nome: "
@@ -659,7 +657,7 @@ export function EditarPerfilScreen({ navigation }) {
                 style={editarPerfilStyle.input50}
               ></TextInput>
             </View>
-
+ 
             <View style={editarPerfilStyle.boxInput100}>
               <TextInput
                 placeholder="Email: "
@@ -668,7 +666,7 @@ export function EditarPerfilScreen({ navigation }) {
                 style={editarPerfilStyle.input100}
               ></TextInput>
             </View>
-
+ 
             <View style={editarPerfilStyle.boxInput100}>
               <TextInput
                 placeholder="Senha: "
@@ -677,7 +675,7 @@ export function EditarPerfilScreen({ navigation }) {
                 style={editarPerfilStyle.input100}
               ></TextInput>
             </View>
-
+ 
             <View style={editarPerfilStyle.boxInput50}>
               <TextInput
                 placeholder="DD/MM/AAAA: "
@@ -692,7 +690,7 @@ export function EditarPerfilScreen({ navigation }) {
                 style={editarPerfilStyle.input50}
               ></TextInput>
             </View>
-
+ 
             <View style={editarPerfilStyle.boxInput50}>
               <TextInput
                 placeholder="Cargo: "
@@ -707,7 +705,7 @@ export function EditarPerfilScreen({ navigation }) {
                 style={editarPerfilStyle.input50}
               ></TextInput>
             </View>
-
+ 
             <View style={editarPerfilStyle.boxInput50}>
               <TextInput
                 placeholder="Cidade: "
@@ -722,7 +720,7 @@ export function EditarPerfilScreen({ navigation }) {
                 style={editarPerfilStyle.input50}
               ></TextInput>
             </View>
-
+ 
             <View style={editarPerfilStyle.boxInput50}>
               <TextInput
                 placeholder="CEP: "
@@ -737,23 +735,14 @@ export function EditarPerfilScreen({ navigation }) {
                 style={editarPerfilStyle.input50}
               ></TextInput>
             </View>
-
-            <View style={editarPerfilStyle.teste}>
-              <View>
-                <TextInput
-                  placeholder="Endereço: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
-                ></TextInput>
-              </View>
-            </View>
+            
           </View>
-        </View>
+            
+          </View>
 
-        </View>
-      </SafeAreaView>
-    </ScrollView>
+        </SafeAreaView>
+      </ScrollView>
+    </View>
   );
 }
 
