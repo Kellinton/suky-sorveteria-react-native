@@ -32,6 +32,7 @@ import { menuStyle } from "./src/styles/style";
 import { estoqueStyle } from "./src/styles/style";
 import { editarPerfilStyle } from "./src/styles/style";
 import { funcionarioStyle } from "./src/styles/style";
+import { visualizarMenuStyle } from "./src/styles/style";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -129,7 +130,6 @@ export function EsqueciSenhaScreen({ navigation }) {
     </View>
   );
 }
-
 
 export function DashboardScreen({ navigation }) {
   return (
@@ -356,7 +356,7 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
                       <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
                     </TouchableOpacity>
                   </View>
@@ -379,7 +379,7 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
                       <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
                     </TouchableOpacity>
                   </View>
@@ -402,7 +402,7 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
                       <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
                     </TouchableOpacity>
                   </View>
@@ -425,7 +425,7 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
                       <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
                     </TouchableOpacity>
                   </View>
@@ -448,7 +448,7 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu}>
+                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
                       <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
                     </TouchableOpacity>
                   </View>
@@ -486,6 +486,43 @@ export function MenuScreen({ navigation }) {
         <Ionicons name="add-outline" size={20} color="#FFF" />
       </View>
     </View>
+  );
+}
+
+export function VisualizarMenuScreen({ navigation }) {
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SafeAreaView>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            margin: "5%",
+          }}
+        >
+
+        <View style={visualizarMenuStyle.containerVisualizarMenu}>
+          <Text style={visualizarMenuStyle.tituloVisualizarMenu}>Detalhes</Text>
+          <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
+            <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
+            <span style={menuStyle.precoMenu}>R$ 30,00</span>
+          </View>
+          <Text style={visualizarMenuStyle.nomeProdutoMenu}>Açaí Tropical - 500ml</Text>
+          <View style={menuStyle.iconAcaiMenu}>
+            <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+            <Text>Açaí</Text>
+          </View>
+          <View style={menuStyle.iconAcaiMenu}>
+            <Ionicons name="checkmark-circle" size={25} color="#C96DFF" />
+            <Text>Disponível</Text>
+          </View>
+          <Text>Descrição</Text>
+          <Text>Uma deliciosa combinação de açaí cremoso, morango fresco, disquete crocante, banana e coco ralado, uma explosão de sabores tropicais em cada colherada!</Text>
+        </View>
+          
+        </View>
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 
@@ -894,6 +931,12 @@ function Routes() {
       <Stack.Screen
         name="Menu"
         component={MyTab}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="VisualizarMenu"
+        component={VisualizarMenuScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

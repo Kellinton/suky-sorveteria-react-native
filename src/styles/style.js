@@ -435,6 +435,27 @@ export const menuStyle = ({
   }
 });
 
+export const visualizarMenuStyle = ({
+  tituloVisualizarMenu: {
+    fontSize: 25,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+
+  containerVisualizarMenu: {
+    display: 'flex',
+  },
+
+  nomeProdutoMenu: {
+    textAlign: 'left',
+  },
+
+  boxImgVisualizarMenu: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
 export const estoqueStyle = ({
   valorEstoque: {
     color: '#8A19D6',
