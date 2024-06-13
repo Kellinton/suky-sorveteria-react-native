@@ -608,6 +608,7 @@ export function EditarMenuScreen({ navigation }) {
             flex: 1,
             justifyContent: "center",
             margin: "5%",
+            position: "relative",
           }}
         >
          
@@ -619,7 +620,7 @@ export function EditarMenuScreen({ navigation }) {
          
          <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
-              <span style={visualizarMenuStyle.precoVisualizarMenu}>Trocar Imagem</span>
+              <span style={editarMenuStyle.precEditarMenu}>Trocar Imagem</span>
             </View>
          </View>
 

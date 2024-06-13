@@ -517,7 +517,19 @@ export const visualizarMenuStyle = ({
 });
 
 export const editarMenuStyle = ({
-  
+  precEditarMenu: {
+    backgroundColor: '#8A19D6',
+    paddingTop: 7,
+    paddingBottom: 7,
+    position: 'absolute',
+    borderRadius: 10,
+    top: '50%',
+    width: '40%',
+    textAlign: 'center',
+    color: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export const estoqueStyle = ({
