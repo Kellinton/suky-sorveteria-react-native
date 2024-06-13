@@ -598,6 +598,26 @@ export function VisualizarMenuScreen({ navigation }) {
   );
 }
 
+export function EditarMenuScreen({ navigation }) {
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SafeAreaView>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            margin: "5%",
+          }}
+        >
+         
+         
+         
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  );
+}
+
 export function EstoqueScreen({ navigation }) {
   return (
     <View
@@ -1045,11 +1065,7 @@ function Routes() {
         component={MyTab}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="editarMenu"
-        component={editarM}
-        options={{ headerShown: false }}
-      />
+    
     </Stack.Navigator>
   );
 }

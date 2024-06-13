@@ -501,7 +501,19 @@ export const visualizarMenuStyle = ({
     padding: 5,
     borderRadius: 10,
     marginRight: '5%'
-  }
+  },
+
+  btnEditarMenu: {
+    width: '90%',
+    backgroundColor: '#8A19D6',
+    padding: 15,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    color: 'white',
+    marginTop: '5%',
+  },
 });
 
 export const estoqueStyle = ({
