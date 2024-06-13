@@ -436,14 +436,15 @@ export const menuStyle = ({
 });
 
 export const visualizarMenuStyle = ({
+  containerVisualizarMenu: {
+    position: 'relative',
+  },
+
   tituloVisualizarMenu: {
     fontSize: 25,
     textAlign: 'center',
-    fontWeight: 'bold'
-  },
-
-  containerVisualizarMenu: {
-    display: 'flex',
+    fontWeight: 'bold',
+    marginBottom: '5%'
   },
 
   nomeProdutoMenu: {
@@ -453,7 +454,54 @@ export const visualizarMenuStyle = ({
   boxImgVisualizarMenu: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: '5%',
   },
+
+  precoVisualizarMenu: {
+    backgroundColor: '#8A19D6',
+    paddingTop: 7,
+    paddingBottom: 7,
+    position: 'absolute',
+    borderRadius: 10,
+    top: 0,
+    width: '40%',
+    textAlign: 'center',
+    color: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  boxIcons: {
+    flexDirection: 'row',
+    marginBottom: '5%',
+  },
+
+  nomeProdutoMenu: {
+    fontSize: 20,
+    fontWeight: '500',
+    marginBottom: '5%',
+  },
+
+  tituloDescricao: {
+    fontSize: 18,
+    marginBottom: '3%',
+    fontWeight: '500',
+  },
+
+  textoDescricao: {
+    color: '#8C8C8C'
+  },
+
+  iconAcaiVisualizarMenu: {
+    backgroundColor:'#F7EBFF',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    textAlign: 'center',
+    alignItems: 'center',
+    padding: 5,
+    borderRadius: 10,
+    marginRight: '5%'
+  }
 });
 
 export const estoqueStyle = ({

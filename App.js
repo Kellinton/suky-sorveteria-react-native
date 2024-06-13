@@ -67,8 +67,12 @@ export function LoginScreen({ navigation }) {
           style={[loginStyle.TextInput]}
         />
 
-        <TouchableOpacity style={loginStyle.txtForgetPassword}
-         onPress={() => navigation.navigate("EsqueciSenha")}>Esqueceu a senha?</TouchableOpacity>
+        <TouchableOpacity
+          style={loginStyle.txtForgetPassword}
+          onPress={() => navigation.navigate("EsqueciSenha")}
+        >
+          Esqueceu a senha?
+        </TouchableOpacity>
 
         {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
 
@@ -166,11 +170,7 @@ export function DashboardScreen({ navigation }) {
               onPress={() => navigation.navigate("dashboard")}
               style={dashboardStyle.btnNotificacao}
             >
-              <Ionicons
-                name="settings"
-                size={28}
-                color="#FFF"
-              ></Ionicons>
+              <Ionicons name="settings" size={28} color="#FFF"></Ionicons>
             </TouchableOpacity>
           </View>
 
@@ -202,21 +202,13 @@ export function DashboardScreen({ navigation }) {
             </View>
 
             <View style={dashboardStyle.boxEstatisticas}>
-              <Ionicons
-                name="ice-cream"
-                size={22}
-                color="#FFF"
-              ></Ionicons>
+              <Ionicons name="ice-cream" size={22} color="#FFF"></Ionicons>
               <span>52</span>
               <span style={dashboardStyle.txtBoxEstatisticas}>Vendidos</span>
             </View>
 
             <View style={dashboardStyle.boxEstatisticas}>
-              <Ionicons
-                name="people"
-                size={22}
-                color="#FFF"
-              ></Ionicons>
+              <Ionicons name="people" size={22} color="#FFF"></Ionicons>
               <span>R$ 9 mil</span>
               <span style={dashboardStyle.txtBoxEstatisticas}>Lucro</span>
             </View>
@@ -298,7 +290,7 @@ export function DashboardScreen({ navigation }) {
 
 export function MenuScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, backgroundColor: '#F4F8FF' }}>
+    <View style={{ flex: 1, backgroundColor: "#F4F8FF" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SafeAreaView>
           <View
@@ -309,46 +301,57 @@ export function MenuScreen({ navigation }) {
               position: "relative",
             }}
           >
-
             <View style={menuStyle.boxTopoMenu}>
               <Text style={menuStyle.tituloMenu}>Menu</Text>
               <View style={dashboardStyle.containerEstatisticas}>
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="ice-cream" size={25} color="#FFF" />
                   <span>52</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Produtos</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                    Produtos
+                  </span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="logo-usd" size={25} color="#FFF" />
                   <span>R$ 20.780</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Valor em Produtos</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                    Valor em Produtos
+                  </span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="eye-off" size={25} color="#FFF" />
                   <span>2</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Indisponíveis</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                    Indisponíveis
+                  </span>
                 </View>
               </View>
             </View>
 
             <View style={menuStyle.buscarMenu}>
               <Ionicons name="search-outline" size={18} />
-              <TextInput style={menuStyle.titleBuscarMenu} placeholder="Buscar" />
+              <TextInput
+                style={menuStyle.titleBuscarMenu}
+                placeholder="Buscar"
+              />
             </View>
 
             <View style={menuStyle.containerMainmenu}>
-
               <View style={menuStyle.boxContainerMenu}>
                 <View>
                   <Image source={require("./assets/acai_morango.png")} />
-                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                  <span style={menuStyle.precoMenu}>R$ 15,00</span>
                 </View>
 
                 <View style={menuStyle.cardMenu}>
-                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
-                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+                  <Text style={menuStyle.tituloCardMenu}>
+                    Açai Tropical - 500ml
+                  </Text>
+                  <Text style={menuStyle.descricaoCardMenu}>
+                    Uma deliciosa combinação de açaí cremoso...
+                  </Text>
 
                   <View style={menuStyle.btnCardMenu}>
                     <View style={menuStyle.iconAcaiMenu}>
@@ -356,8 +359,15 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
-                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    <TouchableOpacity
+                      style={menuStyle.btnSetaMenu}
+                      onPress={() => navigation.navigate("VisualizarMenu")}
+                    >
+                      <Ionicons
+                        name="arrow-forward-outline"
+                        size={18}
+                        color="#FFF"
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -366,12 +376,16 @@ export function MenuScreen({ navigation }) {
               <View style={menuStyle.boxContainerMenu}>
                 <View>
                   <Image source={require("./assets/acai_morango.png")} />
-                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                  <span style={menuStyle.precoMenu}>R$ 15,00</span>
                 </View>
 
                 <View style={menuStyle.cardMenu}>
-                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
-                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+                  <Text style={menuStyle.tituloCardMenu}>
+                    Açai Tropical - 500ml
+                  </Text>
+                  <Text style={menuStyle.descricaoCardMenu}>
+                    Uma deliciosa combinação de açaí cremoso...
+                  </Text>
 
                   <View style={menuStyle.btnCardMenu}>
                     <View style={menuStyle.iconAcaiMenu}>
@@ -379,8 +393,15 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
-                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    <TouchableOpacity
+                      style={menuStyle.btnSetaMenu}
+                      onPress={() => navigation.navigate("VisualizarMenu")}
+                    >
+                      <Ionicons
+                        name="arrow-forward-outline"
+                        size={18}
+                        color="#FFF"
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -389,12 +410,16 @@ export function MenuScreen({ navigation }) {
               <View style={menuStyle.boxContainerMenu}>
                 <View>
                   <Image source={require("./assets/acai_morango.png")} />
-                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                  <span style={menuStyle.precoMenu}>R$ 15,00</span>
                 </View>
 
                 <View style={menuStyle.cardMenu}>
-                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
-                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+                  <Text style={menuStyle.tituloCardMenu}>
+                    Açai Tropical - 500ml
+                  </Text>
+                  <Text style={menuStyle.descricaoCardMenu}>
+                    Uma deliciosa combinação de açaí cremoso...
+                  </Text>
 
                   <View style={menuStyle.btnCardMenu}>
                     <View style={menuStyle.iconAcaiMenu}>
@@ -402,8 +427,15 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
-                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    <TouchableOpacity
+                      style={menuStyle.btnSetaMenu}
+                      onPress={() => navigation.navigate("VisualizarMenu")}
+                    >
+                      <Ionicons
+                        name="arrow-forward-outline"
+                        size={18}
+                        color="#FFF"
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -412,12 +444,16 @@ export function MenuScreen({ navigation }) {
               <View style={menuStyle.boxContainerMenu}>
                 <View>
                   <Image source={require("./assets/acai_morango.png")} />
-                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                  <span style={menuStyle.precoMenu}>R$ 15,00</span>
                 </View>
 
                 <View style={menuStyle.cardMenu}>
-                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
-                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+                  <Text style={menuStyle.tituloCardMenu}>
+                    Açai Tropical - 500ml
+                  </Text>
+                  <Text style={menuStyle.descricaoCardMenu}>
+                    Uma deliciosa combinação de açaí cremoso...
+                  </Text>
 
                   <View style={menuStyle.btnCardMenu}>
                     <View style={menuStyle.iconAcaiMenu}>
@@ -425,8 +461,15 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
-                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    <TouchableOpacity
+                      style={menuStyle.btnSetaMenu}
+                      onPress={() => navigation.navigate("VisualizarMenu")}
+                    >
+                      <Ionicons
+                        name="arrow-forward-outline"
+                        size={18}
+                        color="#FFF"
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -435,12 +478,16 @@ export function MenuScreen({ navigation }) {
               <View style={menuStyle.boxContainerMenu}>
                 <View>
                   <Image source={require("./assets/acai_morango.png")} />
-                    <span style={menuStyle.precoMenu}>R$ 15,00</span>
+                  <span style={menuStyle.precoMenu}>R$ 15,00</span>
                 </View>
 
                 <View style={menuStyle.cardMenu}>
-                  <Text style={menuStyle.tituloCardMenu}>Açai Tropical - 500ml</Text>
-                  <Text style={menuStyle.descricaoCardMenu}>Uma deliciosa combinação de açaí cremoso...</Text>
+                  <Text style={menuStyle.tituloCardMenu}>
+                    Açai Tropical - 500ml
+                  </Text>
+                  <Text style={menuStyle.descricaoCardMenu}>
+                    Uma deliciosa combinação de açaí cremoso...
+                  </Text>
 
                   <View style={menuStyle.btnCardMenu}>
                     <View style={menuStyle.iconAcaiMenu}>
@@ -448,13 +495,19 @@ export function MenuScreen({ navigation }) {
                       <Text>Açaí</Text>
                     </View>
 
-                    <TouchableOpacity style={menuStyle.btnSetaMenu} onPress={() => navigation.navigate("VisualizarMenu")}>
-                      <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                    <TouchableOpacity
+                      style={menuStyle.btnSetaMenu}
+                      onPress={() => navigation.navigate("VisualizarMenu")}
+                    >
+                      <Ionicons
+                        name="arrow-forward-outline"
+                        size={18}
+                        color="#FFF"
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>
               </View>
-              
             </View>
 
             {/* <View style={menuStyle.containerMenu}>
@@ -477,12 +530,16 @@ export function MenuScreen({ navigation }) {
             {/* <View style={menuStyle.imgSemEstoque}>
               <Image source={require("./assets/semEstoque.png")} />
             </View> */}
-
           </View>
         </SafeAreaView>
       </ScrollView>
-      
-      <View style={[menuStyle.addProduto, { position: 'absolute', bottom: 20, right: 20 }]}>
+
+      <View
+        style={[
+          menuStyle.addProduto,
+          { position: "absolute", bottom: 20, right: 20 },
+        ]}
+      >
         <Ionicons name="add-outline" size={20} color="#FFF" />
       </View>
     </View>
@@ -500,26 +557,41 @@ export function VisualizarMenuScreen({ navigation }) {
             margin: "5%",
           }}
         >
+          <View style={visualizarMenuStyle.containerVisualizarMenu}>
+            <Text style={visualizarMenuStyle.tituloVisualizarMenu}>
+              Detalhes
+            </Text>
+            <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
+              <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
+              <span style={visualizarMenuStyle.precoVisualizarMenu}>R$ 30,00</span>
+            </View>
+            <Text style={visualizarMenuStyle.nomeProdutoMenu}>
+              Açaí Tropical - 500ml
+            </Text>
+            <View style={visualizarMenuStyle.boxIcons}>
+              <View style={visualizarMenuStyle.iconAcaiVisualizarMenu}>
+                <Ionicons name="ice-cream" size={25} color="#C96DFF" />
+                <Text>Açaí</Text>
+              </View>
+              <View style={menuStyle.iconAcaiMenu}>
+                <Ionicons name="checkmark-circle" size={25} color="#C96DFF" />
+                <Text>Disponível</Text>
+              </View>
+            </View>
+            <Text style={visualizarMenuStyle.tituloDescricao}>Descrição</Text>
+            <Text style={visualizarMenuStyle.textoDescricao}>
+              Uma deliciosa combinação de açaí cremoso, morango fresco, disquete
+              crocante, banana e coco ralado, uma explosão de sabores tropicais
+              em cada colherada!
+            </Text>
 
-        <View style={visualizarMenuStyle.containerVisualizarMenu}>
-          <Text style={visualizarMenuStyle.tituloVisualizarMenu}>Detalhes</Text>
-          <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
-            <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
-            <span style={menuStyle.precoMenu}>R$ 30,00</span>
+            <TouchableOpacity
+            style={visualizarMenuStyle.btnEditarMenu}
+            onPress={() => navigation.navigate("editarMenu")}
+            >
+            Editar
+            </TouchableOpacity>
           </View>
-          <Text style={visualizarMenuStyle.nomeProdutoMenu}>Açaí Tropical - 500ml</Text>
-          <View style={menuStyle.iconAcaiMenu}>
-            <Ionicons name="ice-cream" size={25} color="#C96DFF" />
-            <Text>Açaí</Text>
-          </View>
-          <View style={menuStyle.iconAcaiMenu}>
-            <Ionicons name="checkmark-circle" size={25} color="#C96DFF" />
-            <Text>Disponível</Text>
-          </View>
-          <Text>Descrição</Text>
-          <Text>Uma deliciosa combinação de açaí cremoso, morango fresco, disquete crocante, banana e coco ralado, uma explosão de sabores tropicais em cada colherada!</Text>
-        </View>
-          
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -528,32 +600,43 @@ export function VisualizarMenuScreen({ navigation }) {
 
 export function EstoqueScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", position: "relative", justifyContent: 'center' }}>
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SafeAreaView>
-
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative",
+        justifyContent: "center",
+      }}
+    >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SafeAreaView>
           <View style={menuStyle.boxTopoMenu}>
-              <Text style={menuStyle.tituloMenu}>Estoque</Text>
-              <View style={dashboardStyle.containerEstatisticas}>
-                <View style={menuStyle.boxEstatisticasMenu}>
-                  <Ionicons name="file-tray" size={25} color="#FFF" />
-                  <span>52</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
-                </View>
+            <Text style={menuStyle.tituloMenu}>Estoque</Text>
+            <View style={dashboardStyle.containerEstatisticas}>
+              <View style={menuStyle.boxEstatisticasMenu}>
+                <Ionicons name="file-tray" size={25} color="#FFF" />
+                <span>52</span>
+                <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
+              </View>
 
-                <View style={menuStyle.boxEstatisticasMenu}>
-                  <Ionicons name="cash" size={25} color="#FFF" />
-                  <span>R$ 20.780</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Despesa Mensal</span>
-                </View>
+              <View style={menuStyle.boxEstatisticasMenu}>
+                <Ionicons name="cash" size={25} color="#FFF" />
+                <span>R$ 20.780</span>
+                <span style={dashboardStyle.txtBoxEstatisticas}>
+                  Despesa Mensal
+                </span>
+              </View>
 
-                <View style={menuStyle.boxEstatisticasMenu}>
-                  <Ionicons name="eye-off" size={25} color="#FFF" />
-                  <span>2</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Estoque Baixo</span>
-                </View>
+              <View style={menuStyle.boxEstatisticasMenu}>
+                <Ionicons name="eye-off" size={25} color="#FFF" />
+                <span>2</span>
+                <span style={dashboardStyle.txtBoxEstatisticas}>
+                  Estoque Baixo
+                </span>
               </View>
             </View>
+          </View>
 
           <View style={menuStyle.buscarMenu}>
             <Ionicons name="search-outline" size={18}></Ionicons>
@@ -643,16 +726,18 @@ export function EstoqueScreen({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
-     
         </SafeAreaView>
       </ScrollView>
 
-      <View style={[menuStyle.addProduto, { position: 'absolute', bottom: 20, right: 20 }]}>
+      <View
+        style={[
+          menuStyle.addProduto,
+          { position: "absolute", bottom: 20, right: 20 },
+        ]}
+      >
         <Ionicons name="add-outline" size={20} color="#FFF" />
       </View>
     </View>
-
-    
   );
 }
 
@@ -669,114 +754,110 @@ export function EditarPerfilScreen({ navigation }) {
               position: "relative",
             }}
           >
+            <View style={editarPerfilStyle.containerPerfil}>
+              <View style={editarPerfilStyle.boxEditarFoto}>
+                <Image
+                  source={require("./assets/fotoPerfil.png")}
+                  style={editarPerfilStyle.fotoEditarPerfil}
+                ></Image>
+              </View>
 
-          <View style={editarPerfilStyle.containerPerfil}>
-            <View style={editarPerfilStyle.boxEditarFoto}>
-              <Image
-                source={require("./assets/fotoPerfil.png")}
-                style={editarPerfilStyle.fotoEditarPerfil}
-              ></Image>
-            </View>
- 
-            <Text style={editarPerfilStyle.titlePerfil}>Informações</Text>
- 
-            <View style={editarPerfilStyle.boxInput50}>
-              <TextInput
-                placeholder="Nome: "
-                autoCapitalize="words"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-              <TextInput
-                placeholder="Sobrenome: "
-                autoCapitalize="words"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-            </View>
- 
-            <View style={editarPerfilStyle.boxInput100}>
-              <TextInput
-                placeholder="Email: "
-                keyboardType="email-address"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input100}
-              ></TextInput>
-            </View>
- 
-            <View style={editarPerfilStyle.boxInput100}>
-              <TextInput
-                placeholder="Senha: "
-                secureTextEntry={true}
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input100}
-              ></TextInput>
-            </View>
- 
-            <View style={editarPerfilStyle.boxInput50}>
-              <TextInput
-                placeholder="DD/MM/AAAA: "
-                keyboardType="number-pad"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-              <TextInput
-                placeholder="Telefone: "
-                keyboardType="number-pad"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-            </View>
- 
-            <View style={editarPerfilStyle.boxInput50}>
-              <TextInput
-                placeholder="Cargo: "
-                autoCapitalize="words"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-              <TextInput
-                placeholder="Salário: "
-                keyboardType="number-pad"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-            </View>
- 
-            <View style={editarPerfilStyle.boxInput50}>
-              <TextInput
-                placeholder="Cidade: "
-                autoCapitalize="words"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-              <TextInput
-                placeholder="Estado: "
-                autoCapitalize="characters"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-            </View>
- 
-            <View style={editarPerfilStyle.boxInput50}>
-              <TextInput
-                placeholder="CEP: "
-                keyboardType="number-pad"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-              <TextInput
-                placeholder="Endereço: "
-                autoCapitalize="words"
-                placeholderTextColor="gray"
-                style={editarPerfilStyle.input50}
-              ></TextInput>
-            </View>
-            
-          </View>
-            
-          </View>
+              <Text style={editarPerfilStyle.titlePerfil}>Informações</Text>
 
+              <View style={editarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="Nome: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Sobrenome: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+
+              <View style={editarPerfilStyle.boxInput100}>
+                <TextInput
+                  placeholder="Email: "
+                  keyboardType="email-address"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input100}
+                ></TextInput>
+              </View>
+
+              <View style={editarPerfilStyle.boxInput100}>
+                <TextInput
+                  placeholder="Senha: "
+                  secureTextEntry={true}
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input100}
+                ></TextInput>
+              </View>
+
+              <View style={editarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="DD/MM/AAAA: "
+                  keyboardType="number-pad"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Telefone: "
+                  keyboardType="number-pad"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+
+              <View style={editarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="Cargo: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Salário: "
+                  keyboardType="number-pad"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+
+              <View style={editarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="Cidade: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Estado: "
+                  autoCapitalize="characters"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+
+              <View style={editarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="CEP: "
+                  keyboardType="number-pad"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Endereço: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={editarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+            </View>
+          </View>
         </SafeAreaView>
       </ScrollView>
     </View>
@@ -785,7 +866,7 @@ export function EditarPerfilScreen({ navigation }) {
 
 export function FuncionarioScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, backgroundColor: '#F4F8FF' }}>
+    <View style={{ flex: 1, backgroundColor: "#F4F8FF" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SafeAreaView>
           <View
@@ -796,33 +877,41 @@ export function FuncionarioScreen({ navigation }) {
               position: "relative",
             }}
           >
-
             <View style={menuStyle.boxTopoMenu}>
               <Text style={menuStyle.tituloMenu}>Funcionários</Text>
               <View style={dashboardStyle.containerEstatisticas}>
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="people" size={25} color="#FFF" />
                   <span>2</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Funcionários</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                    Funcionários
+                  </span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="logo-usd" size={25} color="#FFF" />
                   <span>R$ 8.290</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Valor em Pagamentos</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                    Valor em Pagamentos
+                  </span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="eye-off" size={25} color="#FFF" />
                   <span>4</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Indisponíveis</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                    Indisponíveis
+                  </span>
                 </View>
               </View>
             </View>
 
             <View style={menuStyle.buscarMenu}>
               <Ionicons name="search-outline" size={18} />
-              <TextInput style={menuStyle.titleBuscarMenu} placeholder="Buscar" />
+              <TextInput
+                style={menuStyle.titleBuscarMenu}
+                placeholder="Buscar"
+              />
             </View>
 
             <View style={funcionarioStyle.containerFuncionarios}>
@@ -830,24 +919,26 @@ export function FuncionarioScreen({ navigation }) {
                 <Image source={require("./assets/funcionarioAna.png")}></Image>
                 <View style={funcionarioStyle.boxNomeFuncionario}>
                   <Text style={funcionarioStyle.nomeFuncionario}>Ana</Text>
-                  </View>
+                </View>
               </View>
 
               <View style={funcionarioStyle.boxFuncionario}>
                 <Image source={require("./assets/funcionarioJoao.png")}></Image>
                 <View style={funcionarioStyle.boxNomeFuncionario}>
                   <Text style={funcionarioStyle.nomeFuncionario}>João</Text>
-                  </View>
+                </View>
               </View>
             </View>
-
-
-
           </View>
         </SafeAreaView>
       </ScrollView>
-      
-      <View style={[menuStyle.addProduto, { position: 'absolute', bottom: 20, right: 20 }]}>
+
+      <View
+        style={[
+          menuStyle.addProduto,
+          { position: "absolute", bottom: 20, right: 20 },
+        ]}
+      >
         <Ionicons name="add-outline" size={20} color="#FFF" />
       </View>
     </View>
@@ -918,7 +1009,7 @@ function Routes() {
         component={LoginScreen}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="EsqueciSenha"
         component={EsqueciSenhaScreen}
         options={{ headerShown: false }}
@@ -949,9 +1040,14 @@ function Routes() {
         component={EditarPerfilScreen}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Funcionários"
         component={MyTab}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="editarMenu"
+        component={editarM}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
