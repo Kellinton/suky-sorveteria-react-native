@@ -516,6 +516,10 @@ export const visualizarMenuStyle = ({
   },
 });
 
+export const editarMenuStyle = ({
+  
+});
+
 export const estoqueStyle = ({
   valorEstoque: {
     color: '#8A19D6',

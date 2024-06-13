@@ -33,6 +33,7 @@ import { estoqueStyle } from "./src/styles/style";
 import { editarPerfilStyle } from "./src/styles/style";
 import { funcionarioStyle } from "./src/styles/style";
 import { visualizarMenuStyle } from "./src/styles/style";
+import { editarMenuStyle } from "./src/styles/style";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -610,8 +611,18 @@ export function EditarMenuScreen({ navigation }) {
           }}
         >
          
+         <View>
          
+         <Text style={visualizarMenuStyle.tituloVisualizarMenu}>
+              Editar
+            </Text>
          
+         <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
+              <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
+              <span style={visualizarMenuStyle.precoVisualizarMenu}>Trocar Imagem</span>
+            </View>
+         </View>
+
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -1063,6 +1074,12 @@ function Routes() {
       <Stack.Screen
         name="Funcionários"
         component={MyTab}
+        options={{ headerShown: false }}
+      />
+
+<Stack.Screen
+        name="editarMenu"
+        component={EditarMenuScreen}
         options={{ headerShown: false }}
       />
     
