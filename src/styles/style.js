@@ -517,7 +517,7 @@ export const visualizarMenuStyle = ({
 });
 
 export const editarMenuStyle = ({
-  precEditarMenu: {
+  alterarImgEditarMenu: {
     backgroundColor: '#8A19D6',
     paddingTop: 7,
     paddingBottom: 7,

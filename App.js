@@ -1,4 +1,11 @@
 import * as React from "react";
+
+import { useState } from "react"; // Reconhece os comandos de start inicial
+
+import Modal  from "react-native-modal";
+import axios from "axios"; // Faz a requisição HTTP para a API
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Para fazer o storage
+
 import {
   StyleSheet,
   Text,
@@ -37,7 +44,57 @@ import { editarMenuStyle } from "./src/styles/style";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
+
+
 export function LoginScreen({ navigation }) {
+
+// Importando o hook useState do React
+const [email, setEmail] = useState(""); 
+// Cria uma variável de estado chamada "email" e uma função "setEmail" para atualizá-la. O estado inicial é uma string vazia.
+
+const [senha, setSenha] = useState(""); 
+// Cria uma variável de estado chamada "senha" e uma função "setSenha" para atualizá-la. O estado inicial é uma string vazia.
+
+const [errorModalVisible, setErrorModalVisible] = useState(false); 
+// Cria uma variável de estado chamada "errorModalVisible" e uma função "setErrorModalVisible" para atualizá-la. O estado inicial é "false". Essa variável provavelmente será usada para controlar a visibilidade de um modal de erro.
+
+const [isFocused, setIsFocused] = React.useState(false); 
+// Cria uma variável de estado chamada "isFocused" e uma função "setIsFocused" para atualizá-la. O estado inicial é "false". Essa variável pode ser usada para indicar se um campo de entrada está focado ou não.
+
+  // Define uma função assíncrona chamada "handleLogin". Esta função será usada para lidar com o evento de login.
+const handleLogin = async () => {
+  //Verificar se o email ou a senha estão preenchidos
+  if (!email.trim() || !senha.trim()) {
+    setErrorModalVisible(true);
+    return;
+  }
+
+  try{
+    const resposta = await axios.post(`https://smpsistema.com.br/sukysorveteria/api/login?email=?{email}&senha=${senha}`);
+    if(resposta.data) {
+      const funcionario = resposta.data;
+      if (funcionario) {
+        console.log(funcionario);
+        console.log(funcionario.usuario.dados_funcionario.idFuncionario);
+        console.log(funcionario.usuario.dados_funcionario.nomeFuncionario);
+        console.log(funcionario.usuario.dados_funcionario.access_token);
+
+        const idFuncionario = funcionario.usuario.dados_aluno.idFuncionario;
+        const token = aluo.access_token;
+
+        // Armazenar o token na memória do APP (assyncStorage)
+        await AsyncStorage.setItem('userToken', token);
+        navigation.navigate('dashboard', {idFuncionario});        
+      }
+    }
+  }
+  catch (error) {
+    console.error("Erro ao verificar o email e a senha", error);
+    setErrorModalVisible("Erro","Erro ao verificar email e senha");
+  }
+};
+
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <View style={loginStyle.boxFundo}>
@@ -59,6 +116,8 @@ export function LoginScreen({ navigation }) {
           placeholder="Seu Login:"
           placeholderTextColor="gray"
           style={loginStyle.TextInput}
+          value={email}
+          onChangeText={setEmail}
         />
 
         <TextInput
@@ -66,6 +125,8 @@ export function LoginScreen({ navigation }) {
           placeholder="Sua Senha:"
           placeholderTextColor="gray"
           style={[loginStyle.TextInput]}
+          value={senha}
+          onChangeText={setSenha}
         />
 
         <TouchableOpacity
@@ -620,7 +681,7 @@ export function EditarMenuScreen({ navigation }) {
          
          <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
-              <span style={editarMenuStyle.precEditarMenu}>Trocar Imagem</span>
+              <span style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</span>
             </View>
          </View>
 
