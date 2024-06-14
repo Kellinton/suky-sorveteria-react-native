@@ -70,7 +70,7 @@ const handleLogin = async () => {
   }
 
   try{
-    const resposta = await axios.post(`https://smpsistema.com.br/sukysorveteria/api/login?email=?{email}&senha=${senha}`);
+    const resposta = await axios.post(`http://127.0.0.1:8000/api/login?email=?{email}&senha=${senha}`);
     if(resposta.data) {
       const funcionario = resposta.data;
       if (funcionario) {
@@ -139,7 +139,7 @@ const handleLogin = async () => {
         {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("dashboard")}
+          onPress={handleLogin}
           style={loginStyle.btnLogin}
         >
           <Text style={loginStyle.entrarLogin}>ENTRAR</Text>
@@ -148,6 +148,17 @@ const handleLogin = async () => {
         <Text style={loginStyle.txtcodeForge}>
           Desenvolvido por CodeForge @2024
         </Text>
+
+        <Modal isVisible={errorModalVisible} onBackdropPress={() => setErrorModalVisible(false)}>
+          <View style={loginStyle.errorModalVisible}>
+            <Text style={loginStyle.errorModalTitle}>Erro</Text>
+            <Text  style={loginStyle.errorModalMessage}>Email ou Senha incorretos. Tente Novamente!!!</Text>
+            <TouchableOpacity onPress={() => setErrorModalVisible(false)}>
+              <Text style={loginStyle.errorModalButtonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
       </View>
     </View>
   );
