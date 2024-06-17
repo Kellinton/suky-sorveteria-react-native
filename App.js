@@ -16,7 +16,6 @@ import {
   ImageBackground,
   TouchableOpacity,
   Button,
-  Modal,
   ScrollView,
   SafeAreaView,
 } from "react-native";
@@ -1052,12 +1051,13 @@ export function FuncionarioScreen({ navigation }) {
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function MyTab() {
+function MyTab({route}) {
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Início"
         component={DashboardScreen}
+          initialParams={{ idFuncionario: route.params.idFuncionario }}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
