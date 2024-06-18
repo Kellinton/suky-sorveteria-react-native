@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { useState } from "react"; // Reconhece os comandos de start inicial
+import { useState, useEffect } from "react"; // Reconhece os comandos de start inicial
 
 import Modal  from "react-native-modal";
 import axios from "axios"; // Faz a requisição HTTP para a API
@@ -78,7 +78,7 @@ const handleLogin = async () => {
         console.log(funcionario.usuario.dados_funcionario.nomeFuncionario);
         console.log(funcionario.usuario.dados_funcionario.access_token);
 
-        const idFuncionario = funcionario.usuario.dados_aluno.idFuncionario;
+        const idFuncionario = funcionario.usuario.dados_funcionario.idFuncionario;
         const token = aluo.access_token;
 
         // Armazenar o token na memória do APP (assyncStorage)
@@ -112,7 +112,7 @@ const handleLogin = async () => {
       <View style={loginStyle.container2}>
         <text style={loginStyle.txtLogin}>Login</text>
         <TextInput
-          placeholder="Seu Login:"
+          placeholder="Seu Email:"
           placeholderTextColor="gray"
           style={loginStyle.TextInput}
           value={email}
@@ -148,9 +148,9 @@ const handleLogin = async () => {
           Desenvolvido por CodeForge @2024
         </Text>
 
-        <Modal isVisible={errorModalVisible} onBackdropPress={() => setErrorModalVisible(false)}>
-          <View style={loginStyle.errorModalVisible}>
-            <Text style={loginStyle.errorModalTitle}>Erro</Text>
+        <Modal isVisible={errorModalVisible} onBackdropPress={() => setErrorModalVisible(false)} >
+          <View style={loginStyle.errorModalContainer}>
+            <Text style={loginStyle.errorModalTitle}>* Erro *</Text>
             <Text  style={loginStyle.errorModalMessage}>Email ou Senha incorretos. Tente Novamente!!!</Text>
             <TouchableOpacity onPress={() => setErrorModalVisible(false)}>
               <Text style={loginStyle.errorModalButtonText}>OK</Text>
@@ -207,7 +207,36 @@ export function EsqueciSenhaScreen({ navigation }) {
   );
 }
 
-export function DashboardScreen({ navigation }) {
+export function DashboardScreen({ navigation, route }) {
+
+  const { id } = route.params || {}; // Carrega mesmo sem informação
+
+  console.log("Cód Funcionário: ", id);
+  console.log(route.params);
+
+  const [nomeFuncionario, setNomeUsuario] = useState("");
+
+  useEffect (() => {
+    const fetchUsuarioData = async () => {
+      try{
+        const token = await AsyncStorage.getItem('userToken');
+        const resposta = await axios.get(`http://127.0.0.1:8000/api/funcionario/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+      });
+      setNomeUsuario(resposta.data.nome); // Nome deve estar da mesmo maneira do json da API
+      console.log(resposta.data);
+      }
+      catch (error) {
+        console.error("Erro ao buscar os dados do aluno: ", error);
+      }
+    };
+    if (idFuncionario) {
+      fetchUsuarioData();
+    }
+  }, [idFuncionario]);
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
@@ -234,7 +263,7 @@ export function DashboardScreen({ navigation }) {
         </Modal> */}
 
             <View>
-              <Text style={dashboardStyle.nomeDash}>Gustavo Soier</Text>
+              <Text style={dashboardStyle.nomeDash}>{nomeFuncionario}</Text>
               <Text style={dashboardStyle.cargoDash}>administrador</Text>
             </View>
 

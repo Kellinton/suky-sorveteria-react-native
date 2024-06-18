@@ -102,6 +102,42 @@ export const loginStyle = ({
     textAlign: 'center',
     marginTop: 35,
   },
+
+  errorModalContainer: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+
+  errorModalTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  
+  errorModalMessage: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+
+  errorModalButtonText: {
+    display: 'flex',
+    width: '15rem',
+    height: 50,
+    padding: 10,
+    borderRadius: 30,
+    marginTop: 20,
+    border: 'none',
+    color: '#fff',
+    alignSelf: 'center',
+    textAlign: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#8A19D6',
+    fontFamily:  'Inter_600SemiBold',
+  },
  
 });
 
