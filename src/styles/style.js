@@ -85,7 +85,7 @@ export const loginStyle = ({
     borderWidth: 1,
     borderColor: '#E2E8F0',
     fontFamily:  'Inter_500Medium',
-    paddingLeft: 50,
+    paddingLeft: 15,
     borderRadius: 25,
   },
  
@@ -126,7 +126,6 @@ export const loginStyle = ({
   errorModalButtonText: {
     display: 'flex',
     width: '15rem',
-    height: 50,
     padding: 10,
     borderRadius: 30,
     marginTop: 20,
@@ -138,7 +137,6 @@ export const loginStyle = ({
     backgroundColor: '#8A19D6',
     fontFamily:  'Inter_600SemiBold',
   },
- 
 });
 
 export const dashboardStyle = ({
