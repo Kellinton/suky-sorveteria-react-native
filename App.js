@@ -69,26 +69,31 @@ const handleLogin = async () => {
   }
 
   try{
-    const resposta = await axios.post(`http://127.0.0.1:8000/api/login?email=?{email}&senha=${senha}`);
+    // const resposta = await axios.post(`http://127.0.0.1:8000/api/login?email=?{email}&senha=${senha}`);
+    const resposta = await axios.post(`http://127.0.0.1:8000/api/login`, {
+      email: email,
+      senha: senha
+  });
     if(resposta.data) {
-      const funcionario = resposta.data;
-      if (funcionario) {
-        console.log(funcionario);
-        console.log(funcionario.usuario.dados_funcionario.idFuncionario);
-        console.log(funcionario.usuario.dados_funcionario.nomeFuncionario);
-        console.log(funcionario.usuario.dados_funcionario.access_token);
+      const administrador = resposta.data;
 
-        const idFuncionario = funcionario.usuario.dados_funcionario.idFuncionario;
-        const token = aluo.access_token;
+      if (administrador) {
+        console.log(administrador);
+        console.log(administrador.usuario.dados_administrador.idAdministrador);
+        console.log(administrador.usuario.dados_administrador.nome);
+        console.log(administrador.access_token);
+
+        const idAdministrador = administrador.usuario.dados_administrador.idAdministrador;
+        const token = administrador.access_token;
 
         // Armazenar o token na memória do APP (assyncStorage)
         await AsyncStorage.setItem('userToken', token);
-        navigation.navigate('dashboard', {idFuncionario});        
+        navigation.navigate('dashboard', {idAdministrador});        
       }
     }
   }
   catch (error) {
-    console.error("Erro ao verificar o email e a senha", error);
+    console.error("Erro ao verificar o email e a senha", error);    
     setErrorModalVisible("Erro","Erro ao verificar email e senha");
   }
 };
@@ -209,9 +214,9 @@ export function EsqueciSenhaScreen({ navigation }) {
 
 export function DashboardScreen({ navigation, route }) {
 
-  const { id } = route.params || {}; // Carrega mesmo sem informação
+  const { idAdministrador } = route.params || {}; // Carrega mesmo sem informação
 
-  console.log("Cód Funcionário: ", id);
+  console.log("Cód Administrador: ", idAdministrador);
   console.log(route.params);
 
   const [nomeFuncionario, setNomeUsuario] = useState("");
