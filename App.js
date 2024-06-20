@@ -219,28 +219,29 @@ export function DashboardScreen({ navigation, route }) {
   console.log("Cód Administrador: ", idAdministrador);
   console.log(route.params);
 
-  const [nomeFuncionario, setNomeUsuario] = useState("");
+  const [nomeAdministrador, setNomeAdministrador] = useState("");
 
   useEffect (() => {
     const fetchUsuarioData = async () => {
       try{
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get(`http://127.0.0.1:8000/api/funcionario/${id}`, {
+        const resposta = await axios.get(`http://127.0.0.1:8000/api/administrador/show/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
       });
-      setNomeUsuario(resposta.data.nome); // Nome deve estar da mesmo maneira do json da API
-      console.log(resposta.data);
+      setNomeAdministrador(resposta.data.nome); // Nome deve estar da mesmo maneira do json da API
+      console.log(resposta.data.nome);
+      console.log(nomeAdministrador);
       }
       catch (error) {
-        console.error("Erro ao buscar os dados do aluno: ", error);
+        console.error("Erro ao buscar os dados do administrador: ", error);
       }
     };
-    if (idFuncionario) {
+    if (idAdministrador) {
       fetchUsuarioData();
     }
-  }, [idFuncionario]);
+  }, [idAdministrador]);
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -268,8 +269,8 @@ export function DashboardScreen({ navigation, route }) {
         </Modal> */}
 
             <View>
-              <Text style={dashboardStyle.nomeDash}>{nomeFuncionario}</Text>
-              <Text style={dashboardStyle.cargoDash}>administrador</Text>
+              <Text style={dashboardStyle.nomeDash}>{nomeAdministrador}</Text>
+              <Text style={dashboardStyle.cargoDash}>Administrador</Text>
             </View>
 
             <TouchableOpacity
@@ -1091,7 +1092,7 @@ function MyTab({route}) {
       <Tab.Screen
         name="Início"
         component={DashboardScreen}
-          initialParams={{ idFuncionario: route.params.idFuncionario }}
+          initialParams={{ idAdministrador: route.params.idAdministrador }}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
