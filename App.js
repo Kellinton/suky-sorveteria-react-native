@@ -275,8 +275,7 @@ export function DashboardScreen({ navigation, route }) {
 
             <TouchableOpacity
               onPress={() => navigation.navigate("dashboard")}
-              style={dashboardStyle.btnNotificacao}
-            >
+              style={dashboardStyle.btnNotificacao}>
               <Ionicons name="settings" size={28} color="#FFF"></Ionicons>
             </TouchableOpacity>
           </View>
@@ -722,12 +721,22 @@ export function EditarMenuScreen({ navigation }) {
          
          <Text style={visualizarMenuStyle.tituloVisualizarMenu}>
               Editar
-            </Text>
+         </Text>
          
          <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
               <span style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</span>
-            </View>
+          </View>
+
+          <TextInput style={editarMenuStyle.inputNomeEditar}
+          placeholder="Nome:"
+          placeholderTextColor="gray" />
+
+          <TextInput style={editarMenuStyle.inputDescriçãoEditar}
+          placeholder="Descrição:"
+          multiline={true}
+          numberOfLines={10}
+          placeholderTextColor="gray" />
          </View>
 
         </View>

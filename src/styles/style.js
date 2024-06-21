@@ -561,8 +561,37 @@ export const editarMenuStyle = ({
     width: '40%',
     textAlign: 'center',
     color: 'white',
-    alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  inputNomeEditar:{
+    width: '100%',
+    height: 50,
+    backgroundColor: 'white',
+    borderTopRadius: 10,
+    marginTop: 15,
+    paddingLeft: 10,
+    alignSelf: 'left',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    fontFamily:  'Inter_500Medium',
+    paddingLeft: 15,
+    borderRadius: 25,
+  },
+
+  inputDescriçãoEditar: {
+    width: '100%',
+    // height: 200,
+    backgroundColor: 'white',
+    borderTopRadius: 10,
+    marginTop: 15,
+    padding: 10,
+    alignSelf: 'left',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    fontFamily:  'Inter_500Medium',
+    paddingLeft: 15,
+    borderRadius: 25,
   },
 });
 
