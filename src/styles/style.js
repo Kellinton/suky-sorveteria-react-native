@@ -601,10 +601,21 @@ export const editarMenuStyle = ({
     alignItems: 'center',
   },
 
+  boxBtnCancelar:{
+    marginRight: '10%',
+  },
+
   btnCancelar: {
     fontSize: 20,
     color: '#8A19D6',
-    backgroundColor: 'red',
+  },
+
+  btnSalvar: {
+    backgroundColor: '#8A19D6',
+    padding: 15,
+    borderRadius: 15,
+    color: 'white',
+    fontSize: 20,
   },
 });
 

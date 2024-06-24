@@ -23,6 +23,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Picker } from '@react-native-picker/picker';
 import {
   useFonts,
   Inter_300Light,
@@ -740,14 +741,14 @@ export function EditarMenuScreen({ navigation }) {
          </View> 
 
          <View style={editarMenuStyle.containarBtn}>
-          <View>
+          <View style={editarMenuStyle.boxBtnCancelar}>
             <TouchableOpacity style={editarMenuStyle.btnCancelar}>
               Cancelar
             </TouchableOpacity>
           </View>
 
-          <View>
-            <TouchableOpacity>
+          <View style={editarMenuStyle.boxBtnSalvar}>
+            <TouchableOpacity style={editarMenuStyle.btnSalvar}>
               Salvar
             </TouchableOpacity>
           </View>
@@ -1190,7 +1191,6 @@ function Routes() {
       <Stack.Screen
         name="VisualizarMenu"
         component={VisualizarMenuScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Estoque"
@@ -1211,7 +1211,6 @@ function Routes() {
 <Stack.Screen
         name="editarMenu"
         component={EditarMenuScreen}
-        options={{ headerShown: false }}
       />
     
     </Stack.Navigator>
