@@ -735,8 +735,22 @@ export function EditarMenuScreen({ navigation }) {
           <TextInput style={editarMenuStyle.inputDescriçãoEditar}
           placeholder="Descrição:"
           multiline={true}
-          numberOfLines={10}
+          numberOfLines={7}
           placeholderTextColor="gray" />
+         </View> 
+
+         <View style={editarMenuStyle.containarBtn}>
+          <View>
+            <TouchableOpacity style={editarMenuStyle.btnCancelar}>
+              Cancelar
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <TouchableOpacity>
+              Salvar
+            </TouchableOpacity>
+          </View>
          </View>
 
         </View>

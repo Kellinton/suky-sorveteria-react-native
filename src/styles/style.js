@@ -585,13 +585,26 @@ export const editarMenuStyle = ({
     backgroundColor: 'white',
     borderTopRadius: 10,
     marginTop: 15,
-    padding: 10,
+    padding: 15,
     alignSelf: 'left',
     borderWidth: 1,
     borderColor: '#E2E8F0',
     fontFamily:  'Inter_500Medium',
     paddingLeft: 15,
     borderRadius: 25,
+  },
+
+  containarBtn:{
+    flexDirection: 'row',
+    marginTop: '5%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  btnCancelar: {
+    fontSize: 20,
+    color: '#8A19D6',
+    backgroundColor: 'red',
   },
 });
 
