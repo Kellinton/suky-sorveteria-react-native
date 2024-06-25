@@ -680,31 +680,31 @@ export const estoqueStyle = ({
   },
 });
 
-export const editarPerfilStyle = ({
-  fotoEditarPerfil: {
+export const visualizarPerfilStyle = ({
+  fotoVisualizarPerfil: {
     width: 120,
     height: 120,
   },
 
-  boxEditarFoto: {
+  boxVisualizarFoto: {
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   containerPerfil: {
-    backgroundColor: 'white',
     textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',
     borderColor: 'white',
+    margintop: '5%'
   },
 
   titlePerfil: {
     marginLeft: 15,
-    marginTop: 25,
+    marginTop: 10,
     fontWeight: 'bold',
     fontSize: 22,
-    marginBottom: 20,
+    marginBottom: 5,
   },
 
   boxInput50: {
@@ -741,12 +741,6 @@ export const editarPerfilStyle = ({
     backgroundColor: 'red'
   },
 
-  teste: {
-    backgroundColor: 'red',
-    height: 200,
-    width:'100%'
-  },
-
   boxFundo: {
     width: '100%',
     color: 'white',
@@ -757,6 +751,27 @@ export const editarPerfilStyle = ({
     height: 400,
   },
 
+  titleVisualizarPerfil: {
+    textAlign: 'center',
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 25,
+    marginBottom: '3%',
+  },
+
+  trocarImagem: {
+    textAlign: 'center',
+    color: '#8A19D6',
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginTop: '3%'
+  },
+
+  btnEditarPerfil: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 
 });
 

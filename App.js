@@ -38,6 +38,7 @@ import { dashboardStyle } from "./src/styles/style";
 import { menuStyle } from "./src/styles/style";
 import { estoqueStyle } from "./src/styles/style";
 import { editarPerfilStyle } from "./src/styles/style";
+import { visualizarPerfilStyle } from "./src/styles/style";
 import { funcionarioStyle } from "./src/styles/style";
 import { visualizarMenuStyle } from "./src/styles/style";
 import { editarMenuStyle } from "./src/styles/style";
@@ -257,7 +258,7 @@ export function DashboardScreen({ navigation, route }) {
         >
           <View style={dashboardStyle.topDash}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("editarPerfil")}
+              onPress={() => navigation.navigate("visualizarPerfil")}
             >
               <Image source={require("./assets/fotoPerfil.png")}></Image>
             </TouchableOpacity>
@@ -917,6 +918,140 @@ export function EstoqueScreen({ navigation }) {
   );
 }
 
+export function VisualizarPerfilScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SafeAreaView>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
+            <View style={visualizarPerfilStyle.containerPerfil}>
+            <Text style={visualizarPerfilStyle.titleVisualizarPerfil}>Detalhes do Perfil</Text>
+              <View style={visualizarPerfilStyle.boxVisualizarFoto}>
+                <Image
+                  source={require("./assets/fotoPerfil.png")}
+                  style={visualizarPerfilStyle.fotoVisualizarPerfil}
+                ></Image>
+                <TouchableOpacity style={visualizarPerfilStyle.trocarImagem}>Trocar Imagem</TouchableOpacity>
+              </View>
+
+              <Text style={visualizarPerfilStyle.titlePerfil}>Informações</Text>
+
+              <View style={visualizarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="Nome: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Sobrenome: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+
+              <View style={visualizarPerfilStyle.boxInput100}>
+                <TextInput
+                  placeholder="Email: "
+                  keyboardType="email-address"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input100}
+                ></TextInput>
+              </View>
+
+              <View style={visualizarPerfilStyle.boxInput100}>
+                <TextInput
+                  placeholder="Senha: "
+                  secureTextEntry={true}
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input100}
+                ></TextInput>
+              </View>
+
+              <View style={visualizarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="DD/MM/AAAA: "
+                  keyboardType="number-pad"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Telefone: "
+                  keyboardType="number-pad"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+
+              <View style={visualizarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="Cargo: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Salário: "
+                  keyboardType="number-pad"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+
+              <View style={visualizarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="Cidade: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Estado: "
+                  autoCapitalize="characters"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+
+              <View style={visualizarPerfilStyle.boxInput50}>
+                <TextInput
+                  placeholder="CEP: "
+                  keyboardType="number-pad"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+                <TextInput
+                  placeholder="Endereço: "
+                  autoCapitalize="words"
+                  placeholderTextColor="gray"
+                  style={visualizarPerfilStyle.input50}
+                ></TextInput>
+              </View>
+
+            <View style={visualizarPerfilStyle.btnEditarPerfil}>
+              <TouchableOpacity
+            style={visualizarMenuStyle.btnEditarMenu}
+            onPress={() => navigation.navigate("editarPerfil")}
+            >
+            Editar
+            </TouchableOpacity>
+            </View>
+            </View>
+          </View>
+        </SafeAreaView>
+      </ScrollView>
+    </View>
+  );
+}
+
 export function EditarPerfilScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
@@ -930,108 +1065,119 @@ export function EditarPerfilScreen({ navigation }) {
               position: "relative",
             }}
           >
-            <View style={editarPerfilStyle.containerPerfil}>
-              <View style={editarPerfilStyle.boxEditarFoto}>
+            <View style={visualizarPerfilStyle.containerPerfil}>
+            <Text style={visualizarPerfilStyle.titleVisualizarPerfil}>Editar o Perfil</Text>
+              <View style={visualizarPerfilStyle.boxVisualizarFoto}>
                 <Image
                   source={require("./assets/fotoPerfil.png")}
-                  style={editarPerfilStyle.fotoEditarPerfil}
+                  style={visualizarPerfilStyle.fotoVisualizarPerfil}
                 ></Image>
+                <TouchableOpacity style={visualizarPerfilStyle.trocarImagem}>Trocar Imagem</TouchableOpacity>
               </View>
 
-              <Text style={editarPerfilStyle.titlePerfil}>Informações</Text>
+              <Text style={visualizarPerfilStyle.titlePerfil}>Informações</Text>
 
-              <View style={editarPerfilStyle.boxInput50}>
+              <View style={visualizarPerfilStyle.boxInput50}>
                 <TextInput
                   placeholder="Nome: "
                   autoCapitalize="words"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
                 <TextInput
                   placeholder="Sobrenome: "
                   autoCapitalize="words"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
               </View>
 
-              <View style={editarPerfilStyle.boxInput100}>
+              <View style={visualizarPerfilStyle.boxInput100}>
                 <TextInput
                   placeholder="Email: "
                   keyboardType="email-address"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input100}
+                  style={visualizarPerfilStyle.input100}
                 ></TextInput>
               </View>
 
-              <View style={editarPerfilStyle.boxInput100}>
+              <View style={visualizarPerfilStyle.boxInput100}>
                 <TextInput
                   placeholder="Senha: "
                   secureTextEntry={true}
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input100}
+                  style={visualizarPerfilStyle.input100}
                 ></TextInput>
               </View>
 
-              <View style={editarPerfilStyle.boxInput50}>
+              <View style={visualizarPerfilStyle.boxInput50}>
                 <TextInput
                   placeholder="DD/MM/AAAA: "
                   keyboardType="number-pad"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
                 <TextInput
                   placeholder="Telefone: "
                   keyboardType="number-pad"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
               </View>
 
-              <View style={editarPerfilStyle.boxInput50}>
+              <View style={visualizarPerfilStyle.boxInput50}>
                 <TextInput
                   placeholder="Cargo: "
                   autoCapitalize="words"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
                 <TextInput
                   placeholder="Salário: "
                   keyboardType="number-pad"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
               </View>
 
-              <View style={editarPerfilStyle.boxInput50}>
+              <View style={visualizarPerfilStyle.boxInput50}>
                 <TextInput
                   placeholder="Cidade: "
                   autoCapitalize="words"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
                 <TextInput
                   placeholder="Estado: "
                   autoCapitalize="characters"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
               </View>
 
-              <View style={editarPerfilStyle.boxInput50}>
+              <View style={visualizarPerfilStyle.boxInput50}>
                 <TextInput
                   placeholder="CEP: "
                   keyboardType="number-pad"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
                 <TextInput
                   placeholder="Endereço: "
                   autoCapitalize="words"
                   placeholderTextColor="gray"
-                  style={editarPerfilStyle.input50}
+                  style={visualizarPerfilStyle.input50}
                 ></TextInput>
               </View>
+
+            <View style={visualizarPerfilStyle.btnEditarPerfil}>
+              <TouchableOpacity
+            style={visualizarMenuStyle.btnEditarMenu}
+            onPress={() => navigation.navigate("editarMenu")}
+            >
+            Editar
+            </TouchableOpacity>
+            </View>
             </View>
           </View>
         </SafeAreaView>
@@ -1209,6 +1355,11 @@ function Routes() {
       <Stack.Screen
         name="Estoque"
         component={MyTab}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="visualizarPerfil"
+        component={VisualizarPerfilScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
