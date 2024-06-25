@@ -594,6 +594,17 @@ export const editarMenuStyle = ({
     borderRadius: 25,
   },
 
+  selectMenu: {
+    height: 50,
+    borderRadius: 15,
+    marginTop: '5%',
+    border: 'none',
+    padding: 10,
+    color: '#8A19D6',
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+
   containarBtn:{
     flexDirection: 'row',
     marginTop: '5%',

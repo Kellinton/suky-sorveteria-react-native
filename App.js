@@ -23,7 +23,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 import {
   useFonts,
   Inter_300Light,
@@ -706,6 +706,9 @@ export function VisualizarMenuScreen({ navigation }) {
 }
 
 export function EditarMenuScreen({ navigation }) {
+
+  const [selectedLanguage, setSelectedLanguage] = useState();
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
@@ -736,13 +739,24 @@ export function EditarMenuScreen({ navigation }) {
           <TextInput style={editarMenuStyle.inputDescriçãoEditar}
           placeholder="Descrição:"
           multiline={true}
-          numberOfLines={7}
+          numberOfLines={4}
           placeholderTextColor="gray" />
          </View> 
 
+         <Picker
+         style={editarMenuStyle.selectMenu}
+            selectedValue={selectedLanguage}
+            onValueChange={(itemValue, itemIndex) =>
+            setSelectedLanguage(itemValue)
+            }>
+            <Picker.Item label="Açaí" value="acai" />
+            <Picker.Item label="Sorvete de pote" value="sorvetePote" />
+            <Picker.Item label="picolé" value="picole" />
+          </Picker>
+
          <View style={editarMenuStyle.containarBtn}>
           <View style={editarMenuStyle.boxBtnCancelar}>
-            <TouchableOpacity style={editarMenuStyle.btnCancelar}>
+            <TouchableOpacity style={editarMenuStyle.btnCancelar} onPress={() => navigation.navigate("VisualizarMenu")}>
               Cancelar
             </TouchableOpacity>
           </View>
@@ -1211,6 +1225,7 @@ function Routes() {
 <Stack.Screen
         name="editarMenu"
         component={EditarMenuScreen}
+        options={{ headerShown: false }}
       />
     
     </Stack.Navigator>
