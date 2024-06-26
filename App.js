@@ -777,133 +777,214 @@ export function EditarMenuScreen({ navigation }) {
   );
 }
 
-export function EstoqueScreen({ navigation }) {
+// export function EstoqueScreen({ navigation }) {
+//   return (
+//     <View
+//       style={{
+//         flex: 1,
+//         justifyContent: "center",
+//         alignItems: "center",
+//         position: "relative",
+//         justifyContent: "center",
+//       }}
+//     >
+//       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+//         <SafeAreaView>
+//           <View style={menuStyle.boxTopoMenu}>
+//             <Text style={menuStyle.tituloMenu}>Estoque</Text>
+//             <View style={dashboardStyle.containerEstatisticas}>
+//               <View style={menuStyle.boxEstatisticasMenu}>
+//                 <Ionicons name="file-tray" size={25} color="#FFF" />
+//                 <span>52</span>
+//                 <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
+//               </View>
+
+//               <View style={menuStyle.boxEstatisticasMenu}>
+//                 <Ionicons name="cash" size={25} color="#FFF" />
+//                 <span>R$ 20.780</span>
+//                 <span style={dashboardStyle.txtBoxEstatisticas}>
+//                   Despesa Mensal
+//                 </span>
+//               </View>
+
+//               <View style={menuStyle.boxEstatisticasMenu}>
+//                 <Ionicons name="eye-off" size={25} color="#FFF" />
+//                 <span>2</span>
+//                 <span style={dashboardStyle.txtBoxEstatisticas}>
+//                   Estoque Baixo
+//                 </span>
+//               </View>
+//             </View>
+//           </View>
+
+//           <View style={menuStyle.buscarMenu}>
+//             <Ionicons name="search-outline" size={18}></Ionicons>
+//             <TextInput style={menuStyle.titleBuscarMenu} placeholder="Buscar" />
+//           </View>
+
+//           <View style={dashboardStyle.boxMensagem}>
+//             <Image
+//               source={require("./assets/acaiEstoque.png")}
+//               style={dashboardStyle.imgMensagem}
+//             ></Image>
+
+//             <View>
+//               <Text>Açai com cereal</Text>
+//               <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>
+//             </View>
+
+//             <View style={estoqueStyle.boxContEstoque}>
+//               <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
+//                 <Ionicons
+//                   name="remove-outline"
+//                   size={22}
+//                   color="#6B50F6"
+//                 ></Ionicons>
+//               </TouchableOpacity>
+
+//               <span style={estoqueStyle.qtdEstoque}>10</span>
+
+//               <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
+//                 <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+
+//           <View style={dashboardStyle.boxMensagem}>
+//             <Image
+//               source={require("./assets/acaiEstoque.png")}
+//               style={dashboardStyle.imgMensagem}
+//             ></Image>
+
+//             <View>
+//               <Text>Açai com morango</Text>
+//               <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>
+//             </View>
+
+//             <View style={estoqueStyle.boxContEstoque}>
+//               <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
+//                 <Ionicons
+//                   name="remove-outline"
+//                   size={22}
+//                   color="#6B50F6"
+//                 ></Ionicons>
+//               </TouchableOpacity>
+
+//               <span style={estoqueStyle.qtdEstoque}>14</span>
+
+//               <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
+//                 <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+
+//           <View style={dashboardStyle.boxMensagem}>
+//             <Image
+//               source={require("./assets/acaiEstoque.png")}
+//               style={dashboardStyle.imgMensagem}
+//             ></Image>
+
+//             <View>
+//               <Text>Açai com banana</Text>
+//               <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>
+//             </View>
+
+//             <View style={estoqueStyle.boxContEstoque}>
+//               <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
+//                 <Ionicons
+//                   name="remove-outline"
+//                   size={22}
+//                   color="#6B50F6"
+//                 ></Ionicons>
+//               </TouchableOpacity>
+
+//               <span style={estoqueStyle.qtdEstoque}>17</span>
+
+//               <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
+//                 <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+//         </SafeAreaView>
+//       </ScrollView>
+
+//       <View
+//         style={[
+//           menuStyle.addProduto,
+//           { position: "absolute", bottom: 20, right: 20 },
+//         ]}
+//       >
+//         <Ionicons name="add-outline" size={20} color="#FFF" />
+//       </View>
+//     </View>
+//   );
+// }
+
+export function MensagensScreen({ navigation }) {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        position: "relative",
-        justifyContent: "center",
-      }}
-    >
+    <View style={{ flex: 1, backgroundColor: "#F4F8FF" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SafeAreaView>
-          <View style={menuStyle.boxTopoMenu}>
-            <Text style={menuStyle.tituloMenu}>Estoque</Text>
-            <View style={dashboardStyle.containerEstatisticas}>
-              <View style={menuStyle.boxEstatisticasMenu}>
-                <Ionicons name="file-tray" size={25} color="#FFF" />
-                <span>52</span>
-                <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
+
+            <View style={menuStyle.boxTopoMenu}>
+              <Text style={menuStyle.tituloMenu}>Mensagens</Text>
+              <View style={dashboardStyle.containerEstatisticas}>
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="ice-cream" size={25} color="#FFF" />
+                  <span>52</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                    Produtos
+                  </span>
+                </View>
+
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="logo-usd" size={25} color="#FFF" />
+                  <span>R$ 20.780</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                    Valor em Produtos
+                  </span>
+                </View>
+
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="eye-off" size={25} color="#FFF" />
+                  <span>2</span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                    Indisponíveis
+                  </span>
+                </View>
+              </View>
+            </View>
+
+
+
+            {/* <View style={menuStyle.containerMenu}>
+              <View style={menuStyle.boxMenuActive}>
+                <Image source={require("./assets/acai-icon1.png")} />
+                <Text style={menuStyle.txtBoxMenuActive}>Açai</Text>
               </View>
 
-              <View style={menuStyle.boxEstatisticasMenu}>
-                <Ionicons name="cash" size={25} color="#FFF" />
-                <span>R$ 20.780</span>
-                <span style={dashboardStyle.txtBoxEstatisticas}>
-                  Despesa Mensal
-                </span>
+              <View style={menuStyle.boxMenu}>
+                <Image source={require("./assets/pote-roxo-icon1.png")} />
+                <Text style={menuStyle.txtBoxMenu}>Sorvete de Pote</Text>
               </View>
 
-              <View style={menuStyle.boxEstatisticasMenu}>
-                <Ionicons name="eye-off" size={25} color="#FFF" />
-                <span>2</span>
-                <span style={dashboardStyle.txtBoxEstatisticas}>
-                  Estoque Baixo
-                </span>
+              <View style={menuStyle.boxMenu}>
+                <Image source={require("./assets/picole-roxo-icon1.png")} />
+                <Text style={menuStyle.txtBoxMenu}>Picolé</Text>
               </View>
-            </View>
-          </View>
+            </View> */}
 
-          <View style={menuStyle.buscarMenu}>
-            <Ionicons name="search-outline" size={18}></Ionicons>
-            <TextInput style={menuStyle.titleBuscarMenu} placeholder="Buscar" />
-          </View>
-
-          <View style={dashboardStyle.boxMensagem}>
-            <Image
-              source={require("./assets/acaiEstoque.png")}
-              style={dashboardStyle.imgMensagem}
-            ></Image>
-
-            <View>
-              <Text>Açai com cereal</Text>
-              <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>
-            </View>
-
-            <View style={estoqueStyle.boxContEstoque}>
-              <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
-                <Ionicons
-                  name="remove-outline"
-                  size={22}
-                  color="#6B50F6"
-                ></Ionicons>
-              </TouchableOpacity>
-
-              <span style={estoqueStyle.qtdEstoque}>10</span>
-
-              <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
-                <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={dashboardStyle.boxMensagem}>
-            <Image
-              source={require("./assets/acaiEstoque.png")}
-              style={dashboardStyle.imgMensagem}
-            ></Image>
-
-            <View>
-              <Text>Açai com morango</Text>
-              <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>
-            </View>
-
-            <View style={estoqueStyle.boxContEstoque}>
-              <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
-                <Ionicons
-                  name="remove-outline"
-                  size={22}
-                  color="#6B50F6"
-                ></Ionicons>
-              </TouchableOpacity>
-
-              <span style={estoqueStyle.qtdEstoque}>14</span>
-
-              <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
-                <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={dashboardStyle.boxMensagem}>
-            <Image
-              source={require("./assets/acaiEstoque.png")}
-              style={dashboardStyle.imgMensagem}
-            ></Image>
-
-            <View>
-              <Text>Açai com banana</Text>
-              <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>
-            </View>
-
-            <View style={estoqueStyle.boxContEstoque}>
-              <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
-                <Ionicons
-                  name="remove-outline"
-                  size={22}
-                  color="#6B50F6"
-                ></Ionicons>
-              </TouchableOpacity>
-
-              <span style={estoqueStyle.qtdEstoque}>17</span>
-
-              <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
-                <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
-              </TouchableOpacity>
-            </View>
+            {/* <View style={menuStyle.imgSemEstoque}>
+              <Image source={require("./assets/semEstoque.png")} />
+            </View> */}
           </View>
         </SafeAreaView>
       </ScrollView>
@@ -1299,8 +1380,8 @@ function MyTab({route}) {
       />
 
       <Tab.Screen
-        name="Estoque"
-        component={EstoqueScreen}
+        name="Mensagens"
+        component={MensagensScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -1375,7 +1456,7 @@ function Routes() {
         options={{ headerShown: false }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="editarMenu"
         component={EditarMenuScreen}
         options={{ headerShown: false }}
