@@ -938,30 +938,98 @@ export function MensagensScreen({ navigation }) {
               <Text style={menuStyle.tituloMenu}>Mensagens</Text>
               <View style={dashboardStyle.containerEstatisticas}>
                 <View style={menuStyle.boxEstatisticasMenu}>
-                  <Ionicons name="ice-cream" size={25} color="#FFF" />
+                  <Ionicons name="chatbubble-outline" size={25} color="#FFF" />
                   <span>52</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>
-                    Produtos
+                    Ativas
                   </span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
-                  <Ionicons name="logo-usd" size={25} color="#FFF" />
-                  <span>R$ 20.780</span>
+                  <Ionicons name="chatbubble-ellipses-outline" size={25} color="#FFF" />
+                  <span>47</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>
-                    Valor em Produtos
+                    Respondidas
                   </span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
-                  <Ionicons name="eye-off" size={25} color="#FFF" />
-                  <span>2</span>
+                  <Ionicons name="chatbubbles-outline" size={25} color="#FFF" />
+                  <span>224</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>
-                    Indisponíveis
+                    Totais
                   </span>
                 </View>
               </View>
             </View>
+
+            <View style={menuStyle.buscarMenu}>
+              <Ionicons name="search-outline" size={18} />
+              <TextInput
+                style={menuStyle.titleBuscarMenu}
+                placeholder="Buscar"
+              />
+            </View>
+
+            <View style={dashboardStyle.boxTituloMensagem}>
+            <Text style={dashboardStyle.tituloMensagem}>
+              Todas as Mensagens
+            </Text>
+          </View>
+
+          <View style={dashboardStyle.boxMensagem}>
+            <Image
+              source={require("./assets/fotoPerfil.png")}
+              style={dashboardStyle.imgMensagem}
+            ></Image>
+
+            <View>
+              <Text>Gustavo Sampaio Soier</Text>
+              <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+            </View>
+
+            <Text style={dashboardStyle.horarioMensagem}>1h</Text>
+
+            <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
+              <Ionicons name="trash-outline" size={22}></Ionicons>
+            </TouchableOpacity>
+          </View>
+
+          <View style={dashboardStyle.boxMensagem}>
+            <Image
+              source={require("./assets/fotoPerfil.png")}
+              style={dashboardStyle.imgMensagem}
+            ></Image>
+
+            <View>
+              <Text>Gustavo Sampaio Soier</Text>
+              <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+            </View>
+
+            <Text style={dashboardStyle.horarioMensagem}>2h</Text>
+
+            <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
+              <Ionicons name="trash-outline" size={22}></Ionicons>
+            </TouchableOpacity>
+          </View>
+
+          <View style={dashboardStyle.boxMensagem}>
+            <Image
+              source={require("./assets/fotoPerfil.png")}
+              style={dashboardStyle.imgMensagem}
+            ></Image>
+
+            <View>
+              <Text>Gustavo Sampaio Soier</Text>
+              <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+            </View>
+
+            <Text style={dashboardStyle.horarioMensagem}>3h</Text>
+
+            <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
+              <Ionicons name="trash-outline" size={22}></Ionicons>
+            </TouchableOpacity>
+          </View>
 
 
 
@@ -988,15 +1056,6 @@ export function MensagensScreen({ navigation }) {
           </View>
         </SafeAreaView>
       </ScrollView>
-
-      <View
-        style={[
-          menuStyle.addProduto,
-          { position: "absolute", bottom: 20, right: 20 },
-        ]}
-      >
-        <Ionicons name="add-outline" size={20} color="#FFF" />
-      </View>
     </View>
   );
 }
@@ -1385,7 +1444,7 @@ function MyTab({route}) {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="swap-vertical-outline" color={color} size={size} />
+            <Ionicons name="chatbubble-ellipses-outline" color={color} size={size} />
           ),
         }}
       />
