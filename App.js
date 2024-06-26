@@ -215,35 +215,41 @@ export function EsqueciSenhaScreen({ navigation }) {
 }
 
 export function DashboardScreen({ navigation, route }) {
+  const { idFuncionario} = route.params || {}; // Carrega mesmo sem informação
 
-  const { idAdministrador } = route.params || {}; // Carrega mesmo sem informação
-
-  console.log("Cód Administrador: ", idAdministrador);
+  console.log("Cód Funcionario: ", idFuncionario);
   console.log(route.params);
 
-  const [nomeAdministrador, setNomeAdministrador] = useState("");
+  const [nomeFuncionario, setNomeFuncionario] = useState("");
+  const [sobrenomeFuncionario, setSobrenomeFuncionario] = useState("");
+  const [fotoFuncionario, setFotoFuncionario] = useState("");
+  const [tipoFuncionario, setTipoFuncionario] = useState("");
 
   useEffect (() => {
-    const fetchUsuarioData = async () => {
+    const fetchFuncionarioData = async () => {
       try{
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get(`http://127.0.0.1:8000/api/administrador/show/${id}`, {
+        const resposta = await axios.get(`http://127.0.0.1:8000/api/dashboard/${idFuncionario}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
       });
-      setNomeAdministrador(resposta.data.nome); // Nome deve estar da mesmo maneira do json da API
-      console.log(resposta.data.nome);
-      console.log(nomeAdministrador);
+
+
+      const { nome_funcionario, sobrenome_funcionario, foto_funcionario, tipo_funcionario } = resposta.data.dadosFuncionario;
+      setNomeFuncionario(nome_funcionario);
+      setSobrenomeFuncionario(sobrenome_funcionario);
+      setFotoFuncionario(foto_funcionario);
+      setTipoFuncionario(tipo_funcionario);
       }
       catch (error) {
-        console.error("Erro ao buscar os dados do administrador: ", error);
+        console.error("Erro ao buscar os dados do funcionario: ", error);
       }
     };
-    if (idAdministrador) {
-      fetchUsuarioData();
+    if (idFuncionario) {
+      fetchFuncionarioData();
     }
-  }, [idAdministrador]);
+  }, [idFuncionario]);
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -256,23 +262,19 @@ export function DashboardScreen({ navigation, route }) {
             marginTop: "5%",
           }}
         >
-          <View style={dashboardStyle.topDash}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("visualizarPerfil")}
-            >
-              <Image source={require("./assets/fotoPerfil.png")}></Image>
-            </TouchableOpacity>
+          <View style={dashboardStyle.topDashContainer}>
+            <View style={dashboardStyle.topDashInfo}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("visualizarPerfil")}
+              >
+                {fotoFuncionario && <Image source={{ uri: fotoFuncionario }} style={{ width: 50, height: 50, borderRadius: 10 }} />}
 
-            {/* <Modal animationType="fade" transparent={true} visible={visivel}>
-          <View>
-            <Text>Teste</Text>
-            <Button title="fechar" onPress={()=>{setVisivel(false)}}></Button>
-          </View>
-        </Modal> */}
+              </TouchableOpacity>
 
-            <View>
-              <Text style={dashboardStyle.nomeDash}>{nomeAdministrador}</Text>
-              <Text style={dashboardStyle.cargoDash}>Administrador</Text>
+              <View style={{ marginLeft: 10 }}>
+                <Text style={dashboardStyle.nomeDash}>{nomeFuncionario} {sobrenomeFuncionario}</Text>
+                <Text style={dashboardStyle.cargoDash}>{tipoFuncionario}</Text>
+              </View>
             </View>
 
             <TouchableOpacity
@@ -1276,7 +1278,7 @@ function MyTab({route}) {
       <Tab.Screen
         name="Início"
         component={DashboardScreen}
-          initialParams={{ idAdministrador: route.params.idAdministrador }}
+          initialParams={{ idFuncionario: route.params.idFuncionario }}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (

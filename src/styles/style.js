@@ -1,3 +1,5 @@
+import reactDom from "react-dom";
+
 export const loginStyle = ({
 
   container: {
@@ -140,7 +142,7 @@ export const loginStyle = ({
 });
 
 export const dashboardStyle = ({
-  topDash: {
+  topDashContainer: {
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
@@ -148,6 +150,11 @@ export const dashboardStyle = ({
     paddingLeft: '5%',
     paddingRight: '5%',
   },
+
+   topDashInfo: {
+     display: 'flex',
+     flexDirection: 'row',
+   },
 
   btnNotificacao: {
     backgroundColor: '#8A19D6',
