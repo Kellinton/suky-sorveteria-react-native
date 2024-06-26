@@ -77,20 +77,20 @@ const handleLogin = async () => {
       senha: senha
   });
     if(resposta.data) {
-      const administrador = resposta.data;
+      const funcionario = resposta.data;
 
-      if (administrador) {
-        console.log(administrador);
-        console.log(administrador.usuario.dados_administrador.idAdministrador);
-        console.log(administrador.usuario.dados_administrador.nome);
-        console.log(administrador.access_token);
+      if (funcionario) {
+        console.log(funcionario);
+        console.log(funcionario.usuario.dados_funcionario.idFuncionario);
+        console.log(funcionario.usuario.dados_funcionario.nome);
+        console.log(funcionario.access_token);
 
-        const idAdministrador = administrador.usuario.dados_administrador.idAdministrador;
-        const token = administrador.access_token;
+        const idFuncionario = funcionario.usuario.dados_funcionario.idFuncionario;
+        const token = funcionario.access_token;
 
         // Armazenar o token na memória do APP (assyncStorage)
         await AsyncStorage.setItem('userToken', token);
-        navigation.navigate('dashboard', {idAdministrador});        
+        navigation.navigate('dashboard', {idFuncionario});        
       }
     }
   }
