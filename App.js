@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { useState, useEffect } from "react"; // Reconhece os comandos de start inicial
 
-import Modal  from "react-native-modal";
+import Modal from "react-native-modal";
 import axios from "axios"; // Faz a requisição HTTP para a API
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Para fazer o storage
 
@@ -23,7 +23,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
 import {
   useFonts,
   Inter_300Light,
@@ -45,61 +45,57 @@ import { editarMenuStyle } from "./src/styles/style";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
-
-
 export function LoginScreen({ navigation }) {
+  // Importando o hook useState do React
+  const [email, setEmail] = useState("");
+  // Cria uma variável de estado chamada "email" e uma função "setEmail" para atualizá-la. O estado inicial é uma string vazia.
 
-// Importando o hook useState do React
-const [email, setEmail] = useState(""); 
-// Cria uma variável de estado chamada "email" e uma função "setEmail" para atualizá-la. O estado inicial é uma string vazia.
+  const [senha, setSenha] = useState("");
+  // Cria uma variável de estado chamada "senha" e uma função "setSenha" para atualizá-la. O estado inicial é uma string vazia.
 
-const [senha, setSenha] = useState(""); 
-// Cria uma variável de estado chamada "senha" e uma função "setSenha" para atualizá-la. O estado inicial é uma string vazia.
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  // Cria uma variável de estado chamada "errorModalVisible" e uma função "setErrorModalVisible" para atualizá-la. O estado inicial é "false". Essa variável provavelmente será usada para controlar a visibilidade de um modal de erro.
 
-const [errorModalVisible, setErrorModalVisible] = useState(false); 
-// Cria uma variável de estado chamada "errorModalVisible" e uma função "setErrorModalVisible" para atualizá-la. O estado inicial é "false". Essa variável provavelmente será usada para controlar a visibilidade de um modal de erro.
-
-const [isFocused, setIsFocused] = React.useState(false); 
-// Cria uma variável de estado chamada "isFocused" e uma função "setIsFocused" para atualizá-la. O estado inicial é "false". Essa variável pode ser usada para indicar se um campo de entrada está focado ou não.
+  const [isFocused, setIsFocused] = React.useState(false);
+  // Cria uma variável de estado chamada "isFocused" e uma função "setIsFocused" para atualizá-la. O estado inicial é "false". Essa variável pode ser usada para indicar se um campo de entrada está focado ou não.
 
   // Define uma função assíncrona chamada "handleLogin". Esta função será usada para lidar com o evento de login.
-const handleLogin = async () => {
-  //Verificar se o email ou a senha estão preenchidos
-  if (!email.trim() || !senha.trim()) {
-    setErrorModalVisible(true);
-    return;
-  }
-
-  try{
-    // const resposta = await axios.post(`http://127.0.0.1:8000/api/login?email=?{email}&senha=${senha}`);
-    const resposta = await axios.post(`http://127.0.0.1:8000/api/login`, {
-      email: email,
-      senha: senha
-  });
-    if(resposta.data) {
-      const funcionario = resposta.data;
-
-      if (funcionario) {
-        console.log(funcionario);
-        console.log(funcionario.usuario.dados_funcionario.idFuncionario);
-        console.log(funcionario.usuario.dados_funcionario.nome);
-        console.log(funcionario.access_token);
-
-        const idFuncionario = funcionario.usuario.dados_funcionario.idFuncionario;
-        const token = funcionario.access_token;
-
-        // Armazenar o token na memória do APP (assyncStorage)
-        await AsyncStorage.setItem('userToken', token);
-        navigation.navigate('dashboard', {idFuncionario});        
-      }
+  const handleLogin = async () => {
+    //Verificar se o email ou a senha estão preenchidos
+    if (!email.trim() || !senha.trim()) {
+      setErrorModalVisible(true);
+      return;
     }
-  }
-  catch (error) {
-    console.error("Erro ao verificar o email e a senha", error);    
-    setErrorModalVisible("Erro","Erro ao verificar email e senha");
-  }
-};
 
+    try {
+      // const resposta = await axios.post(`http://127.0.0.1:8000/api/login?email=?{email}&senha=${senha}`);
+      const resposta = await axios.post(`http://127.0.0.1:8000/api/login`, {
+        email: email,
+        senha: senha,
+      });
+      if (resposta.data) {
+        const funcionario = resposta.data;
+
+        if (funcionario) {
+          console.log(funcionario);
+          console.log(funcionario.usuario.dados_funcionario.idFuncionario);
+          console.log(funcionario.usuario.dados_funcionario.nome);
+          console.log(funcionario.access_token);
+
+          const idFuncionario =
+            funcionario.usuario.dados_funcionario.idFuncionario;
+          const token = funcionario.access_token;
+
+          // Armazenar o token na memória do APP (assyncStorage)
+          await AsyncStorage.setItem("userToken", token);
+          navigation.navigate("dashboard", { idFuncionario });
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao verificar o email e a senha", error);
+      setErrorModalVisible("Erro", "Erro ao verificar email e senha");
+    }
+  };
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -144,10 +140,7 @@ const handleLogin = async () => {
 
         {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
 
-        <TouchableOpacity
-          onPress={handleLogin}
-          style={loginStyle.btnLogin}
-        >
+        <TouchableOpacity onPress={handleLogin} style={loginStyle.btnLogin}>
           <Text style={loginStyle.entrarLogin}>ENTRAR</Text>
         </TouchableOpacity>
 
@@ -155,16 +148,20 @@ const handleLogin = async () => {
           Desenvolvido por CodeForge @2024
         </Text>
 
-        <Modal isVisible={errorModalVisible} onBackdropPress={() => setErrorModalVisible(false)} >
+        <Modal
+          isVisible={errorModalVisible}
+          onBackdropPress={() => setErrorModalVisible(false)}
+        >
           <View style={loginStyle.errorModalContainer}>
             <Text style={loginStyle.errorModalTitle}>* Erro *</Text>
-            <Text  style={loginStyle.errorModalMessage}>Email ou Senha incorretos. Tente Novamente!!!</Text>
+            <Text style={loginStyle.errorModalMessage}>
+              Email ou Senha incorretos. Tente Novamente!!!
+            </Text>
             <TouchableOpacity onPress={() => setErrorModalVisible(false)}>
               <Text style={loginStyle.errorModalButtonText}>OK</Text>
             </TouchableOpacity>
           </View>
         </Modal>
-
       </View>
     </View>
   );
@@ -215,7 +212,10 @@ export function EsqueciSenhaScreen({ navigation }) {
 }
 
 export function DashboardScreen({ navigation, route }) {
-  const { idFuncionario} = route.params || {}; // Carrega mesmo sem informação
+  const [visible, setVisible] =
+    useState(false);
+
+  const { idFuncionario } = route.params || {}; // Carrega mesmo sem informação
 
   console.log("Cód Funcionario: ", idFuncionario);
   console.log(route.params);
@@ -229,15 +229,18 @@ export function DashboardScreen({ navigation, route }) {
   const [totalFuncionarios, setTotalFuncionarios] = useState(0);
   const [mensagensRecentes, setMensagensRecentes] = useState([]);
 
-  useEffect (() => {
+  useEffect(() => {
     const fetchFuncionarioData = async () => {
-      try{
-        const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get(`http://127.0.0.1:8000/api/dashboard/${idFuncionario}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      try {
+        const token = await AsyncStorage.getItem("userToken");
+        const resposta = await axios.get(
+          `http://127.0.0.1:8000/api/dashboard/${idFuncionario}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-      });
+        );
 
 
       const { nome_funcionario, sobrenome_funcionario, foto_funcionario, tipo_funcionario } = resposta.data.dadosFuncionario;
@@ -276,21 +279,45 @@ export function DashboardScreen({ navigation, route }) {
               <TouchableOpacity
                 onPress={() => navigation.navigate("visualizarPerfil")}
               >
-                {fotoFuncionario && <Image source={{ uri: fotoFuncionario }} style={{ width: 50, height: 50, borderRadius: 10 }} />}
-
+                {fotoFuncionario && (
+                  <Image
+                    source={{ uri: fotoFuncionario }}
+                    style={{ width: 50, height: 50, borderRadius: 10 }}
+                  />
+                )}
               </TouchableOpacity>
 
               <View style={{ marginLeft: 10 }}>
-                <Text style={dashboardStyle.nomeDash}>{nomeFuncionario} {sobrenomeFuncionario}</Text>
+                <Text style={dashboardStyle.nomeDash}>
+                  {nomeFuncionario} {sobrenomeFuncionario}
+                </Text>
                 <Text style={dashboardStyle.cargoDash}>{tipoFuncionario}</Text>
               </View>
             </View>
 
             <TouchableOpacity
-              onPress={() => navigation.navigate("dashboard")}
-              style={dashboardStyle.btnNotificacao}>
+              onPress={() => setVisible(true)}
+              style={dashboardStyle.btnNotificacao}
+            >
               <Ionicons name="settings" size={28} color="#FFF"></Ionicons>
             </TouchableOpacity>
+
+            <Modal
+              isVisible={visible}
+              onBackdropPress={() => setVisible(false)}
+            >
+              <View style={loginStyle.errorModalContainer}>
+                <Text style={loginStyle.errorModalTitle}>Editar Perfil</Text>
+                <Text style={loginStyle.errorModalMessage}>
+                  Email ou Senha incorretos. Tente Novamente!!!
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setVisible(false)}
+                >
+                  <Text style={loginStyle.errorModalButtonText}>OK</Text>
+                </TouchableOpacity>
+              </View>
+            </Modal>
           </View>
 
           <View style={dashboardStyle.bannerDash}>
@@ -650,7 +677,9 @@ export function VisualizarMenuScreen({ navigation }) {
             </Text>
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
-              <span style={visualizarMenuStyle.precoVisualizarMenu}>R$ 30,00</span>
+              <span style={visualizarMenuStyle.precoVisualizarMenu}>
+                R$ 30,00
+              </span>
             </View>
             <Text style={visualizarMenuStyle.nomeProdutoMenu}>
               Açaí Tropical - 500ml
@@ -673,10 +702,10 @@ export function VisualizarMenuScreen({ navigation }) {
             </Text>
 
             <TouchableOpacity
-            style={visualizarMenuStyle.btnEditarMenu}
-            onPress={() => navigation.navigate("editarMenu")}
+              style={visualizarMenuStyle.btnEditarMenu}
+              onPress={() => navigation.navigate("editarMenu")}
             >
-            Editar
+              Editar
             </TouchableOpacity>
           </View>
         </View>
@@ -686,7 +715,6 @@ export function VisualizarMenuScreen({ navigation }) {
 }
 
 export function EditarMenuScreen({ navigation }) {
-
   const [selectedLanguage, setSelectedLanguage] = useState();
 
   return (
@@ -700,54 +728,59 @@ export function EditarMenuScreen({ navigation }) {
             position: "relative",
           }}
         >
-         
-         <View>
-         
-         <Text style={visualizarMenuStyle.tituloVisualizarMenu}>
-              Editar
-         </Text>
-         
-         <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
+          <View>
+            <Text style={visualizarMenuStyle.tituloVisualizarMenu}>Editar</Text>
+
+            <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
-              <span style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</span>
+              <span style={editarMenuStyle.alterarImgEditarMenu}>
+                Trocar Imagem
+              </span>
+            </View>
+
+            <TextInput
+              style={editarMenuStyle.inputNomeEditar}
+              placeholder="Nome:"
+              placeholderTextColor="gray"
+            />
+
+            <TextInput
+              style={editarMenuStyle.inputDescriçãoEditar}
+              placeholder="Descrição:"
+              multiline={true}
+              numberOfLines={4}
+              placeholderTextColor="gray"
+            />
           </View>
 
-          <TextInput style={editarMenuStyle.inputNomeEditar}
-          placeholder="Nome:"
-          placeholderTextColor="gray" />
-
-          <TextInput style={editarMenuStyle.inputDescriçãoEditar}
-          placeholder="Descrição:"
-          multiline={true}
-          numberOfLines={4}
-          placeholderTextColor="gray" />
-         </View> 
-
-         <Picker
-         style={editarMenuStyle.selectMenu}
+          <Picker
+            style={editarMenuStyle.selectMenu}
             selectedValue={selectedLanguage}
             onValueChange={(itemValue, itemIndex) =>
-            setSelectedLanguage(itemValue)
-            }>
+              setSelectedLanguage(itemValue)
+            }
+          >
             <Picker.Item label="Açaí" value="acai" />
             <Picker.Item label="Sorvete de pote" value="sorvetePote" />
             <Picker.Item label="picolé" value="picole" />
           </Picker>
 
-         <View style={editarMenuStyle.containarBtn}>
-          <View style={editarMenuStyle.boxBtnCancelar}>
-            <TouchableOpacity style={editarMenuStyle.btnCancelar} onPress={() => navigation.navigate("VisualizarMenu")}>
-              Cancelar
-            </TouchableOpacity>
-          </View>
+          <View style={editarMenuStyle.containarBtn}>
+            <View style={editarMenuStyle.boxBtnCancelar}>
+              <TouchableOpacity
+                style={editarMenuStyle.btnCancelar}
+                onPress={() => navigation.navigate("VisualizarMenu")}
+              >
+                Cancelar
+              </TouchableOpacity>
+            </View>
 
-          <View style={editarMenuStyle.boxBtnSalvar}>
-            <TouchableOpacity style={editarMenuStyle.btnSalvar}>
-              Salvar
-            </TouchableOpacity>
+            <View style={editarMenuStyle.boxBtnSalvar}>
+              <TouchableOpacity style={editarMenuStyle.btnSalvar}>
+                Salvar
+              </TouchableOpacity>
+            </View>
           </View>
-         </View>
-
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -910,20 +943,21 @@ export function MensagensScreen({ navigation }) {
               position: "relative",
             }}
           >
-
             <View style={menuStyle.boxTopoMenu}>
               <Text style={menuStyle.tituloMenu}>Mensagens</Text>
               <View style={dashboardStyle.containerEstatisticas}>
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="chatbubble-outline" size={25} color="#FFF" />
                   <span>52</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>
-                    Ativas
-                  </span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Ativas</span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
-                  <Ionicons name="chatbubble-ellipses-outline" size={25} color="#FFF" />
+                  <Ionicons
+                    name="chatbubble-ellipses-outline"
+                    size={25}
+                    color="#FFF"
+                  />
                   <span>47</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>
                     Respondidas
@@ -933,9 +967,7 @@ export function MensagensScreen({ navigation }) {
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="chatbubbles-outline" size={25} color="#FFF" />
                   <span>224</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>
-                    Totais
-                  </span>
+                  <span style={dashboardStyle.txtBoxEstatisticas}>Totais</span>
                 </View>
               </View>
             </View>
@@ -949,66 +981,64 @@ export function MensagensScreen({ navigation }) {
             </View>
 
             <View style={dashboardStyle.boxTituloMensagem}>
-            <Text style={dashboardStyle.tituloMensagem}>
-              Todas as Mensagens
-            </Text>
-          </View>
-
-          <View style={dashboardStyle.boxMensagem}>
-            <Image
-              source={require("./assets/fotoPerfil.png")}
-              style={dashboardStyle.imgMensagem}
-            ></Image>
-
-            <View>
-              <Text>Gustavo Sampaio Soier</Text>
-              <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+              <Text style={dashboardStyle.tituloMensagem}>
+                Todas as Mensagens
+              </Text>
             </View>
 
-            <Text style={dashboardStyle.horarioMensagem}>1h</Text>
+            <View style={dashboardStyle.boxMensagem}>
+              <Image
+                source={require("./assets/fotoPerfil.png")}
+                style={dashboardStyle.imgMensagem}
+              ></Image>
 
-            <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-              <Ionicons name="trash-outline" size={22}></Ionicons>
-            </TouchableOpacity>
-          </View>
+              <View>
+                <Text>Gustavo Sampaio Soier</Text>
+                <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+              </View>
 
-          <View style={dashboardStyle.boxMensagem}>
-            <Image
-              source={require("./assets/fotoPerfil.png")}
-              style={dashboardStyle.imgMensagem}
-            ></Image>
+              <Text style={dashboardStyle.horarioMensagem}>1h</Text>
 
-            <View>
-              <Text>Gustavo Sampaio Soier</Text>
-              <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+              <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
+                <Ionicons name="trash-outline" size={22}></Ionicons>
+              </TouchableOpacity>
             </View>
 
-            <Text style={dashboardStyle.horarioMensagem}>2h</Text>
+            <View style={dashboardStyle.boxMensagem}>
+              <Image
+                source={require("./assets/fotoPerfil.png")}
+                style={dashboardStyle.imgMensagem}
+              ></Image>
 
-            <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-              <Ionicons name="trash-outline" size={22}></Ionicons>
-            </TouchableOpacity>
-          </View>
+              <View>
+                <Text>Gustavo Sampaio Soier</Text>
+                <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+              </View>
 
-          <View style={dashboardStyle.boxMensagem}>
-            <Image
-              source={require("./assets/fotoPerfil.png")}
-              style={dashboardStyle.imgMensagem}
-            ></Image>
+              <Text style={dashboardStyle.horarioMensagem}>2h</Text>
 
-            <View>
-              <Text>Gustavo Sampaio Soier</Text>
-              <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+              <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
+                <Ionicons name="trash-outline" size={22}></Ionicons>
+              </TouchableOpacity>
             </View>
 
-            <Text style={dashboardStyle.horarioMensagem}>3h</Text>
+            <View style={dashboardStyle.boxMensagem}>
+              <Image
+                source={require("./assets/fotoPerfil.png")}
+                style={dashboardStyle.imgMensagem}
+              ></Image>
 
-            <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-              <Ionicons name="trash-outline" size={22}></Ionicons>
-            </TouchableOpacity>
-          </View>
+              <View>
+                <Text>Gustavo Sampaio Soier</Text>
+                <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+              </View>
 
+              <Text style={dashboardStyle.horarioMensagem}>3h</Text>
 
+              <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
+                <Ionicons name="trash-outline" size={22}></Ionicons>
+              </TouchableOpacity>
+            </View>
 
             {/* <View style={menuStyle.containerMenu}>
               <View style={menuStyle.boxMenuActive}>
@@ -1051,13 +1081,17 @@ export function VisualizarPerfilScreen({ navigation }) {
             }}
           >
             <View style={visualizarPerfilStyle.containerPerfil}>
-            <Text style={visualizarPerfilStyle.titleVisualizarPerfil}>Detalhes do Perfil</Text>
+              <Text style={visualizarPerfilStyle.titleVisualizarPerfil}>
+                Detalhes do Perfil
+              </Text>
               <View style={visualizarPerfilStyle.boxVisualizarFoto}>
                 <Image
                   source={require("./assets/fotoPerfil.png")}
                   style={visualizarPerfilStyle.fotoVisualizarPerfil}
                 ></Image>
-                <TouchableOpacity style={visualizarPerfilStyle.trocarImagem}>Trocar Imagem</TouchableOpacity>
+                <TouchableOpacity style={visualizarPerfilStyle.trocarImagem}>
+                  Trocar Imagem
+                </TouchableOpacity>
               </View>
 
               <Text style={visualizarPerfilStyle.titlePerfil}>Informações</Text>
@@ -1155,14 +1189,14 @@ export function VisualizarPerfilScreen({ navigation }) {
                 ></TextInput>
               </View>
 
-            <View style={visualizarPerfilStyle.btnEditarPerfil}>
-              <TouchableOpacity
-            style={visualizarMenuStyle.btnEditarMenu}
-            onPress={() => navigation.navigate("editarPerfil")}
-            >
-            Editar
-            </TouchableOpacity>
-            </View>
+              <View style={visualizarPerfilStyle.btnEditarPerfil}>
+                <TouchableOpacity
+                  style={visualizarMenuStyle.btnEditarMenu}
+                  onPress={() => navigation.navigate("editarPerfil")}
+                >
+                  Editar
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </SafeAreaView>
@@ -1185,13 +1219,17 @@ export function EditarPerfilScreen({ navigation }) {
             }}
           >
             <View style={visualizarPerfilStyle.containerPerfil}>
-            <Text style={visualizarPerfilStyle.titleVisualizarPerfil}>Editar o Perfil</Text>
+              <Text style={visualizarPerfilStyle.titleVisualizarPerfil}>
+                Editar o Perfil
+              </Text>
               <View style={visualizarPerfilStyle.boxVisualizarFoto}>
                 <Image
                   source={require("./assets/fotoPerfil.png")}
                   style={visualizarPerfilStyle.fotoVisualizarPerfil}
                 ></Image>
-                <TouchableOpacity style={visualizarPerfilStyle.trocarImagem}>Trocar Imagem</TouchableOpacity>
+                <TouchableOpacity style={visualizarPerfilStyle.trocarImagem}>
+                  Trocar Imagem
+                </TouchableOpacity>
               </View>
 
               <Text style={visualizarPerfilStyle.titlePerfil}>Informações</Text>
@@ -1289,14 +1327,14 @@ export function EditarPerfilScreen({ navigation }) {
                 ></TextInput>
               </View>
 
-            <View style={visualizarPerfilStyle.btnEditarPerfil}>
-              <TouchableOpacity
-            style={visualizarMenuStyle.btnEditarMenu}
-            onPress={() => navigation.navigate("editarMenu")}
-            >
-            Editar
-            </TouchableOpacity>
-            </View>
+              <View style={visualizarPerfilStyle.btnEditarPerfil}>
+                <TouchableOpacity
+                  style={visualizarMenuStyle.btnEditarMenu}
+                  onPress={() => navigation.navigate("editarMenu")}
+                >
+                  Salvar
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </SafeAreaView>
@@ -1389,13 +1427,13 @@ export function FuncionarioScreen({ navigation }) {
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function MyTab({route}) {
+function MyTab({ route }) {
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Início"
         component={DashboardScreen}
-          initialParams={{ idFuncionario: route.params.idFuncionario }}
+        initialParams={{ idFuncionario: route.params.idFuncionario }}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -1421,7 +1459,11 @@ function MyTab({route}) {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="chatbubble-ellipses-outline" color={color} size={size} />
+            <Ionicons
+              name="chatbubble-ellipses-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
@@ -1467,10 +1509,7 @@ function Routes() {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen
-        name="VisualizarMenu"
-        component={VisualizarMenuScreen}
-      />
+      <Stack.Screen name="VisualizarMenu" component={VisualizarMenuScreen} />
       <Stack.Screen
         name="Estoque"
         component={MyTab}
@@ -1497,7 +1536,6 @@ function Routes() {
         component={EditarMenuScreen}
         options={{ headerShown: false }}
       />
-    
     </Stack.Navigator>
   );
 }
