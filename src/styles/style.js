@@ -104,7 +104,7 @@ export const loginStyle = ({
     color: '#64748B',
     textAlign: 'center',
     marginTop: 35,
-  },
+ },
 
   errorModalContainer: {
     backgroundColor: '#fff',
@@ -117,12 +117,6 @@ export const loginStyle = ({
     fontSize: 25,
     fontWeight: 'bold',
     marginBottom: 10,
-    textAlign: 'center',
-  },
-  
-  errorModalMessage: {
-    fontSize: 16,
-    marginBottom: 20,
     textAlign: 'center',
   },
 
@@ -312,7 +306,23 @@ export const dashboardStyle = ({
 
   boxhorarioMensagem: {
     width: '25%',
-  }
+  },
+
+  modalContainerConfig: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'left',
+  },
+
+  modalModalConfigTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'left',
+    backgroundColor: '#E2E8F0',
+    padding: 20,
+  },
 
 
 });

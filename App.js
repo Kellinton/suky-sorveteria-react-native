@@ -262,6 +262,11 @@ export function DashboardScreen({ navigation, route }) {
     }
   }, [idFuncionario]);
 
+  const handleLogout = async () => { await AsyncStorage.removeItem('userToken');     
+  navigation.navigate('Login'); // Navegar de volta para a tela de login };
+}
+  
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
@@ -297,8 +302,7 @@ export function DashboardScreen({ navigation, route }) {
 
             <TouchableOpacity
               onPress={() => setVisible(true)}
-              style={dashboardStyle.btnNotificacao}
-            >
+              style={dashboardStyle.btnNotificacao}>
               <Ionicons name="settings" size={28} color="#FFF"></Ionicons>
             </TouchableOpacity>
 
@@ -306,16 +310,26 @@ export function DashboardScreen({ navigation, route }) {
               isVisible={visible}
               onBackdropPress={() => setVisible(false)}
             >
-              <View style={loginStyle.errorModalContainer}>
-                <Text style={loginStyle.errorModalTitle}>Editar Perfil</Text>
-                <Text style={loginStyle.errorModalMessage}>
-                  Email ou Senha incorretos. Tente Novamente!!!
-                </Text>
-                <TouchableOpacity
+              <View style={dashboardStyle.modalContainerConfig}>
+                <TouchableOpacity style={dashboardStyle.modalModalConfigTitle} onPress={() => navigation.navigate("visualizarPerfil")}>
+                <Ionicons name="eye-outline" size={25} color="#C96DFF" />
+                  <View>
+                    <Text>Visualizar o Perfil</Text>
+                  </View>
+                </TouchableOpacity>
+                
+                  <TouchableOpacity style={dashboardStyle.modalModalConfigTitle} onPress={handleLogout}>
+                  <Ionicons name="log-out-outline" size={25} color="#C96DFF" />
+                  <View>
+                    <Text>Sair da Conta</Text>
+                  </View>
+                  </TouchableOpacity>
+
+                {/* <TouchableOpacity
                   onPress={() => setVisible(false)}
                 >
                   <Text style={loginStyle.errorModalButtonText}>OK</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
             </Modal>
           </View>
@@ -1192,8 +1206,7 @@ export function VisualizarPerfilScreen({ navigation }) {
               <View style={visualizarPerfilStyle.btnEditarPerfil}>
                 <TouchableOpacity
                   style={visualizarMenuStyle.btnEditarMenu}
-                  onPress={() => navigation.navigate("editarPerfil")}
-                >
+                  onPress={() => navigation.navigate("editarPerfil")}>
                   Editar
                 </TouchableOpacity>
               </View>
