@@ -224,6 +224,10 @@ export function DashboardScreen({ navigation, route }) {
   const [sobrenomeFuncionario, setSobrenomeFuncionario] = useState("");
   const [fotoFuncionario, setFotoFuncionario] = useState("");
   const [tipoFuncionario, setTipoFuncionario] = useState("");
+  const [totalValorProdutos, setTotalValorProdutos] = useState(0);
+  const [totalProdutos, setTotalProdutos] = useState(0);
+  const [totalFuncionarios, setTotalFuncionarios] = useState(0);
+  const [mensagensRecentes, setMensagensRecentes] = useState([]);
 
   useEffect (() => {
     const fetchFuncionarioData = async () => {
@@ -241,6 +245,10 @@ export function DashboardScreen({ navigation, route }) {
       setSobrenomeFuncionario(sobrenome_funcionario);
       setFotoFuncionario(foto_funcionario);
       setTipoFuncionario(tipo_funcionario);
+      setTotalValorProdutos(resposta.data.totalValorProdutos);
+      setTotalProdutos(resposta.data.totalProdutos);
+      setTotalFuncionarios(resposta.data.totalFuncionarios);
+      setMensagensRecentes(resposta.data.mensagensRecentes);
       }
       catch (error) {
         console.error("Erro ao buscar os dados do funcionario: ", error);
@@ -259,7 +267,8 @@ export function DashboardScreen({ navigation, route }) {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            marginTop: "5%",
+            paddingTop: "5%",
+            backgroundColor: "#F4F8FF",
           }}
         >
           <View style={dashboardStyle.topDashContainer}>
@@ -287,7 +296,7 @@ export function DashboardScreen({ navigation, route }) {
           <View style={dashboardStyle.bannerDash}>
             <View>
               <Text style={dashboardStyle.txtBanner}>Gerenciar</Text>
-              <span style={dashboardStyle.spanBanner}>Estoque</span>
+              <span style={dashboardStyle.spanBanner}>Produtos</span>
               <TouchableOpacity
                 onPress={() => navigation.navigate("dashboard")}
                 style={dashboardStyle.btnBanner}
@@ -307,20 +316,21 @@ export function DashboardScreen({ navigation, route }) {
           <View style={dashboardStyle.containerEstatisticas}>
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons name="cube" size={22} color="#FFF"></Ionicons>
-              <span>920</span>
-              <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
+              <span>R$ {totalValorProdutos}</span>
+              <span style={dashboardStyle.txtBoxEstatisticas}>Valor
+              Produtos</span>
             </View>
 
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons name="ice-cream" size={22} color="#FFF"></Ionicons>
-              <span>52</span>
-              <span style={dashboardStyle.txtBoxEstatisticas}>Vendidos</span>
+              <span>{totalProdutos}</span>
+              <span style={dashboardStyle.txtBoxEstatisticas}>Produtos</span>
             </View>
 
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons name="people" size={22} color="#FFF"></Ionicons>
-              <span>R$ 9 mil</span>
-              <span style={dashboardStyle.txtBoxEstatisticas}>Lucro</span>
+              <span>{totalFuncionarios}</span>
+              <span style={dashboardStyle.txtBoxEstatisticas}>Funcionários</span>
             </View>
           </View>
 
@@ -330,59 +340,26 @@ export function DashboardScreen({ navigation, route }) {
             </Text>
           </View>
 
-          <View style={dashboardStyle.boxMensagem}>
-            <Image
-              source={require("./assets/fotoPerfil.png")}
-              style={dashboardStyle.imgMensagem}
-            ></Image>
+          {mensagensRecentes.map((mensagem, index) => (
+            <View key={index} style={dashboardStyle.boxMensagem}>
+              <View style={dashboardStyle.boxMensagemInfo}>
+                <Image
+                  source={require("./assets/foto_mensagem.png")}
+                  style={dashboardStyle.imgMensagem}
+                ></Image>
 
-            <View>
-              <Text>Gustavo Sampaio Soier</Text>
-              <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+                <View style={StyleSheet.mensagem}>
+                  <Text style={dashboardStyle.nomeMensagem}>{mensagem.nomeContato}</Text>
+                  <Text style={dashboardStyle.assuntoMensagem}>{mensagem.mensagemContato}</Text>
+                </View>
+              </View>
+
+              <View style={dashboardStyle.boxhorarioMensagem}>
+                <Text style={dashboardStyle.horarioMensagem}>{mensagem.created_at}</Text>
+              </View>
+
             </View>
-
-            <Text style={dashboardStyle.horarioMensagem}>1h</Text>
-
-            <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-              <Ionicons name="trash-outline" size={22}></Ionicons>
-            </TouchableOpacity>
-          </View>
-
-          <View style={dashboardStyle.boxMensagem}>
-            <Image
-              source={require("./assets/fotoPerfil.png")}
-              style={dashboardStyle.imgMensagem}
-            ></Image>
-
-            <View>
-              <Text>Gustavo Sampaio Soier</Text>
-              <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
-            </View>
-
-            <Text style={dashboardStyle.horarioMensagem}>2h</Text>
-
-            <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-              <Ionicons name="trash-outline" size={22}></Ionicons>
-            </TouchableOpacity>
-          </View>
-
-          <View style={dashboardStyle.boxMensagem}>
-            <Image
-              source={require("./assets/fotoPerfil.png")}
-              style={dashboardStyle.imgMensagem}
-            ></Image>
-
-            <View>
-              <Text>Gustavo Sampaio Soier</Text>
-              <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
-            </View>
-
-            <Text style={dashboardStyle.horarioMensagem}>3h</Text>
-
-            <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-              <Ionicons name="trash-outline" size={22}></Ionicons>
-            </TouchableOpacity>
-          </View>
+          ))}
 
           {/* <Modal animationType="fade" transparent={true} visible={modalVisible}>
             <View style={dashboardStyle.modalContainer}>

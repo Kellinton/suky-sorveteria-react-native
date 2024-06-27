@@ -32,7 +32,7 @@ export const loginStyle = ({
  
   spanFundo: {
     fontSize: 25,
-    fontWeight: 'bold',
+    fontWeight: 600,
     fontFamily: 'Inter_700Bold',
   },
  
@@ -54,6 +54,7 @@ export const loginStyle = ({
     fontSize: 30,
     marginBottom: 20,
     marginTop: 20,
+    fontWeight: 600,
     color: '#8A19D6',
     },
  
@@ -160,7 +161,7 @@ export const dashboardStyle = ({
     backgroundColor: '#8A19D6',
     width: 50,
     height: 50,
-    borderRadius: 5,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -169,6 +170,7 @@ export const dashboardStyle = ({
     textAlign: 'left',
     fontWeight: 'bold',
     fontSize: 22,
+    color: '#03314B',
    },
 
   cargoDash: {
@@ -219,24 +221,22 @@ export const dashboardStyle = ({
   },
 
   containerEstatisticas: {
+    width: '90%',
     flexDirection: 'row',
     textAlign: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 
   boxEstatisticas: {
-    width: 100,
+    width: '30%',
     height: 100,
     backgroundColor: '#8A19D6',
     borderRadius: 15,
     border: 'none',
-    marginRight: 15,
-    marginLeft: 15,
     color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-
   },
 
   boxTituloEstatisticas: {
@@ -248,7 +248,8 @@ export const dashboardStyle = ({
 
   tituloEstatisticas: {
     fontSize: 22,
-    fontWeight: 'semi-bold',
+    fontWeight: 600,
+    color: '#03314B',
   },
 
   txtBoxEstatisticas: {
@@ -261,25 +262,40 @@ export const dashboardStyle = ({
     width: '90%',
     marginTop: 30,
     marginBottom: 10,
+    color: '#03314B',
+    fontWeight: 600,
   },
 
   tituloMensagem: {
     fontSize: 22,
-    fontWeight: 'semi-bold',
+    fontWeight: 600,
+    color: '#03314B',
   },
 
   boxMensagem: {
     width: '90%',
     flexDirection: 'row',
-    backgroundColor: '#E2E8F0',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
     padding: 10,
     borderRadius: 15,
     marginTop: '3%',
     alignItems: 'center',
   },
 
+  boxMensagemInfo: {
+    width: '75%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
   imgMensagem: {
     marginRight: '5%',
+  },
+
+  nomeMensagem: {
+    fontWeight: 600,
+    color: '#03314B',
   },
 
   assuntoMensagem: {
@@ -290,20 +306,21 @@ export const dashboardStyle = ({
   horarioMensagem: {
     marginLeft: '10%',
     marginBottom: '5%',
+    fontWeight: 600,
+    color: '#03314B',
   },
 
-  lixeiraDashboard: {
-    marginBottom: '5%',
-    fontSize: 20,
-    marginLeft: '10%',
-  },
+  boxhorarioMensagem: {
+    width: '25%',
+  }
+
 
 });
 
 export const menuStyle = ({
   tituloMenu: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: 600,
     marginTop: '5%',
     color: 'white',
     textAlign: 'center',
@@ -745,7 +762,6 @@ export const visualizarPerfilStyle = ({
   cancelarPerfil: {
     width: '100%',
     height: 100,
-    backgroundColor: 'red'
   },
 
   boxFundo: {
@@ -760,7 +776,7 @@ export const visualizarPerfilStyle = ({
 
   titleVisualizarPerfil: {
     textAlign: 'center',
-    color: 'black',
+    color: '#03314B',
     fontWeight: 'bold',
     fontSize: 25,
     marginBottom: '3%',
@@ -797,10 +813,10 @@ export const funcionarioStyle = ({
   },
 
   nomeFuncionario: {
-    color: 'black',
+    color: '#03314B',
     fontSize: '22',
     alignItems: 'center',
-    fontWeight: 'bold'
+    fontWeight: '600'
   },
 
   boxNomeFuncionario: {
