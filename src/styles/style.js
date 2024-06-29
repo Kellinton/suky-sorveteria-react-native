@@ -330,7 +330,7 @@ export const dashboardStyle = ({
 export const menuStyle = ({
   tituloMenu: {
     fontSize: 22,
-    fontWeight: 600,
+    fontWeight: 'bold', 
     marginTop: '5%',
     color: 'white',
     textAlign: 'center',
@@ -341,7 +341,7 @@ export const menuStyle = ({
     backgroundColor: '#E2E8F0',
     width: '90%',
     flexDirection: 'row',
-    alignItems: 'center', 
+    alignItems: 'center',
     padding: 10,
     borderRadius: 15,
     marginTop: '5%',
@@ -349,6 +349,7 @@ export const menuStyle = ({
 
   titleBuscarMenu: {
     marginLeft: 10,
+    flex: 1, 
   },
 
   containerMenu: {
@@ -382,7 +383,7 @@ export const menuStyle = ({
   txtBoxMenuActive: {
     color: 'white',
     marginTop: 5,
-  },  
+  },
 
   txtBoxMenu: {
     color: '#8A19D6',
@@ -390,17 +391,16 @@ export const menuStyle = ({
   },
 
   imgSemEstoque: {
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '20%'
+    marginTop: '20%', 
   },
 
   addProduto: {
     width: 50,
     height: 50,
     backgroundColor: '#8A19D6',
-    borderRadius: '50%',
+    borderRadius: 25, 
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
@@ -410,7 +410,8 @@ export const menuStyle = ({
 
   boxTopoMenu: {
     backgroundColor: '#922ADE',
-    paddding: '5%',
+    padding: 10,
+    marginBottom: '5%',
   },
 
   boxEstatisticasMenu: {
@@ -419,7 +420,7 @@ export const menuStyle = ({
     height: 100,
     backgroundColor: '#8A19D6',
     borderRadius: 15,
-    border: 'none',
+    borderWidth: 0, 
     marginRight: 15,
     marginLeft: 15,
     color: 'white',
@@ -430,7 +431,6 @@ export const menuStyle = ({
   containerMainmenu: {
     width: '90%',
     backgroundColor: 'white',
-    height: 'fit-content',
     borderRadius: 20,
     padding: 20,
     marginTop: '5%',
@@ -439,6 +439,7 @@ export const menuStyle = ({
   boxContainerMenu: {
     marginBottom: '5%',
     flexDirection: 'row',
+
   },
 
   cardImgMenu: {
@@ -458,17 +459,17 @@ export const menuStyle = ({
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-  },  
+  },
 
   cardMenu: {
     width: '65%',
     justifyContent: 'center',
-    padding: '5%',
+    padding: 10, 
   },
 
   tituloCardMenu: {
     fontWeight: 'bold',
-    marginBottom: '5%',
+    marginBottom: 5, 
   },
 
   descricaoCardMenu: {
@@ -478,8 +479,8 @@ export const menuStyle = ({
   btnCardMenu: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: '3%',
-    width: '100%',  
+    marginTop: 10, 
+    width: '100%',
     justifyContent: 'space-between',
   },
 
@@ -489,18 +490,17 @@ export const menuStyle = ({
     justifyContent: 'center',
     height: 25,
     width: 25,
-    borderRadius: '50%',
+    borderRadius: 12.5, 
   },
 
   iconAcaiMenu: {
-    backgroundColor:'#F7EBFF',
+    backgroundColor: '#F7EBFF',
     flexDirection: 'row',
     justifyContent: 'center',
-    textAlign: 'center',
     alignItems: 'center',
     padding: 5,
     borderRadius: 10,
-  }
+  },
 });
 
 export const visualizarMenuStyle = ({
