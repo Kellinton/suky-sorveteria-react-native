@@ -45,6 +45,7 @@ import { visualizarMenuStyle } from "./src/styles/style";
 import { editarMenuStyle } from "./src/styles/style";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { useRoute } from '@react-navigation/native';
 
 export function LoginScreen({ navigation }) {
   // Importando o hook useState do React
@@ -532,7 +533,7 @@ export function MenuScreen({ navigation }) {
 
                       <TouchableOpacity
                         style={menuStyle.btnSetaMenu}
-                        onPress={() => navigation.navigate('VisualizarMenu')}
+                        onPress={() => navigation.navigate('VisualizarMenu', { idProduto: item.id })}
                       >
                         <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
                       </TouchableOpacity>
@@ -560,49 +561,80 @@ export function MenuScreen({ navigation }) {
 
 
 export function VisualizarMenuScreen({ navigation }) {
+  const route = useRoute(); // acessar route.params
+  const [produto, setProduto] = useState(null);
+
+  useEffect(() => {
+    // Recuperar o ID do produto da rota
+    const { idProduto } = route.params;
+
+    const fetchProduto = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        const resposta = await axios.get(`http://127.0.0.1:8000/api/produtos/${idProduto}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setProduto(resposta.data);
+      } catch (error) {
+        console.error('Erro ao buscar o produto:', error);
+      }
+    };
+
+    fetchProduto();
+  }, [route.params]);
+
+  if (!produto) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Carregando...</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            margin: "5%",
-          }}
-        >
+        <View style={{ flex: 1, justifyContent: 'center', margin: '5%' }}>
           <View style={visualizarMenuStyle.containerVisualizarMenu}>
-            <Text style={visualizarMenuStyle.tituloVisualizarMenu}>
-              Detalhes
-            </Text>
+            <Text style={visualizarMenuStyle.tituloVisualizarMenu}>Detalhes</Text>
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
-              <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
-              <span style={visualizarMenuStyle.precoVisualizarMenu}>
-                R$ 30,00
-              </span>
+              <Image
+                source={{ uri: `http://127.0.0.1:8000/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
+                style={{ width: 120, height: 120 }}
+              />
+              <Text style={visualizarMenuStyle.precoVisualizarMenu}>R$ {produto.valorProduto}</Text>
             </View>
-            <Text style={visualizarMenuStyle.nomeProdutoMenu}>
-              Açaí Tropical - 500ml
-            </Text>
+            <Text style={visualizarMenuStyle.nomeProdutoMenu}>{produto.nomeProduto}</Text>
             <View style={visualizarMenuStyle.boxIcons}>
               <View style={visualizarMenuStyle.iconAcaiVisualizarMenu}>
                 <Ionicons name="ice-cream" size={25} color="#C96DFF" />
-                <Text>Açaí</Text>
+                <Text>
+                  {produto.categoriaProduto === 'acai' ? 'Açaí' :
+                  produto.categoriaProduto === 'sorvetePote' ? 'Sorvete de Pote' :
+                  produto.categoriaProduto === 'picole' ? 'Picolé' :
+                  produto.categoriaProduto
+                  }
+                </Text>
               </View>
               <View style={menuStyle.iconAcaiMenu}>
-                <Ionicons name="checkmark-circle" size={25} color="#C96DFF" />
-                <Text>Disponível</Text>
+              <Ionicons
+                name={produto.statusProduto === 'ativo' ? 'checkmark-circle' : 'close-circle'}
+                size={25}
+                color="#C96DFF"
+              />
+              <Text>{produto.statusProduto === 'ativo' ? 'Disponível' : 'Indisponível'}</Text>
               </View>
             </View>
             <Text style={visualizarMenuStyle.tituloDescricao}>Descrição</Text>
             <Text style={visualizarMenuStyle.textoDescricao}>
-              Uma deliciosa combinação de açaí cremoso, morango fresco, disquete
-              crocante, banana e coco ralado, uma explosão de sabores tropicais
-              em cada colherada!
+              {produto.descricaoProduto}
             </Text>
 
             <TouchableOpacity
               style={visualizarMenuStyle.btnEditarMenu}
-              onPress={() => navigation.navigate("editarMenu")}
+              onPress={() => navigation.navigate('EditarMenu', { produto })}
             >
               Editar
             </TouchableOpacity>
