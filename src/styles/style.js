@@ -525,6 +525,12 @@ export const visualizarMenuStyle = ({
     marginBottom: '5%',
   },
 
+  boxBtnVisualizarMenu: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '5%',
+  },
+
   precoVisualizarMenu: {
     backgroundColor: '#8A19D6',
     paddingTop: 7,
@@ -635,7 +641,7 @@ export const editarMenuStyle = ({
     border: 'none',
     padding: 10,
     color: '#8A19D6',
-    fontWeight: 'bold',
+    fontWeight: 'semibold',
     fontSize: 16
   },
 

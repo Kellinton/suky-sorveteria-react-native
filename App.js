@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { useState, useEffect } from "react"; // Reconhece os comandos de start inicial
+import { useState, useEffect, useRef } from "react"; // Reconhece os comandos de start inicial
 
 import Modal from "react-native-modal";
 import axios from "axios"; // Faz a requisição HTTP para a API
@@ -25,6 +25,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Picker } from "@react-native-picker/picker";
+import { launchImageLibrary } from 'react-native-image-picker';
 import {
   useFonts,
   Inter_300Light,
@@ -645,34 +646,128 @@ export function VisualizarMenuScreen({ navigation }) {
   );
 }
 
-export function EditarMenuScreen({ navigation }) {
-  const [selectedLanguage, setSelectedLanguage] = useState();
+export function EditarMenuScreen({ navigation, route }) {
+  const [nomeProduto, setNomeProduto] = useState('');
+  const [descricaoProduto, setDescricaoProduto] = useState('');
+  const [categoriaProduto, setCategoriaProduto] = useState('');
+  const [valorProduto, setValorProduto] = useState('');
+  const [statusProduto, setStatusProduto] = useState('');
+  const [fotoProduto, setFotoProduto] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null); // Novo estado para a imagem selecionada
+  const selectedImageRef = useRef(null); // Utilizando useRef para manter o valor de selectedImage
+
+  useEffect(() => {
+    if (route.params && route.params.produto) {
+      const produto = route.params.produto;
+      setNomeProduto(produto.nomeProduto);
+      setDescricaoProduto(produto.descricaoProduto);
+      setCategoriaProduto(produto.categoriaProduto);
+      setValorProduto(produto.valorProduto);
+      setStatusProduto(produto.statusProduto);
+      setFotoProduto(produto.fotoProduto);
+      selectedImageRef.current = `http://127.0.0.1:8000/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`;
+      setSelectedImage(selectedImageRef.current); // Atualizar o estado da imagem selecionada
+    }
+  }, [route.params]);
+
+  const handleImagePicker = () => {
+    const options = {
+      mediaType: 'photo',
+      includeBase64: false,
+    };
+  
+    launchImageLibrary(options, (resposta) => {
+      if (resposta.didCancel) {
+        console.log('Seleção de imagem cancelada pelo usuário');
+      } else if (resposta.error) {
+        console.log('Erro ao selecionar imagem: ', resposta.error);
+      } else {
+        const uri = resposta.assets[0].uri;
+        console.log('URI da imagem selecionada:', uri);
+        selectedImageRef.current = uri; // Atualizando useRef para manter o valor de selectedImage
+        setSelectedImage(uri); // Atualizar o estado da imagem selecionada
+      }
+    });
+  };
+
+  const handleSave = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const formData = new FormData();
+  
+      formData.append('nomeProduto', nomeProduto);
+      formData.append('descricaoProduto', descricaoProduto);
+      formData.append('valorProduto', valorProduto);
+      formData.append('categoriaProduto', categoriaProduto);
+      formData.append('statusProduto', statusProduto);
+
+      if (selectedImageRef.current && selectedImageRef.current !== `http://127.0.0.1:8000/img/produtos/${categoriaProduto}/${fotoProduto}`) {
+        const uri = selectedImageRef.current;
+        const filename = uri.split('/').pop();
+        const match = /\.(\w+)$/.exec(filename);
+        const type = match ? `image/${match[1]}` : 'image';
+  
+        // Cria um objeto de arquivo para a imagem selecionada
+        const imageFile = {
+          uri: uri,
+          name: filename,
+          type: type,
+        };
+        console.log('uri:', uri);
+        console.log('Tipo do arquivo:', type);
+        console.log('Nome do arquivo:', filename);
+        console.log('Objeto de arquivo:', imageFile);
+        formData.append('fotoProduto', imageFile);
+      }
+
+      console.log("Dados sendo enviados:", formData);
+
+      const resposta = await axios.post(`http://127.0.0.1:8000/api/produtos/${route.params.produto.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+
+
+      if (resposta.status === 200) {
+
+        navigation.navigate('VisualizarMenu', { idProduto: route.params.produto.id });
+      } else {
+
+        console.error('Erro ao salvar o produto:', resposta.status);
+      }
+    } catch (error) {
+
+      console.error('Erro ao salvar o produto:', error);
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            margin: "5%",
-            position: "relative",
-          }}
-        >
+        <View style={{ flex: 1, justifyContent: 'center', margin: '5%', position: 'relative' }}>
           <View>
             <Text style={visualizarMenuStyle.tituloVisualizarMenu}>Editar</Text>
 
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
-              <Image source={require("./assets/imgVisualizarMenu.png")}></Image>
-              <span style={editarMenuStyle.alterarImgEditarMenu}>
-                Trocar Imagem
-              </span>
+              <Image 
+                source={{ uri: selectedImage || `http://127.0.0.1:8000/img/produtos/${categoriaProduto}/${fotoProduto}` }} 
+                style={{ width: 120, height: 120 }}
+              />
             </View>
+
+            <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
+              <Text style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</Text>
+            </TouchableOpacity>
 
             <TextInput
               style={editarMenuStyle.inputNomeEditar}
               placeholder="Nome:"
               placeholderTextColor="gray"
+              value={nomeProduto}
+              onChangeText={setNomeProduto}
             />
 
             <TextInput
@@ -681,33 +776,61 @@ export function EditarMenuScreen({ navigation }) {
               multiline={true}
               numberOfLines={4}
               placeholderTextColor="gray"
+              value={descricaoProduto}
+              onChangeText={setDescricaoProduto}
+            />
+
+            <TextInput
+              style={editarMenuStyle.inputNomeEditar}
+              placeholder="Valor:"
+              placeholderTextColor="gray"
+              value={valorProduto}
+              onChangeText={(text) => {
+                const regex = /^[0-9]+(\.[0-9]{0,2})?$/;
+                if (regex.test(text) || text === '') {
+                  setValorProduto(text);
+                }
+              }}
+              keyboardType="numeric" 
+              maxLength={7}
+              multiline={false}
             />
           </View>
 
           <Picker
             style={editarMenuStyle.selectMenu}
-            selectedValue={selectedLanguage}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedLanguage(itemValue)
-            }
+            selectedValue={statusProduto}
+            onValueChange={(itemValue) => setStatusProduto(itemValue)}
+          >
+            <Picker.Item label="Disponível" value="ativo" />
+            <Picker.Item label="Indisponível" value="inativo" />
+          </Picker>
+
+          {/* <Picker
+            style={editarMenuStyle.selectMenu}
+            selectedValue={categoriaProduto}
+            onValueChange={(itemValue) => setCategoriaProduto(itemValue)}
           >
             <Picker.Item label="Açaí" value="acai" />
             <Picker.Item label="Sorvete de pote" value="sorvetePote" />
-            <Picker.Item label="picolé" value="picole" />
-          </Picker>
+            <Picker.Item label="Picolé" value="picole" />
+          </Picker> */}
 
           <View style={editarMenuStyle.containarBtn}>
             <View style={editarMenuStyle.boxBtnCancelar}>
               <TouchableOpacity
                 style={editarMenuStyle.btnCancelar}
-                onPress={() => navigation.navigate("VisualizarMenu")}
+                onPress={() => navigation.goBack()}
               >
                 Cancelar
               </TouchableOpacity>
             </View>
 
-            <View style={editarMenuStyle.boxBtnSalvar}>
-              <TouchableOpacity style={editarMenuStyle.btnSalvar}>
+            <View style={editarMenuStyle.btnSalvar}>
+              <TouchableOpacity 
+                style={editarMenuStyle.btnSalvar}
+                onPress={handleSave}
+              >
                 Salvar
               </TouchableOpacity>
             </View>
@@ -717,6 +840,7 @@ export function EditarMenuScreen({ navigation }) {
     </ScrollView>
   );
 }
+
 
 // export function EstoqueScreen({ navigation }) {
 //   return (
@@ -1462,7 +1586,7 @@ function Routes() {
       />
 
       <Stack.Screen
-        name="editarMenu"
+        name="EditarMenu"
         component={EditarMenuScreen}
         options={{ headerShown: false }}
       />
