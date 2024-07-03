@@ -504,8 +504,8 @@ export function MenuScreen({ navigation }) {
                 {filterProdutos(produtos, searchQuery).map((item) => (
                 <View key={item.id} style={menuStyle.boxContainerMenu}>
                   <View>
-                    <Image
-                      source={{  uri: `http://127.0.0.1:8000/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
+                    <Image             // mudar o endereço quando for subir o app
+                      source={{  uri: `http://127.0.0.1:8000/storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
                       style={{ width: 120, height: 120 }}
                     />
                     <Text style={menuStyle.precoMenu}>R$ {item.valorProduto}</Text>
@@ -602,7 +602,7 @@ export function VisualizarMenuScreen({ navigation }) {
             <Text style={visualizarMenuStyle.tituloVisualizarMenu}>Detalhes</Text>
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image
-                source={{ uri: `http://127.0.0.1:8000/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
+                source={{ uri: `http://127.0.0.1:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
                 style={{ width: 120, height: 120 }}
               />
               <Text style={visualizarMenuStyle.precoVisualizarMenu}>R$ {produto.valorProduto}</Text>
@@ -652,9 +652,8 @@ export function EditarMenuScreen({ navigation, route }) {
   const [categoriaProduto, setCategoriaProduto] = useState('');
   const [valorProduto, setValorProduto] = useState('');
   const [statusProduto, setStatusProduto] = useState('');
-  const [fotoProduto, setFotoProduto] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null); // Novo estado para a imagem selecionada
-  const selectedImageRef = useRef(null); // Utilizando useRef para manter o valor de selectedImage
+  const [selectedImage, setSelectedImage] = useState(null);
+  const selectedImageBase64Ref = useRef(null);
 
   useEffect(() => {
     if (route.params && route.params.produto) {
@@ -664,28 +663,29 @@ export function EditarMenuScreen({ navigation, route }) {
       setCategoriaProduto(produto.categoriaProduto);
       setValorProduto(produto.valorProduto);
       setStatusProduto(produto.statusProduto);
-      setFotoProduto(produto.fotoProduto);
-      selectedImageRef.current = `http://127.0.0.1:8000/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`;
-      setSelectedImage(selectedImageRef.current); // Atualizar o estado da imagem selecionada
+      // Se você deseja carregar a imagem atual do produto, ajuste conforme necessário
+      setSelectedImage(`http://127.0.0.1:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
     }
   }, [route.params]);
 
   const handleImagePicker = () => {
     const options = {
       mediaType: 'photo',
-      includeBase64: false,
+      includeBase64: true, // Incluir base64 no resultado
     };
-  
+
     launchImageLibrary(options, (resposta) => {
       if (resposta.didCancel) {
         console.log('Seleção de imagem cancelada pelo usuário');
       } else if (resposta.error) {
         console.log('Erro ao selecionar imagem: ', resposta.error);
       } else {
+        const base64Image = resposta.assets[0].base64;
         const uri = resposta.assets[0].uri;
         console.log('URI da imagem selecionada:', uri);
-        selectedImageRef.current = uri; // Atualizando useRef para manter o valor de selectedImage
-        setSelectedImage(uri); // Atualizar o estado da imagem selecionada
+        console.log('Imagem base64:', base64Image);
+        selectedImageBase64Ref.current = base64Image;
+        setSelectedImage(uri); // Atualiza a visualização da imagem selecionada
       }
     });
   };
@@ -694,33 +694,16 @@ export function EditarMenuScreen({ navigation, route }) {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const formData = new FormData();
-  
+
       formData.append('nomeProduto', nomeProduto);
       formData.append('descricaoProduto', descricaoProduto);
       formData.append('valorProduto', valorProduto);
       formData.append('categoriaProduto', categoriaProduto);
       formData.append('statusProduto', statusProduto);
 
-      if (selectedImageRef.current && selectedImageRef.current !== `http://127.0.0.1:8000/img/produtos/${categoriaProduto}/${fotoProduto}`) {
-        const uri = selectedImageRef.current;
-        const filename = uri.split('/').pop();
-        const match = /\.(\w+)$/.exec(filename);
-        const type = match ? `image/${match[1]}` : 'image';
-  
-        // Cria um objeto de arquivo para a imagem selecionada
-        const imageFile = {
-          uri: uri,
-          name: filename,
-          type: type,
-        };
-        console.log('uri:', uri);
-        console.log('Tipo do arquivo:', type);
-        console.log('Nome do arquivo:', filename);
-        console.log('Objeto de arquivo:', imageFile);
-        formData.append('fotoProduto', imageFile);
+      if (selectedImageBase64Ref.current) {
+        formData.append('fotoProduto', selectedImageBase64Ref.current);
       }
-
-      console.log("Dados sendo enviados:", formData);
 
       const resposta = await axios.post(`http://127.0.0.1:8000/api/produtos/${route.params.produto.id}`, formData, {
         headers: {
@@ -729,19 +712,15 @@ export function EditarMenuScreen({ navigation, route }) {
         },
       });
 
-
-
       if (resposta.status === 200) {
-
         navigation.navigate('VisualizarMenu', { idProduto: route.params.produto.id });
       } else {
-
         console.error('Erro ao salvar o produto:', resposta.status);
       }
     } catch (error) {
-
       console.error('Erro ao salvar o produto:', error);
     }
+  
   };
 
   return (
@@ -753,7 +732,7 @@ export function EditarMenuScreen({ navigation, route }) {
 
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image 
-                source={{ uri: selectedImage || `http://127.0.0.1:8000/img/produtos/${categoriaProduto}/${fotoProduto}` }} 
+                source={{ uri: selectedImage }} 
                 style={{ width: 120, height: 120 }}
               />
             </View>
