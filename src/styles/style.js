@@ -818,6 +818,7 @@ export const funcionarioStyle = ({
   containerFuncionarios: {
     padding: 15,
     flexDirection: 'row',
+    flexWrap: 'wrap',
     width: '100%',  
   },
 

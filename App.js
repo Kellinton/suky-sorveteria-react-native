@@ -1364,6 +1364,43 @@ export function EditarPerfilScreen({ navigation }) {
 }
 
 export function FuncionarioScreen({ navigation }) {
+  const [funcionarios, setFuncionarios] = useState([]);
+  const [totalFuncionarios, setTotalFuncionarios] = useState(0);
+  const [mediaSalarial, setMediaSalarial] = useState(0);
+  const [funcionariosInativos, setFuncionariosInativos] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const fetchFuncionarios = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        const resposta = await axios.get('http://127.0.0.1:8000/api/funcionarios', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setFuncionarios(resposta.data.funcionarios);
+        setTotalFuncionarios(resposta.data.totalFuncionarios);
+        setMediaSalarial(resposta.data.mediaSalarial);
+        setFuncionariosInativos(resposta.data.funcionariosInativos);
+      } catch (error) {
+        console.error('Erro ao buscar: ', error);
+      }
+    };
+
+    fetchFuncionarios();
+  }, []);
+
+
+  const filterFuncionarios = (funcionarios, searchQuery) => {
+    if (!searchQuery) return funcionarios;
+    return funcionarios.filter((funcionario) =>
+      funcionario.nomeFuncionario.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
+
   return (
     <View style={{ flex: 1, backgroundColor: "#F4F8FF" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -1381,7 +1418,7 @@ export function FuncionarioScreen({ navigation }) {
               <View style={dashboardStyle.containerEstatisticas}>
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="people" size={25} color="#FFF" />
-                  <span>2</span>
+                  <span>{totalFuncionarios}</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>
                     Funcionários
                   </span>
@@ -1389,15 +1426,15 @@ export function FuncionarioScreen({ navigation }) {
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="logo-usd" size={25} color="#FFF" />
-                  <span>R$ 8.290</span>
+                  <span>R$ {mediaSalarial}</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>
-                    Valor em Pagamentos
+                    Média Salarial
                   </span>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="eye-off" size={25} color="#FFF" />
-                  <span>4</span>
+                  <span>{funcionariosInativos}</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>
                     Indisponíveis
                   </span>
@@ -1410,23 +1447,23 @@ export function FuncionarioScreen({ navigation }) {
               <TextInput
                 style={menuStyle.titleBuscarMenu}
                 placeholder="Buscar"
+                onChangeText={(text) => setSearchQuery(text)}
+                value={searchQuery}
               />
             </View>
 
             <View style={funcionarioStyle.containerFuncionarios}>
-              <View style={funcionarioStyle.boxFuncionario}>
-                <Image source={require("./assets/funcionarioAna.png")}></Image>
+            {filterFuncionarios(funcionarios, searchQuery).map((funcionario) => (
+              <View key={funcionario.id} style={funcionarioStyle.boxFuncionario}>
+                <Image 
+                   source={{  uri: `http://127.0.0.1:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
+                   style={{ width: 80, height: 80,  borderRadius: 40 }}
+                />
                 <View style={funcionarioStyle.boxNomeFuncionario}>
-                  <Text style={funcionarioStyle.nomeFuncionario}>Ana</Text>
+                  <Text style={funcionarioStyle.nomeFuncionario}>{funcionario.nomeFuncionario}</Text>
                 </View>
               </View>
-
-              <View style={funcionarioStyle.boxFuncionario}>
-                <Image source={require("./assets/funcionarioJoao.png")}></Image>
-                <View style={funcionarioStyle.boxNomeFuncionario}>
-                  <Text style={funcionarioStyle.nomeFuncionario}>João</Text>
-                </View>
-              </View>
+            ))}
             </View>
           </View>
         </SafeAreaView>
