@@ -965,6 +965,43 @@ export function EditarMenuScreen({ navigation, route }) {
 // }
 
 export function MensagensScreen({ navigation }) {
+  const [mensagens, setMensagens] = useState([]);
+  const [naoRespondidas, setNaoRespondidas] = useState(0);
+  const [mensagensRespondidas, setMensagensRespondidas] = useState(0);
+  const [mensagensTotais, setMensagensTotais] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const fetchMensagens = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        const resposta = await axios.get('http://127.0.0.1:8000/api/contatos', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setMensagens(resposta.data.mensagens);
+        setNaoRespondidas(resposta.data.naoRespondidas);
+        setMensagensRespondidas(resposta.data.mensagensRespondidas);
+        setMensagensTotais(resposta.data.mensagensTotais);
+      } catch (error) {
+        console.error('Erro ao buscar as mensagens: ', error);
+      }
+    };
+
+    fetchMensagens();
+  }, []);
+
+
+  const filterMensagens = (mensagens, searchQuery) => {
+    if (!searchQuery) return mensagens;
+    return mensagens.filter((mensagem) =>
+      mensagem.assuntoContato.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
+
   return (
     <View style={{ flex: 1, backgroundColor: "#F4F8FF" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -982,7 +1019,7 @@ export function MensagensScreen({ navigation }) {
               <View style={dashboardStyle.containerEstatisticas}>
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="chatbubble-outline" size={25} color="#FFF" />
-                  <span>52</span>
+                  <span>{naoRespondidas}</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>Ativas</span>
                 </View>
 
@@ -992,7 +1029,7 @@ export function MensagensScreen({ navigation }) {
                     size={25}
                     color="#FFF"
                   />
-                  <span>47</span>
+                  <span>{mensagensRespondidas}</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>
                     Respondidas
                   </span>
@@ -1000,7 +1037,7 @@ export function MensagensScreen({ navigation }) {
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="chatbubbles-outline" size={25} color="#FFF" />
-                  <span>224</span>
+                  <span>{mensagensTotais}</span>
                   <span style={dashboardStyle.txtBoxEstatisticas}>Totais</span>
                 </View>
               </View>
@@ -1011,6 +1048,8 @@ export function MensagensScreen({ navigation }) {
               <TextInput
                 style={menuStyle.titleBuscarMenu}
                 placeholder="Buscar"
+                onChangeText={(text) => setSearchQuery(text)}
+                value={searchQuery}
               />
             </View>
 
@@ -1020,80 +1059,28 @@ export function MensagensScreen({ navigation }) {
               </Text>
             </View>
 
-            <View style={dashboardStyle.boxMensagem}>
-              <Image
-                source={require("./assets/fotoPerfil.png")}
-                style={dashboardStyle.imgMensagem}
-              ></Image>
+            {filterMensagens(mensagens, searchQuery).map((mensagem) => (
+            <View key={mensagem.id} style={dashboardStyle.boxMensagem}>
 
-              <View>
-                <Text>Gustavo Sampaio Soier</Text>
-                <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
+              <View style={dashboardStyle.boxMensagemInfo}>
+                <Image
+                  source={require("./assets/foto_mensagem.png")}
+                  style={dashboardStyle.imgMensagem}
+                ></Image>
+
+                <View style={StyleSheet.mensagem}>
+                  <Text style={dashboardStyle.nomeMensagem}>{mensagem.nomeContato}</Text>
+                  <Text style={dashboardStyle.assuntoMensagem}>{mensagem.mensagemContato}</Text>
+                </View>
               </View>
 
-              <Text style={dashboardStyle.horarioMensagem}>1h</Text>
+              <View style={dashboardStyle.boxhorarioMensagem}>
+                <Text style={dashboardStyle.horarioMensagem}>{mensagem.created_at}</Text>
+              </View>
 
-              <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-                <Ionicons name="trash-outline" size={22}></Ionicons>
-              </TouchableOpacity>
             </View>
+            ))}
 
-            <View style={dashboardStyle.boxMensagem}>
-              <Image
-                source={require("./assets/fotoPerfil.png")}
-                style={dashboardStyle.imgMensagem}
-              ></Image>
-
-              <View>
-                <Text>Gustavo Sampaio Soier</Text>
-                <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
-              </View>
-
-              <Text style={dashboardStyle.horarioMensagem}>2h</Text>
-
-              <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-                <Ionicons name="trash-outline" size={22}></Ionicons>
-              </TouchableOpacity>
-            </View>
-
-            <View style={dashboardStyle.boxMensagem}>
-              <Image
-                source={require("./assets/fotoPerfil.png")}
-                style={dashboardStyle.imgMensagem}
-              ></Image>
-
-              <View>
-                <Text>Gustavo Sampaio Soier</Text>
-                <Text style={dashboardStyle.assuntoMensagem}>Assunto: ...</Text>
-              </View>
-
-              <Text style={dashboardStyle.horarioMensagem}>3h</Text>
-
-              <TouchableOpacity style={dashboardStyle.lixeiraDashboard}>
-                <Ionicons name="trash-outline" size={22}></Ionicons>
-              </TouchableOpacity>
-            </View>
-
-            {/* <View style={menuStyle.containerMenu}>
-              <View style={menuStyle.boxMenuActive}>
-                <Image source={require("./assets/acai-icon1.png")} />
-                <Text style={menuStyle.txtBoxMenuActive}>Açai</Text>
-              </View>
-
-              <View style={menuStyle.boxMenu}>
-                <Image source={require("./assets/pote-roxo-icon1.png")} />
-                <Text style={menuStyle.txtBoxMenu}>Sorvete de Pote</Text>
-              </View>
-
-              <View style={menuStyle.boxMenu}>
-                <Image source={require("./assets/picole-roxo-icon1.png")} />
-                <Text style={menuStyle.txtBoxMenu}>Picolé</Text>
-              </View>
-            </View> */}
-
-            {/* <View style={menuStyle.imgSemEstoque}>
-              <Image source={require("./assets/semEstoque.png")} />
-            </View> */}
           </View>
         </SafeAreaView>
       </ScrollView>
