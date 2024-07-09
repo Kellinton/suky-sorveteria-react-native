@@ -12,7 +12,6 @@ import {
   Text,
   View,
   Image,
-  Span,
   TextInput,
   ImageBackground,
   TouchableOpacity,
@@ -67,8 +66,8 @@ export function LoginScreen({ navigation }) {
 
   // Define uma função assíncrona chamada "handleLogin". Esta função será usada para lidar com o evento de login.
   const handleLogin = async () => {
-    //Verificar se o email ou a senha estão preenchidos
-    if (!email.trim() || !senha.trim()) {
+     //Verificar se o email ou a senha estão preenchidos
+     if (!email.trim() || !senha.trim()) {
       setErrorModalVisible(true);
       return;
     }
@@ -103,6 +102,7 @@ export function LoginScreen({ navigation }) {
     }
   };
 
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <View style={loginStyle.boxFundo}>
@@ -111,7 +111,7 @@ export function LoginScreen({ navigation }) {
           style={loginStyle.img}
         ></ImageBackground>
         <Text style={loginStyle.txtFundo}>
-          <Text style={loginStyle.spanFundo}>Sorveteria</Text> {"\n"}
+          <Text style={loginStyle.spanFundo}>Sorveteria</Text> 
           Faça o login para acessar a área administrativa da sorveteria.
         </Text>
       </View>
@@ -149,7 +149,7 @@ export function LoginScreen({ navigation }) {
   
         <TouchableOpacity
           style={loginStyle.txtForgetPassword}
-          onPress={() => navigation.navigate("EsqueciSenha")}
+          // onPress={() => navigation.navigate("EsqueciSenha")}
         >
           Esqueceu a senha?
         </TouchableOpacity>
@@ -189,10 +189,10 @@ export function DashboardScreen({ navigation, route }) {
 
   const { idFuncionario } = route.params || {}; // Carrega mesmo sem informação
 
-  const [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-    Roboto_700Bold,
-  });
+   const [fontsLoaded] = useFonts({
+     Roboto_400Regular,
+     Roboto_700Bold,
+   });
 
   console.log("Cód Funcionario: ", idFuncionario);
   console.log(route.params);
@@ -244,9 +244,7 @@ export function DashboardScreen({ navigation, route }) {
 }
   
 
-if (!fontsLoaded) {
-  return <AppLoading />; // Mostra um indicador de carregamento até que as fontes estejam carregadas
-}
+
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -262,8 +260,7 @@ if (!fontsLoaded) {
         >
           <View style={dashboardStyle.topDashContainer}>
             <View style={dashboardStyle.topDashInfo}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("visualizarPerfil")}
+              <View           
               >
                 {fotoFuncionario && (
                   <Image
@@ -271,7 +268,7 @@ if (!fontsLoaded) {
                     style={{ width: 50, height: 50, borderRadius: 10 }}
                   />
                 )}
-              </TouchableOpacity>
+              </View>
 
               <View style={{ marginLeft: 10 }}>
                 <Text style={dashboardStyle.nomeDash}>
@@ -284,7 +281,7 @@ if (!fontsLoaded) {
             <TouchableOpacity
               onPress={() => setVisible(true)}
               style={dashboardStyle.btnNotificacao}>
-              <Ionicons name="settings" size={28} color="#FFF"></Ionicons>
+              <Ionicons name="settings" size={24} color="#FFF"></Ionicons>
             </TouchableOpacity>
 
             <Modal
@@ -318,9 +315,9 @@ if (!fontsLoaded) {
           <View style={dashboardStyle.bannerDash}>
             <View>
               <Text style={dashboardStyle.txtBanner}>Gerenciar</Text>
-              <span style={dashboardStyle.spanBanner}>Produtos</span>
+              <Text style={dashboardStyle.spanBanner}>Produtos</Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate("dashboard")}
+                onPress={() => navigation.navigate("Menu")}
                 style={dashboardStyle.btnBanner}
               >
                 <Text style={dashboardStyle.txtBtnBanner}>Acessar</Text>
@@ -338,21 +335,21 @@ if (!fontsLoaded) {
           <View style={dashboardStyle.containerEstatisticas}>
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons name="cube" size={22} color="#FFF"></Ionicons>
-              <span>R$ {totalValorProdutos}</span>
-              <span style={dashboardStyle.txtBoxEstatisticas}>Valor
-              Produtos</span>
+              <Text style={dashboardStyle.txtBoxEstatisticas}>R$ {totalValorProdutos}</Text>
+              <Text style={dashboardStyle.txtBoxEstatisticas}>Valor
+              Produtos</Text>
             </View>
 
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons name="ice-cream" size={22} color="#FFF"></Ionicons>
-              <span>{totalProdutos}</span>
-              <span style={dashboardStyle.txtBoxEstatisticas}>Produtos</span>
+              <Text style={dashboardStyle.txtBoxEstatisticas}>{totalProdutos}</Text>
+              <Text style={dashboardStyle.txtBoxEstatisticas}>Produtos</Text>
             </View>
 
             <View style={dashboardStyle.boxEstatisticas}>
               <Ionicons name="people" size={22} color="#FFF"></Ionicons>
-              <span>{totalFuncionarios}</span>
-              <span style={dashboardStyle.txtBoxEstatisticas}>Funcionários</span>
+              <Text style={dashboardStyle.txtBoxEstatisticas}>{totalFuncionarios}</Text>
+              <Text style={dashboardStyle.txtBoxEstatisticas}>Funcionários</Text>
             </View>
           </View>
 
@@ -404,6 +401,7 @@ export function MenuScreen({ navigation }) {
   const [valorMedioProdutos, setValorMedioProdutos] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
+
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
@@ -442,99 +440,95 @@ export function MenuScreen({ navigation }) {
             justifyContent: 'center',
             alignItems: 'center',
             position: 'relative',
+            backgroundColor: '#8A19D6',
           }}
         >
           <View style={menuStyle.boxTopoMenu}>
             <Text style={menuStyle.tituloMenu}>Menu</Text>
-            <View style={dashboardStyle.containerEstatisticas}>
+            <View style={menuStyle.containerEstatisticasMenu}>
               <View style={menuStyle.boxEstatisticasMenu}>
-                <Ionicons name="ice-cream" size={25} color="#FFF" />
-                <Text>{totalProdutos}</Text>
-                <Text style={dashboardStyle.txtBoxEstatisticas}>Produtos</Text>
+                <Ionicons name="ice-cream" size={30} color="#FFF" />
+                <Text style={menuStyle.txtBoxEstatisticasMenu}>{totalProdutos}</Text>
+                <Text style={menuStyle.txtBoxEstatisticasMenu}>Produtos</Text>
               </View>
 
               <View style={menuStyle.boxEstatisticasMenu}>
-                <Ionicons name="logo-usd" size={25} color="#FFF" />
-                <Text>R$ {valorMedioProdutos}</Text>
-                <Text style={dashboardStyle.txtBoxEstatisticas}>Valor Médio</Text>
+                <Ionicons name="logo-usd" size={30} color="#FFF" />
+                <Text style={menuStyle.txtBoxEstatisticasMenu}>R$ {valorMedioProdutos}</Text>
+                <Text style={menuStyle.txtBoxEstatisticasMenu}>Valor Médio</Text>
               </View>
 
               <View style={menuStyle.boxEstatisticasMenu}>
-                <Ionicons name="eye-off" size={25} color="#FFF" />
-                <Text>R$ {totalValorProdutos}</Text>
-                <Text style={dashboardStyle.txtBoxEstatisticas}>Valor Total</Text>
+                <Ionicons name="cash" size={30} color="#FFF" />
+                <Text style={menuStyle.txtBoxEstatisticasMenu}>R$ {totalValorProdutos}</Text>
+                <Text style={menuStyle.txtBoxEstatisticasMenu}>Valor Total</Text>
               </View>
             </View>
           </View>
-
-          <View style={menuStyle.buscarMenu}>
-            <Ionicons name="search-outline" size={18} />
-            <TextInput
-              style={menuStyle.titleBuscarMenu}
-              placeholder="Buscar"
-              onChangeText={(text) => setSearchQuery(text)}
-              value={searchQuery}
-            />
-          </View>
-
-          <View style={{ alignItems: 'center' }}>
+          <View style={menuStyle.menuContainer}>
+            <View style={menuStyle.buscarMenuContainer}>
+              <View style={menuStyle.buscarMenu}>
+                <Ionicons name="search-outline" size={18} />
+                <TextInput
+                  style={menuStyle.titleBuscarMenu}
+                  placeholder="Buscar..."
+                  onChangeText={(text) => setSearchQuery(text)}
+                  value={searchQuery}
+                />
+              </View>
+              <TouchableOpacity
+                style={menuStyle.btnFiltroMenu}
+              >
+                <Ionicons name="apps" size={20} color="#FFF" />
+              </TouchableOpacity>
+            </View>
+            <View style={{ alignItems: 'center' }}>
               <View style={menuStyle.containerMainmenu}>
                 {filterProdutos(produtos, searchQuery).map((item) => (
-                <View key={item.id} style={menuStyle.boxContainerMenu}>
-                  <View>
-                    <Image             // mudar o endereço quando for subir o app
-                      source={{  uri: `http://127.0.0.1:8000/storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
-                      style={{ width: 120, height: 120 }}
-                    />
-                    <Text style={menuStyle.precoMenu}>R$ {item.valorProduto}</Text>
-                  </View>
-
-                  <View style={menuStyle.cardMenu}>
-                    <Text style={menuStyle.tituloCardMenu}>{item.nomeProduto}</Text>
-                    <Text style={menuStyle.descricaoCardMenu}>
-                      {item.descricaoProduto.length > 35 ?
-                        item.descricaoProduto.substring(0, 35) + '...' :
-                        item.descricaoProduto
-                      }
-                    </Text>
-
-                    <View style={menuStyle.btnCardMenu}>
-                      <View style={menuStyle.iconAcaiMenu}>
-                        <Ionicons name="ice-cream" size={20} color="#C96DFF" />
-                        <Text>
-                          {item.categoriaProduto === 'acai' ? 'Açaí' :
-                          item.categoriaProduto === 'sorvetePote' ? 'Sorvete de Pote' :
-                          item.categoriaProduto === 'picole' ? 'Picolé' :
-                          item.categoriaProduto
-                          }
-                        </Text>
+                    <View key={item.id} style={menuStyle.boxContainerMenu}>
+                      <View>
+                        <Image
+                          source={{ uri: `http://127.0.0.1:8000/storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
+                          style={{ width: 120, height: 120, borderRadius: 20 }}
+                        />
+                        <Text style={menuStyle.precoMenu}>R$ {item.valorProduto}</Text>
                       </View>
 
-                      <TouchableOpacity
-                        style={menuStyle.btnSetaMenu}
-                        onPress={() => navigation.navigate('VisualizarMenu', { idProduto: item.id })}
-                      >
-                        <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
-                      </TouchableOpacity>
+                      <View style={menuStyle.cardMenu}>
+                        <Text style={menuStyle.tituloCardMenu}>{item.nomeProduto}</Text>
+                        <Text style={menuStyle.descricaoCardMenu}>
+                          {item.descricaoProduto.length > 35 ? `${item.descricaoProduto.substring(0, 35)}...` : item.descricaoProduto}
+                        </Text>
+
+                        <View style={menuStyle.btnCardMenu}>
+                          <View style={menuStyle.iconAcaiMenu}>
+                            <Ionicons name="ice-cream" size={20} color="#C96DFF" />
+                            <Text style={{ fontFamily: 'Roboto_400Regular', color: 'gray' }}>
+                              {item.categoriaProduto === 'acai' ? 'Açaí' :
+                                item.categoriaProduto === 'sorvetePote' ? 'Sorvete de Pote' :
+                                item.categoriaProduto === 'picole' ? 'Picolé' :
+                                item.categoriaProduto
+                              }
+                            </Text>
+                          </View>
+
+                          <TouchableOpacity
+                            style={menuStyle.btnSetaMenu}
+                            onPress={() => navigation.navigate('VisualizarMenu', { idProduto: item.id })}
+                          >
+                            <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
                     </View>
-                  </View>
-                </View>
-                ))}
+                  )
+                )}
               </View>
+            </View>
           </View>
-
         </View>
-
-      {/* <View
-        style={[
-          menuStyle.addProduto,
-          { position: 'absolute', bottom: 20, right: 20 },
-        ]}
-      >
-        <Ionicons name="add-outline" size={20} color="#FFF" />
-      </View> */}
-    </SafeAreaView>
-  </ScrollView>
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 
@@ -853,8 +847,8 @@ export function MensagensScreen({ navigation }) {
               <View style={dashboardStyle.containerEstatisticas}>
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="chatbubble-outline" size={25} color="#FFF" />
-                  <span>{naoRespondidas}</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Ativas</span>
+                  <Text>{naoRespondidas}</Text>
+                  <Text style={dashboardStyle.txtBoxEstatisticas}>Ativas</Text>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
@@ -863,16 +857,16 @@ export function MensagensScreen({ navigation }) {
                     size={25}
                     color="#FFF"
                   />
-                  <span>{mensagensRespondidas}</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                  <Text>{mensagensRespondidas}</Text>
+                  <Text style={dashboardStyle.txtBoxEstatisticas}>
                     Respondidas
-                  </span>
+                  </Text>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="chatbubbles-outline" size={25} color="#FFF" />
-                  <span>{mensagensTotais}</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>Totais</span>
+                  <Text>{mensagensTotais}</Text>
+                  <Text style={dashboardStyle.txtBoxEstatisticas}>Totais</Text>
                 </View>
               </View>
             </View>
@@ -1252,26 +1246,26 @@ export function FuncionarioScreen({ navigation }) {
               <View style={dashboardStyle.containerEstatisticas}>
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="people" size={25} color="#FFF" />
-                  <span>{totalFuncionarios}</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                  <Text>{totalFuncionarios}</Text>
+                  <Text style={dashboardStyle.txtBoxEstatisticas}>
                     Funcionários
-                  </span>
+                  </Text>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="logo-usd" size={25} color="#FFF" />
-                  <span>R$ {mediaSalarial}</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                  <Text>R$ {mediaSalarial}</Text>
+                  <Text style={dashboardStyle.txtBoxEstatisticas}>
                     Média Salarial
-                  </span>
+                  </Text>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="eye-off" size={25} color="#FFF" />
-                  <span>{funcionariosInativos}</span>
-                  <span style={dashboardStyle.txtBoxEstatisticas}>
+                  <Text>{funcionariosInativos}</Text>
+                  <Text style={dashboardStyle.txtBoxEstatisticas}>
                     Indisponíveis
-                  </span>
+                  </Text>
                 </View>
               </View>
             </View>
@@ -1315,49 +1309,49 @@ export function FuncionarioScreen({ navigation }) {
   );
 }
 
-export function EsqueciSenhaScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <View style={loginStyle.boxFundo}>
-        <ImageBackground
-          source={require("./assets/fundoLogin.png")}
-          style={loginStyle.img}
-        ></ImageBackground>
-      </View>
+// export function EsqueciSenhaScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <View style={loginStyle.boxFundo}>
+//         <ImageBackground
+//           source={require("./assets/fundoLogin.png")}
+//           style={loginStyle.img}
+//         ></ImageBackground>
+//       </View>
 
-      {/* <StatusBar style="auto" /> */}
+//       {/* <StatusBar style="auto" /> */}
 
-      <View style={loginStyle.container2}>
-        <text style={loginStyle.txtLogin}>Recuperar Senha</text>
-        <TextInput
-          placeholder="Informe seu Email:"
-          placeholderTextColor="gray"
-          style={loginStyle.TextInput}
-        />
+//       <View style={loginStyle.container2}>
+//         <text style={loginStyle.txtLogin}>Recuperar Senha</text>
+//         <TextInput
+//           placeholder="Informe seu Email:"
+//           placeholderTextColor="gray"
+//           style={loginStyle.TextInput}
+//         />
 
-        <TextInput
-          secureTextEntry={true}
-          placeholder="Informe o Token:"
-          placeholderTextColor="gray"
-          style={[loginStyle.TextInput]}
-        />
+//         <TextInput
+//           secureTextEntry={true}
+//           placeholder="Informe o Token:"
+//           placeholderTextColor="gray"
+//           style={[loginStyle.TextInput]}
+//         />
 
-        {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
+//         {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("dashboard")}
-          style={loginStyle.btnLogin}
-        >
-          <Text style={loginStyle.entrarLogin}>Recuperar</Text>
-        </TouchableOpacity>
+//         <TouchableOpacity
+//           onPress={() => navigation.navigate("dashboard")}
+//           style={loginStyle.btnLogin}
+//         >
+//           <Text style={loginStyle.entrarLogin}>Recuperar</Text>
+//         </TouchableOpacity>
 
-        <Text style={loginStyle.txtcodeForge}>
-          Desenvolvido por CodeForge @2024
-        </Text>
-      </View>
-    </View>
-  );
-}
+//         <Text style={loginStyle.txtcodeForge}>
+//           Desenvolvido por CodeForge @2024
+//         </Text>
+//       </View>
+//     </View>
+//   );
+// }
 
 
 const Tab = createBottomTabNavigator();
@@ -1365,7 +1359,12 @@ const Stack = createStackNavigator();
 
 function MyTab({ route }) {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: '#8A19D6', // Cor do texto e ícone quando selecionado (roxo)
+        inactiveTintColor: '#D1D1D1', // Cor do texto e ícone quando não selecionado
+      }}
+    >
       <Tab.Screen
         name="Início"
         component={DashboardScreen}
@@ -1373,7 +1372,7 @@ function MyTab({ route }) {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" color={color} size={size} />
+            <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />
@@ -1384,7 +1383,7 @@ function MyTab({ route }) {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="document-text-outline" color={color} size={size} />
+            <Ionicons name="cube" color={color} size={size} />
           ),
         }}
       />
@@ -1396,7 +1395,7 @@ function MyTab({ route }) {
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons
-              name="chatbubble-ellipses-outline"
+              name="chatbubble-ellipses"
               color={color}
               size={size}
             />
@@ -1415,8 +1414,6 @@ function MyTab({ route }) {
         }}
       />
 
-      {/* <Tab.Screen name="Início" component={DashboardScreen} options={{ headerShown: false, tabBarIcon: ({ color, size }) => <Ionicons name='home-outline' color={color} size={size} />
-       }} /> */}
     </Tab.Navigator>
   );
 }
@@ -1429,11 +1426,11 @@ function Routes() {
         component={LoginScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="EsqueciSenha"
         component={EsqueciSenhaScreen}
         options={{ headerShown: false }}
-      />
+      /> */}
       <Stack.Screen
         name="dashboard"
         component={MyTab}

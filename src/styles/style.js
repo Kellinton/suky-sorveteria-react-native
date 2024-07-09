@@ -176,10 +176,12 @@ export const dashboardStyle = ({
     fontWeight: 'bold',
     fontSize: 22,
     color: '#03314B',
+    fontFamily: 'Roboto_700Bold',
    },
 
   cargoDash: {
     color: '#8C8C8C',
+    fontFamily: 'Roboto_400Regular',
   },
 
   bannerDash: {
@@ -206,14 +208,16 @@ export const dashboardStyle = ({
     color: 'white',
     textAlign: 'center',
     marginTop: 10,
+    fontFamily: 'Roboto_700Bold',
   },
 
   txtBanner: {
     color: 'white',
+    fontFamily: 'Roboto_400Regular',
   },
 
   spanBanner: {
-    fontWeight: 'bold',
+    fontFamily: 'Roboto_700Bold',
     fontSize: 25,
     color: 'white',
   },
@@ -253,13 +257,14 @@ export const dashboardStyle = ({
 
   tituloEstatisticas: {
     fontSize: 22,
-    fontWeight: 600,
     color: '#03314B',
+    fontFamily: 'Roboto_700Bold',
   },
 
   txtBoxEstatisticas: {
     color: 'white',
     fontSize: 14,
+    fontFamily: 'Roboto_400Regular',
   },
 
   boxTituloMensagem: {
@@ -268,13 +273,12 @@ export const dashboardStyle = ({
     marginTop: 30,
     marginBottom: 10,
     color: '#03314B',
-    fontWeight: 600,
   },
 
   tituloMensagem: {
     fontSize: 22,
-    fontWeight: 600,
     color: '#03314B',
+    fontFamily: 'Roboto_700Bold',
   },
 
   boxMensagem: {
@@ -299,19 +303,19 @@ export const dashboardStyle = ({
   },
 
   nomeMensagem: {
-    fontWeight: 600,
+    fontFamily: 'Roboto_700Bold',
     color: '#03314B',
   },
 
   assuntoMensagem: {
-    fontWeight: 200,
+    fontFamily: 'Roboto_400Regular',
     color: '#8C8C8C',
   },
 
   horarioMensagem: {
     marginLeft: '10%',
     marginBottom: '5%',
-    fontWeight: 600,
+    fontFamily: 'Roboto_700Bold',
     color: '#03314B',
   },
 
@@ -346,31 +350,51 @@ export const menuStyle = ({
     color: 'white',
     textAlign: 'center',
     marginBottom: '5%',
+    fontFamily: 'Roboto_700Bold',
   },
 
-  buscarMenu: {
-    backgroundColor: '#E2E8F0',
+  buscarMenuContainer: {
     width: '90%',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    justifyContent: 'space-between',
     borderRadius: 15,
-    marginTop: '5%',
+    marginTop: '10%',
   },
-
+  buscarMenu: {
+    backgroundColor: '#fff',
+    width: '80%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    height: 50,
+    borderRadius: 10,
+  },
+  btnFiltroMenu: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#8A19D6',
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+  },
   titleBuscarMenu: {
     marginLeft: 10,
     flex: 1, 
   },
 
-  containerMenu: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    textAlign: 'center',
+  menuContainer: {
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#F4F8FF',
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
   },
 
   boxMenu: {
-    backgroundColor: '#F6E8FF',
+    backgroundColor: '#fff',
     width: 105,
     height: 100,
     borderRadius: 10,
@@ -420,39 +444,54 @@ export const menuStyle = ({
   },
 
   boxTopoMenu: {
-    backgroundColor: '#922ADE',
-    padding: 10,
-    marginBottom: '5%',
-  },
-
-  boxEstatisticasMenu: {
-    marginBottom: '5%',
-    width: 100,
-    height: 100,
     backgroundColor: '#8A19D6',
-    borderRadius: 15,
-    borderWidth: 0, 
-    marginRight: 15,
-    marginLeft: 15,
-    color: 'white',
+    width: '100%',
+    height: 250,
+    padding: 10,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
+  boxEstatisticasMenu: {
+    width: 100,
+    height: 100,
+    color: 'white',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  txtBoxEstatisticasMenu: {
+    color: 'white',
+    fontFamily: 'Roboto_400Regular',
+  },
+  containerEstatisticasMenu: {
+    height: 120,
+    width: '90%',
+    backgroundColor: '#922ADE',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    borderWidth: 0, 
+  },
   containerMainmenu: {
     width: '90%',
     backgroundColor: 'white',
-    borderRadius: 20,
     padding: 20,
     marginTop: '5%',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
   },
 
   boxContainerMenu: {
+
     marginBottom: '5%',
     flexDirection: 'row',
-
   },
-
+  imagemSemResultado: {
+    width: 100,
+    height: 100,
+  },
   cardImgMenu: {
     position: 'relative',
   },
@@ -462,7 +501,6 @@ export const menuStyle = ({
     paddingTop: 7,
     paddingBottom: 7,
     position: 'absolute',
-    borderRadius: 10,
     top: 0,
     width: '60%',
     left: '40%',
@@ -470,6 +508,9 @@ export const menuStyle = ({
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    fontFamily: 'Roboto_400Regular',
   },
 
   cardMenu: {
@@ -481,10 +522,12 @@ export const menuStyle = ({
   tituloCardMenu: {
     fontWeight: 'bold',
     marginBottom: 5, 
+    fontFamily: 'Roboto_700Bold',
   },
 
   descricaoCardMenu: {
     color: 'gray',
+    fontFamily: 'Roboto_400Regular',
   },
 
   btnCardMenu: {
@@ -851,3 +894,4 @@ export const funcionarioStyle = ({
     marginTop: '10%'
   },
 });
+
