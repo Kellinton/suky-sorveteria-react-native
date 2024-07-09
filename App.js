@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react"; // Reconhece os comandos de
 import Modal from "react-native-modal";
 import axios from "axios"; // Faz a requisição HTTP para a API
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Para fazer o storage
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import {
   StyleSheet,
@@ -26,15 +27,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Picker } from "@react-native-picker/picker";
 import { launchImageLibrary } from 'react-native-image-picker';
-import {
-  useFonts,
-  Inter_300Light,
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_800ExtraBold,
-  Inter_700Bold,
-  Inter_600SemiBold,
-} from "@expo-google-fonts/inter";
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import { AppLoading } from 'expo'; // Componente de carregamento
+
+// Style
 import { loginStyle } from "./src/styles/style";
 import { dashboardStyle } from "./src/styles/style";
 import { menuStyle } from "./src/styles/style";
@@ -44,6 +40,7 @@ import { visualizarPerfilStyle } from "./src/styles/style";
 import { funcionarioStyle } from "./src/styles/style";
 import { visualizarMenuStyle } from "./src/styles/style";
 import { editarMenuStyle } from "./src/styles/style";
+
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from '@react-navigation/native';
@@ -61,6 +58,12 @@ export function LoginScreen({ navigation }) {
 
   const [isFocused, setIsFocused] = React.useState(false);
   // Cria uma variável de estado chamada "isFocused" e uma função "setIsFocused" para atualizá-la. O estado inicial é "false". Essa variável pode ser usada para indicar se um campo de entrada está focado ou não.
+
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
+
 
   // Define uma função assíncrona chamada "handleLogin". Esta função será usada para lidar com o evento de login.
   const handleLogin = async () => {
@@ -107,50 +110,60 @@ export function LoginScreen({ navigation }) {
           source={require("./assets/fundoLogin.png")}
           style={loginStyle.img}
         ></ImageBackground>
-        <text style={loginStyle.txtFundo}>
-          <span style={loginStyle.spanFundo}>Sorveteria</span> <br></br>Faça o
-          login para acessar a área administrativa da sorveteria.
-        </text>
+        <Text style={loginStyle.txtFundo}>
+          <Text style={loginStyle.spanFundo}>Sorveteria</Text> {"\n"}
+          Faça o login para acessar a área administrativa da sorveteria.
+        </Text>
       </View>
-
+  
       {/* <StatusBar style="auto" /> */}
-
+  
       <View style={loginStyle.container2}>
-        <text style={loginStyle.txtLogin}>Login</text>
-        <TextInput
-          placeholder="Seu Email:"
-          placeholderTextColor="gray"
-          style={loginStyle.TextInput}
-          value={email}
-          onChangeText={setEmail}
-        />
+        <Text style={loginStyle.txtLogin}>Login</Text>
 
-        <TextInput
-          secureTextEntry={true}
-          placeholder="Sua Senha:"
-          placeholderTextColor="gray"
-          style={[loginStyle.TextInput]}
-          value={senha}
-          onChangeText={setSenha}
-        />
+        <View style={loginStyle.inputContainer}>
+          <Icon name="mail-outline" size={20} color="gray" style={loginStyle.icon} />
+          <TextInput
+            placeholder="Seu Email:"
+            placeholderTextColor="gray"
+            style={loginStyle.TextInput}
+            value={email}
+            onChangeText={setEmail}
+            underlineColorAndroid="transparent"
+          />
+        </View>
 
+  
+        <View style={loginStyle.inputContainer}>
+          <Icon name="lock-closed-outline" size={20} color="gray" style={loginStyle.icon} />
+          <TextInput
+            secureTextEntry={true}
+            placeholder="Sua Senha:"
+            placeholderTextColor="gray"
+            style={loginStyle.TextInput}
+            value={senha}
+            onChangeText={setSenha}
+            underlineColorAndroid="transparent"
+          />
+        </View>
+  
         <TouchableOpacity
           style={loginStyle.txtForgetPassword}
           onPress={() => navigation.navigate("EsqueciSenha")}
         >
           Esqueceu a senha?
         </TouchableOpacity>
-
+  
         {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
-
+  
         <TouchableOpacity onPress={handleLogin} style={loginStyle.btnLogin}>
-          <Text style={loginStyle.entrarLogin}>ENTRAR</Text>
+          <Text style={loginStyle.entrarLogin}>Entrar</Text>
         </TouchableOpacity>
-
+  
         <Text style={loginStyle.txtcodeForge}>
           Desenvolvido por CodeForge @2024
         </Text>
-
+  
         <Modal
           isVisible={errorModalVisible}
           onBackdropPress={() => setErrorModalVisible(false)}
@@ -168,57 +181,18 @@ export function LoginScreen({ navigation }) {
       </View>
     </View>
   );
-}
-
-export function EsqueciSenhaScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <View style={loginStyle.boxFundo}>
-        <ImageBackground
-          source={require("./assets/fundoLogin.png")}
-          style={loginStyle.img}
-        ></ImageBackground>
-      </View>
-
-      {/* <StatusBar style="auto" /> */}
-
-      <View style={loginStyle.container2}>
-        <text style={loginStyle.txtLogin}>Recuperar Senha</text>
-        <TextInput
-          placeholder="Informe seu Email:"
-          placeholderTextColor="gray"
-          style={loginStyle.TextInput}
-        />
-
-        <TextInput
-          secureTextEntry={true}
-          placeholder="Informe o Token:"
-          placeholderTextColor="gray"
-          style={[loginStyle.TextInput]}
-        />
-
-        {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate("dashboard")}
-          style={loginStyle.btnLogin}
-        >
-          <Text style={loginStyle.entrarLogin}>Recuperar</Text>
-        </TouchableOpacity>
-
-        <Text style={loginStyle.txtcodeForge}>
-          Desenvolvido por CodeForge @2024
-        </Text>
-      </View>
-    </View>
-  );
+  
 }
 
 export function DashboardScreen({ navigation, route }) {
-  const [visible, setVisible] =
-    useState(false);
+  const [visible, setVisible] = useState(false);
 
   const { idFuncionario } = route.params || {}; // Carrega mesmo sem informação
+
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
 
   console.log("Cód Funcionario: ", idFuncionario);
   console.log(route.params);
@@ -269,6 +243,10 @@ export function DashboardScreen({ navigation, route }) {
   navigation.navigate('Login'); // Navegar de volta para a tela de login };
 }
   
+
+if (!fontsLoaded) {
+  return <AppLoading />; // Mostra um indicador de carregamento até que as fontes estejam carregadas
+}
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -820,150 +798,6 @@ export function EditarMenuScreen({ navigation, route }) {
   );
 }
 
-
-// export function EstoqueScreen({ navigation }) {
-//   return (
-//     <View
-//       style={{
-//         flex: 1,
-//         justifyContent: "center",
-//         alignItems: "center",
-//         position: "relative",
-//         justifyContent: "center",
-//       }}
-//     >
-//       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-//         <SafeAreaView>
-//           <View style={menuStyle.boxTopoMenu}>
-//             <Text style={menuStyle.tituloMenu}>Estoque</Text>
-//             <View style={dashboardStyle.containerEstatisticas}>
-//               <View style={menuStyle.boxEstatisticasMenu}>
-//                 <Ionicons name="file-tray" size={25} color="#FFF" />
-//                 <span>52</span>
-//                 <span style={dashboardStyle.txtBoxEstatisticas}>Estoque</span>
-//               </View>
-
-//               <View style={menuStyle.boxEstatisticasMenu}>
-//                 <Ionicons name="cash" size={25} color="#FFF" />
-//                 <span>R$ 20.780</span>
-//                 <span style={dashboardStyle.txtBoxEstatisticas}>
-//                   Despesa Mensal
-//                 </span>
-//               </View>
-
-//               <View style={menuStyle.boxEstatisticasMenu}>
-//                 <Ionicons name="eye-off" size={25} color="#FFF" />
-//                 <span>2</span>
-//                 <span style={dashboardStyle.txtBoxEstatisticas}>
-//                   Estoque Baixo
-//                 </span>
-//               </View>
-//             </View>
-//           </View>
-
-//           <View style={menuStyle.buscarMenu}>
-//             <Ionicons name="search-outline" size={18}></Ionicons>
-//             <TextInput style={menuStyle.titleBuscarMenu} placeholder="Buscar" />
-//           </View>
-
-//           <View style={dashboardStyle.boxMensagem}>
-//             <Image
-//               source={require("./assets/acaiEstoque.png")}
-//               style={dashboardStyle.imgMensagem}
-//             ></Image>
-
-//             <View>
-//               <Text>Açai com cereal</Text>
-//               <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>
-//             </View>
-
-//             <View style={estoqueStyle.boxContEstoque}>
-//               <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
-//                 <Ionicons
-//                   name="remove-outline"
-//                   size={22}
-//                   color="#6B50F6"
-//                 ></Ionicons>
-//               </TouchableOpacity>
-
-//               <span style={estoqueStyle.qtdEstoque}>10</span>
-
-//               <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
-//                 <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-
-//           <View style={dashboardStyle.boxMensagem}>
-//             <Image
-//               source={require("./assets/acaiEstoque.png")}
-//               style={dashboardStyle.imgMensagem}
-//             ></Image>
-
-//             <View>
-//               <Text>Açai com morango</Text>
-//               <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>
-//             </View>
-
-//             <View style={estoqueStyle.boxContEstoque}>
-//               <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
-//                 <Ionicons
-//                   name="remove-outline"
-//                   size={22}
-//                   color="#6B50F6"
-//                 ></Ionicons>
-//               </TouchableOpacity>
-
-//               <span style={estoqueStyle.qtdEstoque}>14</span>
-
-//               <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
-//                 <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-
-//           <View style={dashboardStyle.boxMensagem}>
-//             <Image
-//               source={require("./assets/acaiEstoque.png")}
-//               style={dashboardStyle.imgMensagem}
-//             ></Image>
-
-//             <View>
-//               <Text>Açai com banana</Text>
-//               <Text style={estoqueStyle.valorEstoque}>R$ 10</Text>
-//             </View>
-
-//             <View style={estoqueStyle.boxContEstoque}>
-//               <TouchableOpacity style={estoqueStyle.btnDiminuirEstoque}>
-//                 <Ionicons
-//                   name="remove-outline"
-//                   size={22}
-//                   color="#6B50F6"
-//                 ></Ionicons>
-//               </TouchableOpacity>
-
-//               <span style={estoqueStyle.qtdEstoque}>17</span>
-
-//               <TouchableOpacity style={estoqueStyle.btnAdicionarEstoque}>
-//                 <Ionicons name="add-outline" size={22} color="#FFF"></Ionicons>
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-//         </SafeAreaView>
-//       </ScrollView>
-
-//       <View
-//         style={[
-//           menuStyle.addProduto,
-//           { position: "absolute", bottom: 20, right: 20 },
-//         ]}
-//       >
-//         <Ionicons name="add-outline" size={20} color="#FFF" />
-//       </View>
-//     </View>
-//   );
-// }
-
 export function MensagensScreen({ navigation }) {
   const [mensagens, setMensagens] = useState([]);
   const [naoRespondidas, setNaoRespondidas] = useState(0);
@@ -1480,6 +1314,51 @@ export function FuncionarioScreen({ navigation }) {
     </View>
   );
 }
+
+export function EsqueciSenhaScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={loginStyle.boxFundo}>
+        <ImageBackground
+          source={require("./assets/fundoLogin.png")}
+          style={loginStyle.img}
+        ></ImageBackground>
+      </View>
+
+      {/* <StatusBar style="auto" /> */}
+
+      <View style={loginStyle.container2}>
+        <text style={loginStyle.txtLogin}>Recuperar Senha</text>
+        <TextInput
+          placeholder="Informe seu Email:"
+          placeholderTextColor="gray"
+          style={loginStyle.TextInput}
+        />
+
+        <TextInput
+          secureTextEntry={true}
+          placeholder="Informe o Token:"
+          placeholderTextColor="gray"
+          style={[loginStyle.TextInput]}
+        />
+
+        {/* <button style={loginStyle.btn} onPress={() => navigation.navigate('Dashboard')}>ENTRAR</button> */}
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate("dashboard")}
+          style={loginStyle.btnLogin}
+        >
+          <Text style={loginStyle.entrarLogin}>Recuperar</Text>
+        </TouchableOpacity>
+
+        <Text style={loginStyle.txtcodeForge}>
+          Desenvolvido por CodeForge @2024
+        </Text>
+      </View>
+    </View>
+  );
+}
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

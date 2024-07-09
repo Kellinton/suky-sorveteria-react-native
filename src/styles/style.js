@@ -25,15 +25,16 @@ export const loginStyle = ({
     left: '5%',
     fontSize: 15,
     fontWeight: 'normal',
-    fontFamily: 'Inter_400Regular',
+    color: '#fff',
+    fontFamily: 'Roboto_400Regular',
     width: '60%',
     fontSize: 15,
   },
  
   spanFundo: {
     fontSize: 25,
-    fontWeight: 600,
-    fontFamily: 'Inter_700Bold',
+    color: '#fff',
+    fontFamily: 'Roboto_700Bold',
   },
  
   container2: {
@@ -50,12 +51,13 @@ export const loginStyle = ({
   },
  
   txtLogin: {
-    fontFamily: 'Inter_700Bold',
+    fontFamily: 'Roboto_700Bold',
     fontSize: 30,
     marginBottom: 20,
     marginTop: 20,
     fontWeight: 600,
     color: '#8A19D6',
+    textAlign: 'center',
     },
  
   btnLogin: {
@@ -68,33 +70,42 @@ export const loginStyle = ({
     backgroundColor: 'blue',
     alignSelf: 'center',
     backgroundColor: '#8A19D6',
-    fontFamily:  'Inter_600SemiBold',
+    fontFamily:  'Roboto_700Bold',
   },
 
   entrarLogin: {
     color: 'white',
     textAlign: 'center',
     marginTop: 5,
+    fontFamily:  'Roboto_700Bold',
   },
- 
-  TextInput: {
+  inputContainer: {
+    flexDirection: 'row',
     width: '80%',
     height: 50,
-    backgroundColor: 'white',
-    borderTopRadius: 10,
-    marginTop: 15,
-    paddingLeft: 10,
+    alignItems: 'center',
     alignSelf: 'center',
     borderWidth: 1,
-    borderColor: '#E2E8F0',
-    fontFamily:  'Inter_500Medium',
-    paddingLeft: 15,
-    borderRadius: 25,
+    borderColor: '#64748B',
+    borderRadius: 30,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  icon: {
+    marginRight: 10,
+    color: '#8A19D6',
+  },
+  TextInput: {
+    flex: 1,
+    height: 40,
+    color: '#000',
+    backgroundColor: 'transparent',
+    outline: 'none',
   },
  
   txtForgetPassword: {
     color: '#8A19D6',
-    fontFamily: 'Inter_600SemiBold',
+    fontFamily: 'Roboto_700Bold',
     textAlign: 'end',
     marginRight: 50,
     marginTop: 20,
@@ -132,7 +143,7 @@ export const loginStyle = ({
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: '#8A19D6',
-    fontFamily:  'Inter_600SemiBold',
+    fontFamily:  'Roboto_700Bold',
   },
 });
 
@@ -614,7 +625,7 @@ export const editarMenuStyle = ({
     alignSelf: 'left',
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    fontFamily:  'Inter_500Medium',
+    fontFamily:  'Roboto_400Regular',
     paddingLeft: 15,
     borderRadius: 25,
   },
@@ -629,7 +640,7 @@ export const editarMenuStyle = ({
     alignSelf: 'left',
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    fontFamily:  'Inter_500Medium',
+    fontFamily:  'Roboto_400Regular',
     paddingLeft: 15,
     borderRadius: 25,
   },
