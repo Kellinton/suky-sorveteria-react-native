@@ -713,93 +713,95 @@ export function EditarMenuScreen({ navigation, route }) {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
-        <View style={{ flex: 1, justifyContent: 'center', margin: '5%', position: 'relative' }}>
-          <View>
-            <Text style={visualizarMenuStyle.tituloVisualizarMenu}>Editar</Text>
+        <View style={{ flex: 1, justifyContent: 'center', margin: '5%',}}>
+          <View style={editarMenuStyle.containerEditarMenu}>
+              {/* Botão Voltar */}
+              <View style={{ flexDirection: 'row', width: '90%', alignItems: 'center', marginBottom: '5%'}}>
+                <View style={{ width: '17%'}}>
+                  <TouchableOpacity
+                    style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999, }}
+                    onPress={() => navigation.goBack()}
+                  >
+                  <Ionicons name="arrow-back" size={20} color="#FFF" />
+                </TouchableOpacity>
+                </View>
+                <View style={{ width: '83%',}}>
+                  <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold',}}>Editar</Text>
+                </View>
+              </View>
 
-            <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
-              <Image 
-                source={{ uri: selectedImage }} 
-                style={{ width: 120, height: 120 }}
-              />
-            </View>
-
-            <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
-              <Text style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</Text>
-            </TouchableOpacity>
-
-            <TextInput
-              style={editarMenuStyle.inputNomeEditar}
-              placeholder="Nome:"
-              placeholderTextColor="gray"
-              value={nomeProduto}
-              onChangeText={setNomeProduto}
-            />
-
-            <TextInput
-              style={editarMenuStyle.inputDescriçãoEditar}
-              placeholder="Descrição:"
-              multiline={true}
-              numberOfLines={4}
-              placeholderTextColor="gray"
-              value={descricaoProduto}
-              onChangeText={setDescricaoProduto}
-            />
-
-            <TextInput
-              style={editarMenuStyle.inputNomeEditar}
-              placeholder="Valor:"
-              placeholderTextColor="gray"
-              value={valorProduto}
-              onChangeText={(text) => {
-                const regex = /^[0-9]+(\.[0-9]{0,2})?$/;
-                if (regex.test(text) || text === '') {
-                  setValorProduto(text);
-                }
-              }}
-              keyboardType="numeric" 
-              maxLength={7}
-              multiline={false}
-            />
-          </View>
-
-          <Picker
-            style={editarMenuStyle.selectMenu}
-            selectedValue={statusProduto}
-            onValueChange={(itemValue) => setStatusProduto(itemValue)}
-          >
-            <Picker.Item label="Disponível" value="ativo" />
-            <Picker.Item label="Indisponível" value="inativo" />
-          </Picker>
-
-          {/* <Picker
-            style={editarMenuStyle.selectMenu}
-            selectedValue={categoriaProduto}
-            onValueChange={(itemValue) => setCategoriaProduto(itemValue)}
-          >
-            <Picker.Item label="Açaí" value="acai" />
-            <Picker.Item label="Sorvete de pote" value="sorvetePote" />
-            <Picker.Item label="Picolé" value="picole" />
-          </Picker> */}
-
-          <View style={editarMenuStyle.containarBtn}>
-            <View style={editarMenuStyle.boxBtnCancelar}>
-              <TouchableOpacity
-                style={editarMenuStyle.btnCancelar}
-                onPress={() => navigation.goBack()}
-              >
-                Cancelar
+              <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
+                <Image 
+                  source={{ uri: selectedImage }} 
+                  style={{ width: '100%', height: 250, borderRadius: 20, }}
+                />
+              </View>
+              <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
+                <Text style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</Text>
               </TouchableOpacity>
-            </View>
+              <View style={editarMenuStyle.inputContainer}>
+                <TextInput
+                  style={editarMenuStyle.inputNomeEditar}
+                  placeholder="Nome:"
+                  placeholderTextColor="gray"
+                  value={nomeProduto}
+                  onChangeText={setNomeProduto}
+                />
 
-            <View style={editarMenuStyle.btnSalvar}>
-              <TouchableOpacity 
-                style={editarMenuStyle.btnSalvar}
-                onPress={handleSave}
-              >
-                Salvar
-              </TouchableOpacity>
-            </View>
+                
+                <TextInput
+                  style={editarMenuStyle.inputDescricaoEditar}
+                  placeholder="Descrição:"
+                  multiline={true}
+                  numberOfLines={4}
+                  placeholderTextColor="gray"
+                  value={descricaoProduto}
+                  onChangeText={setDescricaoProduto}
+                />
+
+                <TextInput
+                  style={editarMenuStyle.inputNomeEditar}
+                  placeholder="Valor:"
+                  placeholderTextColor="gray"
+                  value={valorProduto}
+                  onChangeText={(text) => {
+                    const regex = /^[0-9]+(\.[0-9]{0,2})?$/;
+                    if (regex.test(text) || text === '') {
+                      setValorProduto(text);
+                    }
+                  }}
+                  keyboardType="numeric" 
+                  maxLength={7}
+                  multiline={false}
+                />
+
+                <Picker
+                  style={editarMenuStyle.selectMenu}
+                  selectedValue={statusProduto}
+                  onValueChange={(itemValue) => setStatusProduto(itemValue)}
+                >
+                  <Picker.Item label="Disponível" value="ativo" />
+                  <Picker.Item label="Indisponível" value="inativo" />
+                </Picker>
+                <View style={editarMenuStyle.containarBtn}>
+
+                    <TouchableOpacity
+                      style={editarMenuStyle.btnCancelar}
+                      onPress={() => navigation.goBack()}
+                    >
+                      Cancelar
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity 
+                      style={editarMenuStyle.btnSalvar}
+                      onPress={handleSave}
+                    >
+                      Salvar
+                    </TouchableOpacity>
+
+                </View>
+              </View>
           </View>
         </View>
       </SafeAreaView>

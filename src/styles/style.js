@@ -647,6 +647,8 @@ export const visualizarMenuStyle = ({
 });
 
 export const editarMenuStyle = ({
+  containerEditarMenu: {
+  },
   alterarImgEditarMenu: {
     backgroundColor: '#8A19D6',
     paddingTop: 7,
@@ -658,13 +660,18 @@ export const editarMenuStyle = ({
     textAlign: 'center',
     color: 'white',
     justifyContent: 'center',
+    fontFamily: 'Roboto_400Regular',
+  },
+
+  inputContainer: {
+    marginTop: '10%',
+    height: '80%',
   },
 
   inputNomeEditar:{
     width: '100%',
     height: 50,
     backgroundColor: 'white',
-    borderTopRadius: 10,
     marginTop: 15,
     paddingLeft: 10,
     alignSelf: 'left',
@@ -672,14 +679,14 @@ export const editarMenuStyle = ({
     borderColor: '#E2E8F0',
     fontFamily:  'Roboto_400Regular',
     paddingLeft: 15,
-    borderRadius: 25,
+    borderRadius: 10,
+    fontFamily: 'Roboto_400Regular',
   },
 
-  inputDescriçãoEditar: {
+  inputDescricaoEditar: {
     width: '100%',
     // height: 200,
     backgroundColor: 'white',
-    borderTopRadius: 10,
     marginTop: 15,
     padding: 15,
     alignSelf: 'left',
@@ -687,7 +694,8 @@ export const editarMenuStyle = ({
     borderColor: '#E2E8F0',
     fontFamily:  'Roboto_400Regular',
     paddingLeft: 15,
-    borderRadius: 25,
+    borderRadius: 10,
+    fontFamily: 'Roboto_400Regular',
   },
 
   selectMenu: {
@@ -696,33 +704,38 @@ export const editarMenuStyle = ({
     marginTop: '5%',
     border: 'none',
     padding: 10,
-    color: '#8A19D6',
-    fontWeight: 'semibold',
-    fontSize: 16
+    fontSize: 16,
+    fontFamily: 'Roboto_400Regular',
   },
 
   containarBtn:{
     flexDirection: 'row',
-    marginTop: '5%',
-    justifyContent: 'center',
+    marginTop: '15%',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 
-  boxBtnCancelar:{
-    marginRight: '10%',
-  },
 
   btnCancelar: {
-    fontSize: 20,
+    width: '50%',
+    padding: 15,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     color: '#8A19D6',
+    fontFamily: 'Roboto_700Bold',
   },
 
   btnSalvar: {
     backgroundColor: '#8A19D6',
+    width: '50%',
     padding: 15,
-    borderRadius: 15,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
     color: 'white',
-    fontSize: 20,
+    fontFamily: 'Roboto_700Bold',
   },
 });
 
