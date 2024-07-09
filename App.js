@@ -571,11 +571,26 @@ export function VisualizarMenuScreen({ navigation }) {
       <SafeAreaView>
         <View style={{ flex: 1, justifyContent: 'center', margin: '5%' }}>
           <View style={visualizarMenuStyle.containerVisualizarMenu}>
-            <Text style={visualizarMenuStyle.tituloVisualizarMenu}>Detalhes</Text>
+
+            {/* Botão Voltar */}
+            <View style={{ flexDirection: 'row', width: '90%', alignItems: 'center', marginBottom: '5%'}}>
+              <View style={{ width: '17%'}}>
+                <TouchableOpacity
+                  style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999, }}
+                  onPress={() => navigation.goBack()}
+                >
+                <Ionicons name="arrow-back" size={20} color="#FFF" />
+              </TouchableOpacity>
+              </View>
+              <View style={{ width: '83%',}}>
+                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold',}}>Detalhes</Text>
+              </View>
+            </View>
+
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image
                 source={{ uri: `http://127.0.0.1:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
-                style={{ width: 120, height: 120 }}
+                style={{ width: '100%', height: 250, borderRadius: 20, }}
               />
               <Text style={visualizarMenuStyle.precoVisualizarMenu}>R$ {produto.valorProduto}</Text>
             </View>
@@ -1442,7 +1457,11 @@ function Routes() {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen name="VisualizarMenu" component={VisualizarMenuScreen} />
+      <Stack.Screen 
+        name="VisualizarMenu" 
+        component={VisualizarMenuScreen} 
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Estoque"
         component={MyTab}

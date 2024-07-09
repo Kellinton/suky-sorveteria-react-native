@@ -561,22 +561,23 @@ export const visualizarMenuStyle = ({
   containerVisualizarMenu: {
     position: 'relative',
   },
-
-  tituloVisualizarMenu: {
-    fontSize: 25,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    marginBottom: '5%'
+  containerVoltarBtn: {
+    flexDirection: 'row',
+    width: '90%',
+    alignItems: 'center',
   },
+
 
   nomeProdutoMenu: {
     textAlign: 'left',
   },
 
   boxImgVisualizarMenu: {
+    position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '5%',
+    borderRadius: 20,
   },
 
   boxBtnVisualizarMenu: {
@@ -587,16 +588,17 @@ export const visualizarMenuStyle = ({
 
   precoVisualizarMenu: {
     backgroundColor: '#8A19D6',
-    paddingTop: 7,
-    paddingBottom: 7,
+    padding: 10,
+    width: '30%',
     position: 'absolute',
-    borderRadius: 10,
-    top: 0,
-    width: '40%',
+    bottom: 0,
+    left: 0,
     textAlign: 'center',
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
   },
 
   boxIcons: {
@@ -632,7 +634,7 @@ export const visualizarMenuStyle = ({
   },
 
   btnEditarMenu: {
-    width: '90%',
+    width: '100%',
     backgroundColor: '#8A19D6',
     padding: 15,
     textAlign: 'center',
@@ -640,7 +642,7 @@ export const visualizarMenuStyle = ({
     alignItems: 'center',
     borderRadius: 30,
     color: 'white',
-    marginTop: '5%',
+    marginTop: '20%',
   },
 });
 
