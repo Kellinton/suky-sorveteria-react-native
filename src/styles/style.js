@@ -903,7 +903,7 @@ export const funcionarioStyle = ({
     color: '#03314B',
     fontSize: '22',
     alignItems: 'center',
-    fontWeight: '600'
+    fontFamily: 'Roboto_700Bold',
   },
 
   boxNomeFuncionario: {

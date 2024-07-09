@@ -1403,12 +1403,15 @@ export function EditarPerfilScreen({ navigation }) {
   );
 }
 
-export function FuncionarioScreen({ navigation }) {
+export function FuncionarioScreen({ navigation, route }) {
   const [funcionarios, setFuncionarios] = useState([]);
   const [totalFuncionarios, setTotalFuncionarios] = useState(0);
   const [mediaSalarial, setMediaSalarial] = useState(0);
   const [funcionariosInativos, setFuncionariosInativos] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const { idFuncionario } = route.params || {};
+
+  console.log("Cód Funcionario: ", idFuncionario);
 
   useEffect(() => {
     const fetchFuncionarios = async () => {
@@ -1430,7 +1433,7 @@ export function FuncionarioScreen({ navigation }) {
     };
 
     fetchFuncionarios();
-  }, []);
+  }, [idFuncionario]);
 
 
   const filterFuncionarios = (funcionarios, searchQuery) => {
@@ -1442,7 +1445,7 @@ export function FuncionarioScreen({ navigation }) {
 
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#F4F8FF" }}>
+    <View style={{ flex: 1}}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SafeAreaView>
           <View
@@ -1451,59 +1454,65 @@ export function FuncionarioScreen({ navigation }) {
               justifyContent: "center",
               alignItems: "center",
               position: "relative",
+              backgroundColor: '#8A19D6', 
             }}
           >
             <View style={menuStyle.boxTopoMenu}>
               <Text style={menuStyle.tituloMenu}>Funcionários</Text>
-              <View style={dashboardStyle.containerEstatisticas}>
+              <View style={menuStyle.containerEstatisticasMenu}>
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="people" size={25} color="#FFF" />
-                  <Text>{totalFuncionarios}</Text>
-                  <Text style={dashboardStyle.txtBoxEstatisticas}>
-                    Funcionários
-                  </Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>{totalFuncionarios}</Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>Funcionários</Text>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="logo-usd" size={25} color="#FFF" />
-                  <Text>R$ {mediaSalarial}</Text>
-                  <Text style={dashboardStyle.txtBoxEstatisticas}>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>R$ {mediaSalarial}</Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>
                     Média Salarial
                   </Text>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons name="eye-off" size={25} color="#FFF" />
-                  <Text>{funcionariosInativos}</Text>
-                  <Text style={dashboardStyle.txtBoxEstatisticas}>
-                    Indisponíveis
-                  </Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>{funcionariosInativos}</Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>Indisponíveis</Text>
                 </View>
               </View>
             </View>
 
-            <View style={menuStyle.buscarMenu}>
-              <Ionicons name="search-outline" size={18} />
-              <TextInput
-                style={menuStyle.titleBuscarMenu}
-                placeholder="Buscar"
-                onChangeText={(text) => setSearchQuery(text)}
-                value={searchQuery}
-              />
-            </View>
-
-            <View style={funcionarioStyle.containerFuncionarios}>
-            {filterFuncionarios(funcionarios, searchQuery).map((funcionario) => (
-              <View key={funcionario.id} style={funcionarioStyle.boxFuncionario}>
-                <Image 
-                   source={{  uri: `http://127.0.0.1:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
-                   style={{ width: 80, height: 80,  borderRadius: 40 }}
-                />
-                <View style={funcionarioStyle.boxNomeFuncionario}>
-                  <Text style={funcionarioStyle.nomeFuncionario}>{funcionario.nomeFuncionario}</Text>
-                </View>
+            <View style={menuStyle.menuContainer}>
+              <View style={menuStyle.buscarMenuContainer}>
+                  <View style={menuStyle.buscarMenu}>
+                    <Ionicons name="search-outline" size={18} />
+                    <TextInput
+                      style={menuStyle.titleBuscarMenu}
+                      placeholder="Buscar..."
+                      onChangeText={(text) => setSearchQuery(text)}
+                      value={searchQuery}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    style={menuStyle.btnFiltroMenu}
+                  >
+                    <Ionicons name="apps" size={20} color="#FFF" />
+                  </TouchableOpacity>
               </View>
-            ))}
+
+              <View style={funcionarioStyle.containerFuncionarios}>
+              {filterFuncionarios(funcionarios, searchQuery).map((funcionario) => (
+                <View key={funcionario.id} style={funcionarioStyle.boxFuncionario}>
+                  <Image 
+                    source={{  uri: `http://127.0.0.1:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
+                    style={{ width: 80, height: 80,  borderRadius: 40 }}
+                  />
+                  <View style={funcionarioStyle.boxNomeFuncionario}>
+                    <Text style={funcionarioStyle.nomeFuncionario}>{funcionario.nomeFuncionario}</Text>
+                  </View>
+                </View>
+              ))}
+              </View>
             </View>
           </View>
         </SafeAreaView>
