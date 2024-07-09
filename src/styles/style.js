@@ -705,12 +705,13 @@ export const editarMenuStyle = ({
     border: 'none',
     padding: 10,
     fontSize: 16,
+    color: 'gray',
     fontFamily: 'Roboto_400Regular',
   },
 
   containarBtn:{
     flexDirection: 'row',
-    marginTop: '15%',
+    marginTop: '5%',
     justifyContent: 'space-between',
     alignItems: 'center',
   },

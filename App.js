@@ -394,12 +394,15 @@ export function DashboardScreen({ navigation, route }) {
   );
 }
 
-export function MenuScreen({ navigation }) {
+export function MenuScreen({ navigation, route }) {
   const [produtos, setProdutos] = useState([]);
   const [totalValorProdutos, setTotalValorProdutos] = useState(0);
   const [totalProdutos, setTotalProdutos] = useState(0);
   const [valorMedioProdutos, setValorMedioProdutos] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const { idFuncionario } = route.params || {};
+
+  console.log("Cód Funcionario: ", idFuncionario);
 
 
   useEffect(() => {
@@ -422,7 +425,7 @@ export function MenuScreen({ navigation }) {
     };
 
     fetchProdutos();
-  }, []);
+  }, [idFuncionario]);
 
   // Função para filtrar produtos com base no texto de busca
   const filterProdutos = (produtos, searchQuery) => {
@@ -433,105 +436,120 @@ export function MenuScreen({ navigation }) {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <SafeAreaView>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
-            backgroundColor: '#8A19D6',
-          }}
-        >
-          <View style={menuStyle.boxTopoMenu}>
-            <Text style={menuStyle.tituloMenu}>Menu</Text>
-            <View style={menuStyle.containerEstatisticasMenu}>
-              <View style={menuStyle.boxEstatisticasMenu}>
-                <Ionicons name="ice-cream" size={30} color="#FFF" />
-                <Text style={menuStyle.txtBoxEstatisticasMenu}>{totalProdutos}</Text>
-                <Text style={menuStyle.txtBoxEstatisticasMenu}>Produtos</Text>
-              </View>
+    <View style={{ flex: 1, backgroundColor: "#F4F8FF" }}>
 
-              <View style={menuStyle.boxEstatisticasMenu}>
-                <Ionicons name="logo-usd" size={30} color="#FFF" />
-                <Text style={menuStyle.txtBoxEstatisticasMenu}>R$ {valorMedioProdutos}</Text>
-                <Text style={menuStyle.txtBoxEstatisticasMenu}>Valor Médio</Text>
-              </View>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SafeAreaView>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative',
+              backgroundColor: '#8A19D6',
+            }}
+          >
+            <View style={menuStyle.boxTopoMenu}>
+              <Text style={menuStyle.tituloMenu}>Menu</Text>
+              <View style={menuStyle.containerEstatisticasMenu}>
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="ice-cream" size={30} color="#FFF" />
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>{totalProdutos}</Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>Produtos</Text>
+                </View>
 
-              <View style={menuStyle.boxEstatisticasMenu}>
-                <Ionicons name="cash" size={30} color="#FFF" />
-                <Text style={menuStyle.txtBoxEstatisticasMenu}>R$ {totalValorProdutos}</Text>
-                <Text style={menuStyle.txtBoxEstatisticasMenu}>Valor Total</Text>
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="logo-usd" size={30} color="#FFF" />
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>R$ {valorMedioProdutos}</Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>Valor Médio</Text>
+                </View>
+
+                <View style={menuStyle.boxEstatisticasMenu}>
+                  <Ionicons name="cash" size={30} color="#FFF" />
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>R$ {totalValorProdutos}</Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>Valor Total</Text>
+                </View>
               </View>
             </View>
-          </View>
-          <View style={menuStyle.menuContainer}>
-            <View style={menuStyle.buscarMenuContainer}>
-              <View style={menuStyle.buscarMenu}>
-                <Ionicons name="search-outline" size={18} />
-                <TextInput
-                  style={menuStyle.titleBuscarMenu}
-                  placeholder="Buscar..."
-                  onChangeText={(text) => setSearchQuery(text)}
-                  value={searchQuery}
-                />
+            <View style={menuStyle.menuContainer}>
+              <View style={menuStyle.buscarMenuContainer}>
+                <View style={menuStyle.buscarMenu}>
+                  <Ionicons name="search-outline" size={18} />
+                  <TextInput
+                    style={menuStyle.titleBuscarMenu}
+                    placeholder="Buscar..."
+                    onChangeText={(text) => setSearchQuery(text)}
+                    value={searchQuery}
+                  />
+                </View>
+                <TouchableOpacity
+                  style={menuStyle.btnFiltroMenu}
+                >
+                  <Ionicons name="apps" size={20} color="#FFF" />
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                style={menuStyle.btnFiltroMenu}
-              >
-                <Ionicons name="apps" size={20} color="#FFF" />
-              </TouchableOpacity>
-            </View>
-            <View style={{ alignItems: 'center' }}>
-              <View style={menuStyle.containerMainmenu}>
-                {filterProdutos(produtos, searchQuery).map((item) => (
-                    <View key={item.id} style={menuStyle.boxContainerMenu}>
-                      <View>
-                        <Image
-                          source={{ uri: `http://127.0.0.1:8000/storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
-                          style={{ width: 120, height: 120, borderRadius: 20 }}
-                        />
-                        <Text style={menuStyle.precoMenu}>R$ {item.valorProduto}</Text>
-                      </View>
+              <View style={{ alignItems: 'center' }}>
+                <View style={menuStyle.containerMainmenu}>
+                  {filterProdutos(produtos, searchQuery).map((item) => (
+                      <View key={item.id} style={menuStyle.boxContainerMenu}>
+                        <View>
+                          <Image
+                            source={{ uri: `http://127.0.0.1:8000/storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
+                            style={{ width: 120, height: 120, borderRadius: 20 }}
+                          />
+                          <Text style={menuStyle.precoMenu}>R$ {item.valorProduto}</Text>
+                        </View>
 
-                      <View style={menuStyle.cardMenu}>
-                        <Text style={menuStyle.tituloCardMenu}>{item.nomeProduto}</Text>
-                        <Text style={menuStyle.descricaoCardMenu}>
-                          {item.descricaoProduto.length > 35 ? `${item.descricaoProduto.substring(0, 35)}...` : item.descricaoProduto}
-                        </Text>
+                        <View style={menuStyle.cardMenu}>
+                          <Text style={menuStyle.tituloCardMenu}>{item.nomeProduto}</Text>
+                          <Text style={menuStyle.descricaoCardMenu}>
+                            {item.descricaoProduto.length > 35 ? `${item.descricaoProduto.substring(0, 35)}...` : item.descricaoProduto}
+                          </Text>
 
-                        <View style={menuStyle.btnCardMenu}>
-                          <View style={menuStyle.iconAcaiMenu}>
-                            <Ionicons name="ice-cream" size={20} color="#C96DFF" />
-                            <Text style={{ fontFamily: 'Roboto_400Regular', color: 'gray' }}>
-                              {item.categoriaProduto === 'acai' ? 'Açaí' :
-                                item.categoriaProduto === 'sorvetePote' ? 'Sorvete de Pote' :
-                                item.categoriaProduto === 'picole' ? 'Picolé' :
-                                item.categoriaProduto
-                              }
-                            </Text>
+                          <View style={menuStyle.btnCardMenu}>
+                            <View style={menuStyle.iconAcaiMenu}>
+                              <Ionicons name="ice-cream" size={20} color="#C96DFF" />
+                              <Text style={{ fontFamily: 'Roboto_400Regular', color: 'gray' }}>
+                                {item.categoriaProduto === 'acai' ? 'Açaí' :
+                                  item.categoriaProduto === 'sorvetePote' ? 'Sorvete de Pote' :
+                                  item.categoriaProduto === 'picole' ? 'Picolé' :
+                                  item.categoriaProduto
+                                }
+                              </Text>
+                            </View>
+
+                            <TouchableOpacity
+                              style={menuStyle.btnSetaMenu}
+                              onPress={() => navigation.navigate('VisualizarMenu', { idProduto: item.id })}
+                            >
+                              <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
+                            </TouchableOpacity>
                           </View>
-
-                          <TouchableOpacity
-                            style={menuStyle.btnSetaMenu}
-                            onPress={() => navigation.navigate('VisualizarMenu', { idProduto: item.id })}
-                          >
-                            <Ionicons name="arrow-forward-outline" size={18} color="#FFF" />
-                          </TouchableOpacity>
                         </View>
                       </View>
-                    </View>
-                  )
-                )}
+                    )
+                  )}
+                </View>
               </View>
             </View>
-          </View>
-        </View>
-      </SafeAreaView>
-    </ScrollView>
+          </View>      
+        </SafeAreaView>
+      </ScrollView>
+
+      <View
+      style={[
+        menuStyle.addProduto,
+        { position: "absolute", bottom: 20, right: 20 },
+      ]}
+      >
+      <TouchableOpacity
+        onPress={() => navigation.navigate('cadastrarMenu', { idFuncionario })}
+      >
+        <Ionicons name="add-outline" size={24} color="#FFF" />
+      </TouchableOpacity>
+      </View>
+    </View>
   );
 }
-
 
 export function VisualizarMenuScreen({ navigation }) {
   const route = useRoute(); // acessar route.params
@@ -642,6 +660,8 @@ export function EditarMenuScreen({ navigation, route }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const selectedImageBase64Ref = useRef(null);
 
+  console.log(route.params);
+
   useEffect(() => {
     if (route.params && route.params.produto) {
       const produto = route.params.produto;
@@ -677,7 +697,7 @@ export function EditarMenuScreen({ navigation, route }) {
     });
   };
 
-  const handleSave = async () => {
+  const handleSaveEdit = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const formData = new FormData();
@@ -742,7 +762,7 @@ export function EditarMenuScreen({ navigation, route }) {
               <View style={editarMenuStyle.inputContainer}>
                 <TextInput
                   style={editarMenuStyle.inputNomeEditar}
-                  placeholder="Nome:"
+                  placeholder="Título:"
                   placeholderTextColor="gray"
                   value={nomeProduto}
                   onChangeText={setNomeProduto}
@@ -795,7 +815,7 @@ export function EditarMenuScreen({ navigation, route }) {
 
                     <TouchableOpacity 
                       style={editarMenuStyle.btnSalvar}
-                      onPress={handleSave}
+                      onPress={handleSaveEdit}
                     >
                       Salvar
                     </TouchableOpacity>
@@ -808,6 +828,181 @@ export function EditarMenuScreen({ navigation, route }) {
     </ScrollView>
   );
 }
+
+export function CadastrarMenuScreen({ navigation, route }) {
+  const [nomeProduto, setNomeProduto] = useState('');
+  const [descricaoProduto, setDescricaoProduto] = useState('');
+  const [categoriaProduto, setCategoriaProduto] = useState('');
+  const [valorProduto, setValorProduto] = useState('');
+  const [statusProduto, setStatusProduto] = useState('ativo');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const selectedImageBase64Ref = useRef(null);
+  const { idFuncionario } = route.params || {};
+
+  console.log("Cód Funcionario: ", idFuncionario);
+  console.log(route.params);
+
+  const handleImagePicker = () => {
+    const options = {
+      mediaType: 'photo',
+      includeBase64: true,
+    };
+
+    launchImageLibrary(options, (resposta) => {
+      if (resposta.didCancel) {
+        console.log('Seleção de imagem cancelada pelo usuário');
+      } else if (resposta.error) {
+        console.log('Erro ao selecionar imagem: ', resposta.error);
+      } else {
+        const base64Image = resposta.assets[0].base64;
+        const uri = resposta.assets[0].uri;
+        console.log('URI da imagem selecionada:', uri);
+        console.log('Imagem base64:', base64Image);
+        selectedImageBase64Ref.current = base64Image;
+        setSelectedImage(uri);
+      }
+    });
+  };
+
+  const handleSaveAdd = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const formData = new FormData();
+
+      formData.append('nomeProduto', nomeProduto);
+      formData.append('descricaoProduto', descricaoProduto);
+      formData.append('valorProduto', valorProduto);
+      formData.append('categoriaProduto', categoriaProduto);
+      formData.append('statusProduto', statusProduto);
+
+      if (selectedImageBase64Ref.current) {
+        formData.append('fotoProduto', selectedImageBase64Ref.current);
+      }
+
+      const resposta = await axios.post('http://127.0.0.1:8000/api/produtos', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (resposta.status === 200) {
+        navigation.navigate("dashboard", { idFuncionario } );
+      } else {
+        console.error('Erro ao cadastrar o produto:', resposta.status);
+      }
+    } catch (error) {
+      console.error('Erro ao cadastrar o produto:', error);
+    }
+  };
+
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SafeAreaView>
+        <View style={{ flex: 1, justifyContent: 'center', margin: '5%' }}>
+          <View style={editarMenuStyle.containerEditarMenu}>
+            <View style={{ flexDirection: 'row', width: '90%', alignItems: 'center', marginBottom: '5%' }}>
+              <View style={{ width: '17%' }}>
+                <TouchableOpacity
+                  style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999 }}
+                  onPress={() => navigation.goBack()}
+                >
+                  <Ionicons name="arrow-back" size={20} color="#FFF" />
+                </TouchableOpacity>
+              </View>
+              <View style={{ width: '83%' }}>
+                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold' }}>Cadastrar</Text>
+              </View>
+            </View>
+
+            <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
+              {selectedImage ? (
+                <Image source={{ uri: selectedImage }} style={{ width: '100%', height: 250, borderRadius: 20 }} />
+              ) : (
+                <View style={{  width: '100%', height: 250, borderRadius: 20, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: 'gray', borderStyle: 'dashed', opacity: '5' }}>
+                  <Text style={{ textAlign: 'center', color: 'gray' }}>Nenhuma imagem selecionada</Text>
+                </View>
+              )}
+            </View>
+            <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
+              <Text style={editarMenuStyle.alterarImgEditarMenu}>Selecionar Imagem</Text>
+            </TouchableOpacity>
+            <View style={editarMenuStyle.inputContainer}>
+              <TextInput
+                style={editarMenuStyle.inputNomeEditar}
+                placeholder="Título:"
+                placeholderTextColor="gray"
+                value={nomeProduto}
+                onChangeText={setNomeProduto}
+              />
+
+              <TextInput
+                style={editarMenuStyle.inputDescricaoEditar}
+                placeholder="Descrição:"
+                multiline={true}
+                numberOfLines={4}
+                placeholderTextColor="gray"
+                value={descricaoProduto}
+                onChangeText={setDescricaoProduto}
+              />
+
+              <TextInput
+                style={editarMenuStyle.inputNomeEditar}
+                placeholder="Valor:"
+                placeholderTextColor="gray"
+                value={valorProduto}
+                onChangeText={(text) => {
+                  const regex = /^[0-9]+(\.[0-9]{0,2})?$/;
+                  if (regex.test(text) || text === '') {
+                    setValorProduto(text);
+                  }
+                }}
+                keyboardType="numeric"
+                maxLength={7}
+                multiline={false}
+              />
+
+              <Picker
+                style={editarMenuStyle.selectMenu}
+                selectedValue={categoriaProduto}
+                onValueChange={(itemValue) => setCategoriaProduto(itemValue)}
+              >
+                <Picker.Item label="Açaí" value="acai" />
+                <Picker.Item label="Picolé" value="picole" />
+                <Picker.Item label="Sorvete de Pote" value="sorvetePote" />
+              </Picker>
+
+              <Picker
+                style={editarMenuStyle.selectMenu}
+                selectedValue={statusProduto}
+                onValueChange={(itemValue) => setStatusProduto(itemValue)}
+              >
+                <Picker.Item label="Disponível" value="ativo" />
+                <Picker.Item label="Indisponível" value="inativo" />
+              </Picker>
+              <View style={editarMenuStyle.containarBtn}>
+                <TouchableOpacity
+                  style={editarMenuStyle.btnCancelar}
+                  onPress={() => navigation.goBack()}
+                >
+                  Cancelar
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={editarMenuStyle.btnSalvar}
+                  onPress={handleSaveAdd}
+                >
+                  Salvar
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  );
+}
+
 
 export function MensagensScreen({ navigation }) {
   const [mensagens, setMensagens] = useState([]);
@@ -1397,6 +1592,7 @@ function MyTab({ route }) {
       <Tab.Screen
         name="Menu"
         component={MenuScreen}
+        initialParams={{ idFuncionario: route.params.idFuncionario }}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -1488,6 +1684,11 @@ function Routes() {
       <Stack.Screen
         name="EditarMenu"
         component={EditarMenuScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="cadastrarMenu"
+        component={CadastrarMenuScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
