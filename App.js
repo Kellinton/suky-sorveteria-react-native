@@ -1421,7 +1421,7 @@ export function FuncionarioScreen({ navigation, route }) {
                 <TouchableOpacity
                   key={funcionario.id}
                   style={funcionarioStyle.boxFuncionario}
-                  onPress={() => navigation.navigate('EditarFuncionario', { funcionario })}
+                  onPress={() => navigation.navigate('editarFuncionario', { funcionario })}
                 >
                   <Image 
                     source={{ uri: `http://127.0.0.1:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
@@ -1584,11 +1584,11 @@ export function EditarFuncionarioScreen({ navigation, route }){
                 </View>
               </View>
                       
-   
+
                 <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
                   <Image
                     source={{ uri: selectedImage }} 
-                    style={{ width: 100, height: 100, borderRadius: 9999, }}
+                    style={{ width: 150, height: 150, borderRadius: 9999, }}
                   />
                 </View>
 
@@ -1596,13 +1596,14 @@ export function EditarFuncionarioScreen({ navigation, route }){
                 <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
                     <Text style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</Text>
                 </TouchableOpacity>
+
  
 
               
 
                 <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
                 <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <Icon name="person-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
                   <TextInput
                     placeholder="Nome:"
                     placeholderTextColor="gray"
@@ -1613,80 +1614,159 @@ export function EditarFuncionarioScreen({ navigation, route }){
                   />
                 </View>
 
-                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
+                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Sobrenome:</Text>
                 <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <Icon name="person-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
                   <TextInput
-                    placeholder="Nome:"
+                    placeholder="Sobrenome:"
                     placeholderTextColor="gray"
                     style={loginStyle.TextInput}
-                    value={nomeFuncionario}
-                    onChangeText={setNomeFuncionario}
+                    value={sobrenomeFuncionario}
+                    onChangeText={setSobrenomeFuncionario}
                     underlineColorAndroid="transparent"
                   />
                 </View>
 
-                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
-                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Email:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
                   <TextInput
-                    placeholder="Nome:"
+                    placeholder="Email"
                     placeholderTextColor="gray"
                     style={loginStyle.TextInput}
-                    value={nomeFuncionario}
-                    onChangeText={setNomeFuncionario}
+                    value={email}
+                    onChangeText={setEmail}
                     underlineColorAndroid="transparent"
                   />
                 </View>
 
-                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
-                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Senha:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="lock-closed-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
                   <TextInput
-                    placeholder="Nome:"
+                    placeholder="Senha"
                     placeholderTextColor="gray"
                     style={loginStyle.TextInput}
-                    value={nomeFuncionario}
-                    onChangeText={setNomeFuncionario}
+                    value={senha}
+                    onChangeText={setSenha}
+                    underlineColorAndroid="transparent"
+                    secureTextEntry
+                  />
+                </View>
+
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Telefone:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="call-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
+                  <TextInput
+                    placeholder="Telefone"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={foneFuncionario}
+                    onChangeText={setFoneFuncionario}
                     underlineColorAndroid="transparent"
                   />
                 </View>
 
-                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
-                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Data de Nascimento:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="calendar-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
                   <TextInput
-                    placeholder="Nome:"
+                    placeholder="Data de Nascimento"
                     placeholderTextColor="gray"
                     style={loginStyle.TextInput}
-                    value={nomeFuncionario}
-                    onChangeText={setNomeFuncionario}
+                    value={dataNascFuncionario}
+                    onChangeText={setDataNascFuncionario}
                     underlineColorAndroid="transparent"
                   />
                 </View>
 
-                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
-                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Endereço:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="location-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
                   <TextInput
-                    placeholder="Nome:"
+                    placeholder="Endereço"
                     placeholderTextColor="gray"
                     style={loginStyle.TextInput}
-                    value={nomeFuncionario}
-                    onChangeText={setNomeFuncionario}
+                    value={enderecoFuncionario}
+                    onChangeText={setEnderecoFuncionario}
                     underlineColorAndroid="transparent"
                   />
                 </View>
 
-                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
-                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Cidade:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="business-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
                   <TextInput
-                    placeholder="Nome:"
+                    placeholder="Cidade"
                     placeholderTextColor="gray"
                     style={loginStyle.TextInput}
-                    value={nomeFuncionario}
-                    onChangeText={setNomeFuncionario}
+                    value={cidadeFuncionario}
+                    onChangeText={setCidadeFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Estado:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="business-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
+                  <TextInput
+                    placeholder="Estado"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={estadoFuncionario}
+                    onChangeText={setEstadoFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>CEP:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="location-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
+                  <TextInput
+                    placeholder="CEP"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={cepFuncionario}
+                    onChangeText={setCepFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Data de Contratação:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="calendar-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
+                  <TextInput
+                    placeholder="Data de Contratação"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={dataContratacaoFuncionario}
+                    onChangeText={setDataContratacaoFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Cargo:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="briefcase-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
+                  <TextInput
+                    placeholder="Cargo"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={cargoFuncionario}
+                    onChangeText={setCargoFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray' }}>Salário:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="cash-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
+                  <TextInput
+                    placeholder="Salário"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={salarioFuncionario}
+                    onChangeText={setSalarioFuncionario}
                     underlineColorAndroid="transparent"
                   />
                 </View>
@@ -1859,7 +1939,29 @@ function MyTab({ route }) {
         }}
       />
 
+      <Tab.Screen
+        name="editarPerfil"
+        component={EditarPerfilScreen}     
+        options={{
+          tabBarButton: () => null, 
+          tabBarVisible: false,
+          headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
+        name="editarFuncionario"
+        component={EditarFuncionarioScreen}     
+        options={{
+          tabBarButton: () => null, 
+          tabBarVisible: false,
+          headerShown: false,
+        }}
+      />
+
     </Tab.Navigator>
+
+    
   );
 }
 
@@ -1907,11 +2009,7 @@ function Routes() {
         component={MyTab}
         options={{ headerShown: false }}
       />
-      <Stack.Screen 
-        name="EditarFuncionario" 
-        component={EditarFuncionarioScreen} 
-        options={{ headerShown: false }}
-      />
+
 
       <Stack.Screen
         name="EditarMenu"
