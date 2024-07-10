@@ -6,7 +6,7 @@ export const loginStyle = ({
     flex: 1,
     position: 'relative',
   },
-
+  
   boxFundo: {
     width: '100%',
     height: '30%',
@@ -559,7 +559,9 @@ export const menuStyle = ({
 
 export const visualizarMenuStyle = ({
   containerVisualizarMenu: {
-    position: 'relative',
+
+
+
   },
   containerVoltarBtn: {
     flexDirection: 'row',
@@ -573,7 +575,6 @@ export const visualizarMenuStyle = ({
   },
 
   boxImgVisualizarMenu: {
-    position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '5%',

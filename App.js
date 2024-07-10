@@ -7,6 +7,8 @@ import axios from "axios"; // Faz a requisição HTTP para a API
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Para fazer o storage
 import Icon from 'react-native-vector-icons/Ionicons';
 
+
+
 import {
   StyleSheet,
   Text,
@@ -286,13 +288,13 @@ export function DashboardScreen({ navigation, route }) {
 
             <Modal
               isVisible={visible}
-              onBackdropPress={() => setVisible(false)}
+              onBackdropPress={() => setVisible(false, idFuncionario)}
             >
               <View style={dashboardStyle.modalContainerConfig}>
-                <TouchableOpacity style={dashboardStyle.modalModalConfigTitle} onPress={() => navigation.navigate("visualizarPerfil")}>
-                <Ionicons name="eye-outline" size={25} color="#C96DFF" />
+                <TouchableOpacity style={dashboardStyle.modalModalConfigTitle} onPress={() => navigation.navigate("editarPerfil", { idFuncionario })}>
+                <Ionicons name="create" size={25} color="#C96DFF" />
                   <View>
-                    <Text>Visualizar o Perfil</Text>
+                    <Text>Editar o Perfil</Text>
                   </View>
                 </TouchableOpacity>
                 
@@ -380,14 +382,6 @@ export function DashboardScreen({ navigation, route }) {
             </View>
           ))}
 
-          {/* <Modal animationType="fade" transparent={true} visible={modalVisible}>
-            <View style={dashboardStyle.modalContainer}>
-              <View style={dashboardStyle.modalContent}>
-                <Text>Deseja mesmo excluir essa mensagem?</Text>
-                <Button title="Cancelar" onPress={closeModal} />
-              </View>
-            </View>
-    </Modal> */}
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -670,7 +664,7 @@ export function EditarMenuScreen({ navigation, route }) {
       setCategoriaProduto(produto.categoriaProduto);
       setValorProduto(produto.valorProduto);
       setStatusProduto(produto.statusProduto);
-      // Se você deseja carregar a imagem atual do produto, ajuste conforme necessário
+      // carrega a imagem atual do produto, ajuste conforme necessário
       setSelectedImage(`http://127.0.0.1:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
     }
   }, [route.params]);
@@ -1128,274 +1122,196 @@ export function MensagensScreen({ navigation }) {
   );
 }
 
-export function VisualizarPerfilScreen({ navigation }) {
+export function EditarPerfilScreen({ navigation, route }) {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [tokenSenha, setTokenSenha] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const selectedImageBase64Ref = useRef(null);
+
+
+  console.log(route.params.funcionario);
+
+
+
+  useEffect(() => {
+    if (route.params && route.params.idFuncionario) {
+      const fetchFuncionario = async () => {
+        try {
+          const token = await AsyncStorage.getItem('userToken');
+          const response = await axios.get(`http://127.0.0.1:8000/api/perfil/${route.params.idFuncionario}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const funcionario = response.data;
+
+          setEmail(funcionario.email);
+          setSenha(funcionario.senha);
+          setTokenSenha(funcionario.token_lembrete);
+          setSelectedImage(`http://127.0.0.1:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}`);
+        } catch (error) {
+          console.error('Erro ao buscar dados do funcionário:', error);
+        }
+      };
+
+      fetchFuncionario();
+    }
+  }, [route.params]);
+
+    const handleImagePicker = () => {
+      const options = {
+        mediaType: 'photo',
+        includeBase64: true, // Incluir base64 no resultado
+      };
+
+      launchImageLibrary(options, (resposta) => {
+        if (resposta.didCancel) {
+          console.log('Seleção de imagem cancelada pelo usuário');
+        } else if (resposta.error) {
+          console.log('Erro ao selecionar imagem: ', resposta.error);
+        } else {
+          const base64Image = resposta.assets[0].base64;
+          const uri = resposta.assets[0].uri;
+          console.log('URI da imagem selecionada:', uri);
+          console.log('Imagem base64:', base64Image);
+          selectedImageBase64Ref.current = base64Image;
+          setSelectedImage(uri); // Atualiza a visualização da imagem selecionada
+        }
+      });
+    };
+
+    const handleSavePerfilEdit = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        const formData = new FormData();
+  
+        formData.append('email', email);
+        formData.append('senha', senha);
+  
+        if (selectedImageBase64Ref.current) {
+          formData.append('fotoFuncionario', selectedImageBase64Ref.current);
+        }
+  
+        const response = await axios.post(`http://127.0.0.1:8000/api/perfil/${route.params.idFuncionario}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+  
+        if (response.status === 200) {
+          navigation.navigate('Dashboard');
+        } else {
+          console.error('Erro ao salvar a atualização:', response.status);
+        }
+      } catch (error) {
+        console.error('Erro ao salvar a atualização:', error);
+      }
+    };
+  
+    
+
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SafeAreaView>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              position: "relative",
-            }}
-          >
-            <View style={visualizarPerfilStyle.containerPerfil}>
-              <Text style={visualizarPerfilStyle.titleVisualizarPerfil}>
-                Detalhes do Perfil
-              </Text>
-              <View style={visualizarPerfilStyle.boxVisualizarFoto}>
-                <Image
-                  source={require("./assets/fotoPerfil.png")}
-                  style={visualizarPerfilStyle.fotoVisualizarPerfil}
-                ></Image>
-                <TouchableOpacity style={visualizarPerfilStyle.trocarImagem}>
-                  Trocar Imagem
+          <View style={{flex: 1, justifyContent: 'center',  padding: '5%',}}>
+              {/* Botão Voltar */}
+              <View style={{ flexDirection: 'row', width: '90%', alignItems: 'center', marginBottom: '5%',}}>
+                <View style={{ width: '17%'}}>
+                  <TouchableOpacity
+                    style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999, }}
+                    onPress={() => navigation.goBack()}
+                  >
+                  <Ionicons name="arrow-back" size={20} color="#FFF" />
                 </TouchableOpacity>
+                </View>
+                <View style={{ width: '83%',}}>
+                  <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold',}}>Editar</Text>
+                </View>
               </View>
+                      
+   
+                <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
+                  <Image
+                    source={{ uri: selectedImage }} 
+                    style={{ width: 150, height: 150, borderRadius: 9999, }}
+                  />
+                </View>
 
-              <Text style={visualizarPerfilStyle.titlePerfil}>Informações</Text>
 
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="Nome: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Sobrenome: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
-
-              <View style={visualizarPerfilStyle.boxInput100}>
-                <TextInput
-                  placeholder="Email: "
-                  keyboardType="email-address"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input100}
-                ></TextInput>
-              </View>
-
-              <View style={visualizarPerfilStyle.boxInput100}>
-                <TextInput
-                  placeholder="Senha: "
-                  secureTextEntry={true}
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input100}
-                ></TextInput>
-              </View>
-
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="DD/MM/AAAA: "
-                  keyboardType="number-pad"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Telefone: "
-                  keyboardType="number-pad"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
-
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="Cargo: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Salário: "
-                  keyboardType="number-pad"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
-
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="Cidade: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Estado: "
-                  autoCapitalize="characters"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
-
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="CEP: "
-                  keyboardType="number-pad"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Endereço: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
-
-              <View style={visualizarPerfilStyle.btnEditarPerfil}>
-                <TouchableOpacity
-                  style={visualizarMenuStyle.btnEditarMenu}
-                  onPress={() => navigation.navigate("editarPerfil")}>
-                  Editar
+                <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
+                    <Text style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</Text>
                 </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </SafeAreaView>
-      </ScrollView>
-    </View>
-  );
-}
+ 
 
-export function EditarPerfilScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <SafeAreaView>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              position: "relative",
-            }}
-          >
-            <View style={visualizarPerfilStyle.containerPerfil}>
-              <Text style={visualizarPerfilStyle.titleVisualizarPerfil}>
-                Editar o Perfil
-              </Text>
-              <View style={visualizarPerfilStyle.boxVisualizarFoto}>
-                <Image
-                  source={require("./assets/fotoPerfil.png")}
-                  style={visualizarPerfilStyle.fotoVisualizarPerfil}
-                ></Image>
-                <TouchableOpacity style={visualizarPerfilStyle.trocarImagem}>
-                  Trocar Imagem
-                </TouchableOpacity>
-              </View>
 
-              <Text style={visualizarPerfilStyle.titlePerfil}>Informações</Text>
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>E-mail:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+                    placeholder="E-mail:"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={email}
+                    onChangeText={setEmail}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
 
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="Nome: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Sobrenome: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
+                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Senha:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="lock-closed-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+  
+                    placeholder="Senha:"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={senha}
+                    onChangeText={setSenha}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
 
-              <View style={visualizarPerfilStyle.boxInput100}>
-                <TextInput
-                  placeholder="Email: "
-                  keyboardType="email-address"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input100}
-                ></TextInput>
-              </View>
+                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Token para recuperação de senha:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="key-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+                placeholder="Token:"
+                placeholderTextColor="gray"
+                style={loginStyle.TextInput}
+                value={tokenSenha}
+                editable={false}
+                underlineColorAndroid="transparent"
+              />
+                </View>
 
-              <View style={visualizarPerfilStyle.boxInput100}>
-                <TextInput
-                  placeholder="Senha: "
-                  secureTextEntry={true}
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input100}
-                ></TextInput>
-              </View>
 
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="DD/MM/AAAA: "
-                  keyboardType="number-pad"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Telefone: "
-                  keyboardType="number-pad"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
 
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="Cargo: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Salário: "
-                  keyboardType="number-pad"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
 
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="Cidade: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Estado: "
-                  autoCapitalize="characters"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
+    
 
-              <View style={visualizarPerfilStyle.boxInput50}>
-                <TextInput
-                  placeholder="CEP: "
-                  keyboardType="number-pad"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-                <TextInput
-                  placeholder="Endereço: "
-                  autoCapitalize="words"
-                  placeholderTextColor="gray"
-                  style={visualizarPerfilStyle.input50}
-                ></TextInput>
-              </View>
+                <View style={editarMenuStyle.containarBtn}>
 
-              <View style={visualizarPerfilStyle.btnEditarPerfil}>
-                <TouchableOpacity
-                  style={visualizarMenuStyle.btnEditarMenu}
-                  onPress={() => navigation.navigate("editarMenu")}
-                >
-                  Salvar
-                </TouchableOpacity>
-              </View>
-            </View>
+                  <TouchableOpacity
+                    style={editarMenuStyle.btnCancelar}
+                    onPress={() => navigation.goBack()}
+                  >
+                    <Text style={{ color: '#8A19D6', fontFamily: 'Roboto_700Bold', }}>Cancelar</Text>
+                  </TouchableOpacity>
+
+
+                  <TouchableOpacity 
+                    style={editarMenuStyle.btnSalvar}
+                    onPress={handleSavePerfilEdit}
+                  >
+                    <Text style={{ color: 'white', fontFamily: 'Roboto_700Bold', }}>Salvar</Text>
+                  </TouchableOpacity>
+
+                </View>
+
           </View>
         </SafeAreaView>
       </ScrollView>
@@ -1502,15 +1418,19 @@ export function FuncionarioScreen({ navigation, route }) {
 
               <View style={funcionarioStyle.containerFuncionarios}>
               {filterFuncionarios(funcionarios, searchQuery).map((funcionario) => (
-                <View key={funcionario.id} style={funcionarioStyle.boxFuncionario}>
+                <TouchableOpacity
+                  key={funcionario.id}
+                  style={funcionarioStyle.boxFuncionario}
+                  onPress={() => navigation.navigate('EditarFuncionario', { funcionario })}
+                >
                   <Image 
-                    source={{  uri: `http://127.0.0.1:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
-                    style={{ width: 80, height: 80,  borderRadius: 40 }}
+                    source={{ uri: `http://127.0.0.1:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
+                    style={{ width: 80, height: 80, borderRadius: 40 }}
                   />
                   <View style={funcionarioStyle.boxNomeFuncionario}>
                     <Text style={funcionarioStyle.nomeFuncionario}>{funcionario.nomeFuncionario}</Text>
                   </View>
-                </View>
+                </TouchableOpacity>
               ))}
               </View>
             </View>
@@ -1529,6 +1449,309 @@ export function FuncionarioScreen({ navigation, route }) {
     </View>
   );
 }
+
+export function EditarFuncionarioScreen({ navigation, route }){
+  const [nomeFuncionario, setNomeFuncionario] = useState('');
+  const [sobrenomeFuncionario, setSobrenomeFuncionario] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [foneFuncionario, setFoneFuncionario] = useState('');
+  const [dataNascFuncionario , setDataNascFuncionario] = useState('');
+  const [enderecoFuncionario, setEnderecoFuncionario] = useState('');
+  const [cidadeFuncionario , setCidadeFuncionario] = useState('');
+  const [estadoFuncionario, setEstadoFuncionario] = useState('');
+  const [cepFuncionario , setCepFuncionario] = useState('');
+  const [dataContratacaoFuncionario, setDataContratacaoFuncionario] = useState('');
+  const [cargoFuncionario, setCargoFuncionario] = useState('');
+  const [salarioFuncionario, setSalarioFuncionario] = useState('');
+  const [tipo_funcionario , setTipo_funcionario] = useState('');
+  const [statusFuncionario , setStatusFuncionario] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const selectedImageBase64Ref = useRef(null);
+
+
+  console.log(route.params.funcionario);
+
+
+  useEffect(() => {
+    if (route.params && route.params.funcionario) {
+      const usuario = route.params.funcionario;
+      setNomeFuncionario(usuario.nomeFuncionario);
+      setSobrenomeFuncionario(usuario.sobrenomeFuncionario);
+      setEmail(usuario.email);
+      setSenha(usuario.senha);
+      setFoneFuncionario(usuario.foneFuncionario);
+      setDataNascFuncionario(usuario.dataNascFuncionario);
+      setEnderecoFuncionario(usuario.enderecoFuncionario);
+      setCidadeFuncionario(usuario.cidadeFuncionario);
+      setEstadoFuncionario(usuario.estadoFuncionario);
+      setCepFuncionario(usuario.cepFuncionario);
+      setDataContratacaoFuncionario(usuario.dataContratacaoFuncionario);
+      setCargoFuncionario(usuario.cargoFuncionario);
+      setSalarioFuncionario(usuario.salarioFuncionario);
+      setTipo_funcionario(usuario.tipo_funcionario);
+      setStatusFuncionario(usuario.statusFuncionario);
+      setSelectedImage(`http://127.0.0.1:8000/storage/img/funcionarios/${usuario.fotoFuncionario}`);
+    }
+  }, [route.params]);
+
+    const handleImagePicker = () => {
+      const options = {
+        mediaType: 'photo',
+        includeBase64: true, // Incluir base64 no resultado
+      };
+
+      launchImageLibrary(options, (resposta) => {
+        if (resposta.didCancel) {
+          console.log('Seleção de imagem cancelada pelo usuário');
+        } else if (resposta.error) {
+          console.log('Erro ao selecionar imagem: ', resposta.error);
+        } else {
+          const base64Image = resposta.assets[0].base64;
+          const uri = resposta.assets[0].uri;
+          console.log('URI da imagem selecionada:', uri);
+          console.log('Imagem base64:', base64Image);
+          selectedImageBase64Ref.current = base64Image;
+          setSelectedImage(uri); // Atualiza a visualização da imagem selecionada
+        }
+      });
+    };
+
+    const handleSaveFuncionarioEdit = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        const formData = new FormData();
+  
+        formData.append('nomeFuncionario', nomeFuncionario);
+        formData.append('sobrenomeFuncionario', sobrenomeFuncionario);
+        formData.append('email', email);
+        formData.append('senha', senha);
+        formData.append('foneFuncionario', foneFuncionario);
+        formData.append('dataNascFuncionario', dataNascFuncionario);
+        formData.append('enderecoFuncionario', enderecoFuncionario);
+        formData.append('cidadeFuncionario', cidadeFuncionario);
+        formData.append('estadoFuncionario', estadoFuncionario);
+        formData.append('cepFuncionario', cepFuncionario);
+        formData.append('dataContratacaoFuncionario', dataContratacaoFuncionario);
+        formData.append('cargoFuncionario', cargoFuncionario);
+        formData.append('salarioFuncionario', salarioFuncionario);
+        formData.append('tipo_funcionario', tipo_funcionario);
+        formData.append('statusFuncionario', statusFuncionario);
+
+
+        if (selectedImageBase64Ref.current) {
+          formData.append('fotoFuncionario', selectedImageBase64Ref.current);
+        }
+  
+        const resposta = await axios.post(`http://127.0.0.1:8000/api/funcionarios/${route.params.funcionario.id}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+  
+        if (resposta.status === 200) {
+          navigation.navigate('Funcionários', { idUsuario: route.params.funcionario.id  });
+        } else {
+          console.error('Erro ao salvar a atualização:', resposta.status);
+        }
+      } catch (error) {
+        console.error('Erro ao salvar a atualização:', error);
+      }
+    
+    };
+  
+    
+
+
+  return (
+    <View style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <SafeAreaView>
+          <View style={{flex: 1, justifyContent: 'center',  padding: '5%',}}>
+              {/* Botão Voltar */}
+              <View style={{ flexDirection: 'row', width: '90%', alignItems: 'center', marginBottom: '5%',}}>
+                <View style={{ width: '17%'}}>
+                  <TouchableOpacity
+                    style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999, }}
+                    onPress={() => navigation.goBack()}
+                  >
+                  <Ionicons name="arrow-back" size={20} color="#FFF" />
+                </TouchableOpacity>
+                </View>
+                <View style={{ width: '83%',}}>
+                  <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold',}}>Editar</Text>
+                </View>
+              </View>
+                      
+   
+                <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
+                  <Image
+                    source={{ uri: selectedImage }} 
+                    style={{ width: 100, height: 100, borderRadius: 9999, }}
+                  />
+                </View>
+
+
+                <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
+                    <Text style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</Text>
+                </TouchableOpacity>
+ 
+
+              
+
+                <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+                    placeholder="Nome:"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={nomeFuncionario}
+                    onChangeText={setNomeFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+                    placeholder="Nome:"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={nomeFuncionario}
+                    onChangeText={setNomeFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+                    placeholder="Nome:"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={nomeFuncionario}
+                    onChangeText={setNomeFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+                    placeholder="Nome:"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={nomeFuncionario}
+                    onChangeText={setNomeFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+                    placeholder="Nome:"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={nomeFuncionario}
+                    onChangeText={setNomeFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+                    placeholder="Nome:"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={nomeFuncionario}
+                    onChangeText={setNomeFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <Text style={{  marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Nome:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                  <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                  <TextInput
+                    placeholder="Nome:"
+                    placeholderTextColor="gray"
+                    style={loginStyle.TextInput}
+                    value={nomeFuncionario}
+                    onChangeText={setNomeFuncionario}
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+
+                <View style={{ flexDirection:'row', marginBottom: 10, justifyContent: 'space-between'}}>
+                  <View style={{ width: '48%' }}>
+                    <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Função:</Text>
+                    <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, }}>
+                      <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                      <Picker
+                        style={{ borderWidth: '0', }}
+                        selectedValue={tipo_funcionario}
+                        onValueChange={(itemValue) => setTipo_funcionario(itemValue)}
+                      >
+                        <Picker.Item label="Administrador" value="administrador" />
+                        <Picker.Item label="Assistente" value="assistente" />
+                      </Picker>
+                    </View>
+                  </View>
+                  <View style={{ width: '48%' }}>
+                    <Text style={{ marginBottom: 5, fontFamily: 'Roboto_700Bold', color: 'gray', }}>Disponibilidade:</Text>
+                    <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, }}>
+                      <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                      <Picker
+                        style={{ borderWidth: '0', }}
+                        selectedValue={statusFuncionario}
+                        onValueChange={(itemValue) => setStatusFuncionario(itemValue)}
+                      >
+                        <Picker.Item label="Disponível" value="ativo" />
+                        <Picker.Item label="Indisponível" value="inativo" />
+                      </Picker>
+                    </View>                  
+                  </View>
+                </View>
+
+
+
+    
+
+                <View style={editarMenuStyle.containarBtn}>
+
+                  <TouchableOpacity
+                    style={editarMenuStyle.btnCancelar}
+                    onPress={() => navigation.goBack()}
+                  >
+                    <Text style={{ color: '#8A19D6', fontFamily: 'Roboto_700Bold', }}>Cancelar</Text>
+                  </TouchableOpacity>
+
+
+                  <TouchableOpacity 
+                    style={editarMenuStyle.btnSalvar}
+                    onPress={handleSaveFuncionarioEdit}
+                  >
+                    <Text style={{ color: 'white', fontFamily: 'Roboto_700Bold', }}>Salvar</Text>
+                  </TouchableOpacity>
+
+                </View>
+
+          </View>
+        </SafeAreaView>
+      </ScrollView>
+    </View>
+  );
+}
+
 
 // export function EsqueciSenhaScreen({ navigation }) {
 //   return (
@@ -1675,11 +1898,6 @@ function Routes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="visualizarPerfil"
-        component={VisualizarPerfilScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
         name="editarPerfil"
         component={EditarPerfilScreen}
         options={{ headerShown: false }}
@@ -1687,6 +1905,11 @@ function Routes() {
       <Stack.Screen
         name="Funcionários"
         component={MyTab}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="EditarFuncionario" 
+        component={EditarFuncionarioScreen} 
         options={{ headerShown: false }}
       />
 
