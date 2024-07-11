@@ -636,7 +636,7 @@ export function VisualizarMenuScreen({ navigation }) {
               <View style={{ width: '17%'}}>
                 <TouchableOpacity
                   style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999, }}
-                  onPress={() => navigation.goBack()}
+                  onPress={() => navigation.navigate("Menu")}
                 >
                 <Ionicons name="arrow-back" size={20} color="#FFF" />
               </TouchableOpacity>
@@ -683,7 +683,9 @@ export function VisualizarMenuScreen({ navigation }) {
               style={visualizarMenuStyle.btnEditarMenu}
               onPress={() => navigation.navigate('EditarMenu', { produto })}
             >
-              Editar
+              <Text style={{ fontFamily: 'Roboto_700Bold', color: 'white',}}>
+                Editar
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -700,6 +702,10 @@ export function EditarMenuScreen({ navigation, route }) {
   const [statusProduto, setStatusProduto] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const selectedImageBase64Ref = useRef(null);
+  const [errorModalVisible, setErrorModalVisible] = useState(false); // Estado para controlar a visibilidade do modal de erro
+  const [errorModalMessage, setErrorModalMessage] = useState(''); // Estado para armazenar a mensagem de erro
+  const [successModalVisible, setSuccessModalVisible] = useState(false); // Estado para controlar a visibilidade do modal de sucesso
+  const [updatedProdutoId, setUpdatedProdutoId] = useState(null); 
 
   // console.log(route.params);
 
@@ -771,16 +777,37 @@ export function EditarMenuScreen({ navigation, route }) {
           .catch(error => {
             console.error('Erro ao salvar o produto no AsyncStorage:', error);
           });
+
+          setUpdatedProdutoId(updatedProdutoId); 
+          setSuccessModalVisible(true);
       
         // Navega para a tela Menu com o parâmetro updatedProdutoId
-        navigation.navigate('Menu', { updatedProdutoId });
+        // navigation.navigate('Menu', { updatedProdutoId });
+      }  else if (resposta.status === 422) {
+
+        const errorMessage = Object.values(resposta.data.errors).flat().join('\n');
+        setErrorModalMessage(errorMessage);
+        setErrorModalVisible(true);
       } else {
-        console.error('Erro ao salvar o produto:', resposta.status);
+
+        console.error('Erro ao atualizar o produto:', resposta.status);
+        setErrorModalMessage('Ocorreu um erro ao atualizar o produto. Por favor, tente novamente mais tarde.');
+        setErrorModalVisible(true);
       }
     } catch (error) {
-      console.error('Erro ao salvar o produto:', error);
+      console.error('Erro ao atualizar o produto:', error);
+      setErrorModalMessage('Verifique os dados ou tente mais tarde.');
+      setErrorModalVisible(true);
     }
   
+  };
+
+  const handleSuccessModalClose = () => {
+    setSuccessModalVisible(false);
+
+    if (updatedProdutoId) {
+      navigation.navigate("Menu", { updatedProdutoId: updatedProdutoId });
+    }
   };
 
   return (
@@ -793,7 +820,7 @@ export function EditarMenuScreen({ navigation, route }) {
                 <View style={{ width: '17%'}}>
                   <TouchableOpacity
                     style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999, }}
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate("Menu")}
                   >
                   <Ionicons name="arrow-back" size={20} color="#FFF" />
                 </TouchableOpacity>
@@ -810,7 +837,10 @@ export function EditarMenuScreen({ navigation, route }) {
                 />
               </View>
               <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
-                <Text style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</Text>
+                <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', }}>
+                  <Text style={editarMenuStyle.alterarImgEditarMenu}>Selecionar Imagem</Text>
+                  <Ionicons name="add" size={20} color="#FFF" />
+                </View>
               </TouchableOpacity>
               <View style={editarMenuStyle.inputContainer}>
                 <TextInput
@@ -860,9 +890,11 @@ export function EditarMenuScreen({ navigation, route }) {
 
                     <TouchableOpacity
                       style={editarMenuStyle.btnCancelar}
-                      onPress={() => navigation.goBack()}
+                      onPress={() => navigation.navigate("Menu")}
                     >
+                    <Text style={{ color: '#8A19D6', fontFamily: 'Roboto_700Bold', }}>
                       Cancelar
+                    </Text>
                     </TouchableOpacity>
 
 
@@ -870,7 +902,9 @@ export function EditarMenuScreen({ navigation, route }) {
                       style={editarMenuStyle.btnSalvar}
                       onPress={handleSaveEdit}
                     >
+                    <Text style={{ color: 'white', fontFamily: 'Roboto_700Bold', }}>
                       Salvar
+                    </Text>   
                     </TouchableOpacity>
 
                 </View>
@@ -878,6 +912,36 @@ export function EditarMenuScreen({ navigation, route }) {
           </View>
         </View>
       </SafeAreaView>
+
+      {/* Modal de Erro */}
+      <Modal
+        isVisible={errorModalVisible}
+        onBackdropPress={() => setErrorModalVisible(false)}
+      >
+        <View style={loginStyle.errorModalContainer}>
+          <Ionicons name="close-circle-outline" size={60} color="#8A19D6" />
+          <Text style={loginStyle.errorModalTitle}>Erro ao atualizar!</Text>
+          <Text style={loginStyle.errorModalMessage}>{errorModalMessage}</Text>
+          <TouchableOpacity onPress={() => setErrorModalVisible(false)}>
+            <Text style={loginStyle.errorModalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      {/* Modal de Sucesso */}
+      <Modal
+        isVisible={successModalVisible}
+        onBackdropPress={handleSuccessModalClose}
+      >
+        <View style={loginStyle.errorModalContainer}>
+          <Ionicons name="checkmark-circle-outline" size={60} color="#8A19D6" />
+          <Text style={loginStyle.errorModalTitle}>Produto atualizado!</Text>
+          <Text style={loginStyle.errorModalMessage}>O item foi atualizado com sucesso.</Text>
+          <TouchableOpacity onPress={handleSuccessModalClose}>
+            <Text style={loginStyle.errorModalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
@@ -897,8 +961,15 @@ export function CadastrarMenuScreen({ navigation, route }) {
   const [newProdutoId, setNewProdutoId] = useState(null); 
 
   
-  // console.log("Cód Funcionario: ", idFuncionario);
-  // console.log(route.params);
+  const resetarForm = () => {
+    setNomeProduto('');
+    setDescricaoProduto('');
+    setCategoriaProduto('');
+    setValorProduto('');
+    setStatusProduto('');
+    setSelectedImage(null);
+    selectedImageBase64Ref.current = null;
+  };
 
   const handleImagePicker = () => {
     const options = {
@@ -952,7 +1023,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
 
         // salvando no storage
         AsyncStorage.setItem('createdProdutoId', newProdutoId.toString());
-        
+
         setNewProdutoId(newProdutoId); // Armazena o ID do novo produto no estado
         setSuccessModalVisible(true);
 
@@ -979,6 +1050,14 @@ export function CadastrarMenuScreen({ navigation, route }) {
     }
   };
 
+  const handleSuccessModalClose = () => {
+    setSuccessModalVisible(false);
+    resetarForm();
+    if (newProdutoId) {
+      navigation.navigate("Menu", { idFuncionario, createdProdutoId: newProdutoId });
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView>
@@ -988,7 +1067,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
               <View style={{ width: '17%' }}>
                 <TouchableOpacity
                   style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999 }}
-                  onPress={() => navigation.goBack()}
+                  onPress={() => navigation.navigate("Menu")}
                 >
                   <Ionicons name="arrow-back" size={20} color="#FFF" />
                 </TouchableOpacity>
@@ -1002,15 +1081,20 @@ export function CadastrarMenuScreen({ navigation, route }) {
               {selectedImage ? (
                 <Image source={{ uri: selectedImage }} style={{ width: '100%', height: 250, borderRadius: 20 }} />
               ) : (
-                <View style={{  width: '100%', height: 250, borderRadius: 20, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: 'gray', borderStyle: 'dashed', opacity: '5' }}>
-                  <Text style={{ textAlign: 'center', color: 'gray' }}>Nenhuma imagem selecionada</Text>
+                <View style={{  width: '100%', height: 200, borderRadius: 20, justifyContent: 'center', alignItems: 'center', borderWidth: 2, borderColor: 'gray', borderStyle: 'dashed', opacity: '5' }}>
+                  <Ionicons style={{ textAlign: 'center' }} name="image" size={80} color="#8A19D6" />
                 </View>
               )}
             </View>
             <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
-              <Text style={editarMenuStyle.alterarImgEditarMenu}>Selecionar Imagem</Text>
+              <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', }}>
+                <Text style={editarMenuStyle.alterarImgEditarMenu}>Selecionar Imagem</Text>
+                <Ionicons name="add" size={20} color="#FFF" />
+              </View>
             </TouchableOpacity>
             <View style={editarMenuStyle.inputContainer}>
+
+
               <TextInput
                 style={editarMenuStyle.inputNomeEditar}
                 placeholder="Título:"
@@ -1019,6 +1103,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
                 onChangeText={setNomeProduto}
               />
 
+   
               <TextInput
                 style={editarMenuStyle.inputDescricaoEditar}
                 placeholder="Descrição:"
@@ -1029,9 +1114,10 @@ export function CadastrarMenuScreen({ navigation, route }) {
                 onChangeText={setDescricaoProduto}
               />
 
+
               <TextInput
                 style={editarMenuStyle.inputNomeEditar}
-                placeholder="Valor:"
+                placeholder="Preço:"
                 placeholderTextColor="gray"
                 value={valorProduto}
                 onChangeText={(text) => {
@@ -1055,6 +1141,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
                 <Picker.Item label="Picolé" value="picole" />
                 <Picker.Item label="Sorvete de Pote" value="sorvetePote" />
               </Picker>
+              
 
               <Picker
                 style={editarMenuStyle.selectMenu}
@@ -1068,7 +1155,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
               <View style={editarMenuStyle.containarBtn}>
                 <TouchableOpacity
                   style={editarMenuStyle.btnCancelar}
-                  onPress={() => navigation.goBack()}
+                  onPress={() => navigation.navigate("Menu")}
                 >
                   <Text style={{ color: '#8A19D6', fontFamily: 'Roboto_700Bold', }}>
                     Cancelar
@@ -1107,23 +1194,13 @@ export function CadastrarMenuScreen({ navigation, route }) {
       {/* Modal de Sucesso */}
       <Modal
         isVisible={successModalVisible}
-        onBackdropPress={() => {
-          setSuccessModalVisible(false);
-          if (newProdutoId) { // Verifica se newProdutoId está definido antes de navegar
-            navigation.navigate("Menu", { idFuncionario, createdProdutoId: newProdutoId });
-          }
-        }}
+        onBackdropPress={handleSuccessModalClose}
       >
         <View style={loginStyle.errorModalContainer}>
           <Ionicons name="checkmark-circle-outline" size={60} color="#8A19D6" />
           <Text style={loginStyle.errorModalTitle}>Produto adicionado!</Text>
           <Text style={loginStyle.errorModalMessage}>O item foi adicionado com sucesso.</Text>
-          <TouchableOpacity onPress={() => {
-            setSuccessModalVisible(false);
-            if (newProdutoId) { // Verifica se newProdutoId está definido antes de navegar
-              navigation.navigate("Menu", { idFuncionario, createdProdutoId: newProdutoId });
-            }
-          }}>
+          <TouchableOpacity onPress={handleSuccessModalClose}>
             <Text style={loginStyle.errorModalButtonText}>OK</Text>
           </TouchableOpacity>
         </View>
@@ -1379,7 +1456,10 @@ export function EditarPerfilScreen({ navigation, route }) {
 
 
                 <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
-                    <Text style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</Text>
+                  <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', }}>
+                    <Text style={editarMenuStyle.alterarImgEditarMenu}>Selecionar Imagem</Text>
+                    <Ionicons name="add" size={20} color="#FFF" />
+                  </View>
                 </TouchableOpacity>
  
 
@@ -1729,7 +1809,10 @@ export function EditarFuncionarioScreen({ navigation, route }){
 
 
                 <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
-                    <Text style={editarMenuStyle.alterarImgEditarMenu}>Trocar Imagem</Text>
+                  <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', }}>
+                    <Text style={editarMenuStyle.alterarImgEditarMenu}>Selecionar Imagem</Text>
+                    <Ionicons name="add" size={20} color="#FFF" />
+                  </View>
                 </TouchableOpacity>
 
  
@@ -2096,6 +2179,33 @@ function MyTab({ route }) {
           headerShown: false,
         }}
       />
+      <Tab.Screen
+        name="EditarMenu"
+        component={EditarMenuScreen}  
+        options={{
+          tabBarButton: () => null, 
+          tabBarVisible: false,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="cadastrarMenu"
+        component={CadastrarMenuScreen}
+        options={{
+          tabBarButton: () => null, 
+          tabBarVisible: false,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="VisualizarMenu" 
+        component={VisualizarMenuScreen} 
+        options={{
+          tabBarButton: () => null, 
+          tabBarVisible: false,
+          headerShown: false,
+        }}
+      />
 
     </Tab.Navigator>
 
@@ -2127,11 +2237,7 @@ function Routes() {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen 
-        name="VisualizarMenu" 
-        component={VisualizarMenuScreen} 
-        options={{ headerShown: false }}
-      />
+
       <Stack.Screen
         name="Estoque"
         component={MyTab}
@@ -2149,16 +2255,7 @@ function Routes() {
       />
 
 
-      <Stack.Screen
-        name="EditarMenu"
-        component={EditarMenuScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="cadastrarMenu"
-        component={CadastrarMenuScreen}
-        options={{ headerShown: false }}
-      />
+
     </Stack.Navigator>
   );
 }

@@ -102,6 +102,7 @@ export const loginStyle = ({
     backgroundColor: 'transparent',
     outline: 'none',
   },
+
  
   txtForgetPassword: {
     color: '#8A19D6',
@@ -582,9 +583,12 @@ export const visualizarMenuStyle = ({
   },
 
   boxBtnVisualizarMenu: {
+    backgroundColor: '#8A19D6',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '5%',
+    borderRadius: 10,
+    height: 50,
   },
 
   precoVisualizarMenu: {
@@ -651,29 +655,21 @@ export const editarMenuStyle = ({
   containerEditarMenu: {
   },
   alterarImgEditarMenu: {
-    backgroundColor: '#8A19D6',
-    paddingTop: 7,
-    paddingBottom: 7,
-    position: 'absolute',
-    borderRadius: 10,
-    top: '50%',
-    width: '40%',
+    padding: 7,
+    borderRadius: 5,
     textAlign: 'center',
     color: 'white',
     justifyContent: 'center',
     fontFamily: 'Roboto_400Regular',
   },
 
-  inputContainer: {
-    marginTop: '10%',
-    height: '80%',
-  },
+
 
   inputNomeEditar:{
     width: '100%',
     height: 50,
     backgroundColor: 'white',
-    marginTop: 15,
+    marginBottom: 10,
     paddingLeft: 10,
     alignSelf: 'left',
     borderWidth: 1,
@@ -686,9 +682,8 @@ export const editarMenuStyle = ({
 
   inputDescricaoEditar: {
     width: '100%',
-    // height: 200,
     backgroundColor: 'white',
-    marginTop: 15,
+    marginBottom: 10,
     padding: 15,
     alignSelf: 'left',
     borderWidth: 1,
@@ -701,8 +696,8 @@ export const editarMenuStyle = ({
 
   selectMenu: {
     height: 50,
-    borderRadius: 15,
-    marginTop: '5%',
+    borderRadius: 10,
+    marginBottom: 10,
     border: 'none',
     padding: 10,
     fontSize: 16,
@@ -712,7 +707,7 @@ export const editarMenuStyle = ({
 
   containarBtn:{
     flexDirection: 'row',
-    marginTop: '5%',
+    marginTop: '10%',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
