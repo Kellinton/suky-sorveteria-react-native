@@ -189,15 +189,19 @@ export function LoginScreen({ navigation }) {
 export function DashboardScreen({ navigation, route }) {
   const [visible, setVisible] = useState(false);
 
-  const { idFuncionario } = route.params || {}; // Carrega mesmo sem informação
+  const { idFuncionario } = route.params || {};
+
+  const [updatedProdutoId, setUpdatedProdutoId] = useState(route.params?.updatedProdutoId || null);
+  const [createdProdutoId, setCreatedProdutoId] = useState(route.params?.createdProdutoId || null);
+  
 
    const [fontsLoaded] = useFonts({
      Roboto_400Regular,
      Roboto_700Bold,
    });
 
-  console.log("Cód Funcionario: ", idFuncionario);
-  console.log(route.params);
+  // console.log("Cód Funcionario: ", idFuncionario);
+
 
   const [nomeFuncionario, setNomeFuncionario] = useState("");
   const [sobrenomeFuncionario, setSobrenomeFuncionario] = useState("");
@@ -207,39 +211,80 @@ export function DashboardScreen({ navigation, route }) {
   const [totalProdutos, setTotalProdutos] = useState(0);
   const [totalFuncionarios, setTotalFuncionarios] = useState(0);
   const [mensagensRecentes, setMensagensRecentes] = useState([]);
+  
+  // Listener para focar na tela e atualizar parâmetros
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      const storedCreatedProdutoId = await AsyncStorage.getItem('createdProdutoId');
+      const storedUpdatedProdutoId = await AsyncStorage.getItem('updatedProdutoId');
+      
+
+      if (storedCreatedProdutoId) {
+        setCreatedProdutoId(storedCreatedProdutoId);
+        await AsyncStorage.removeItem('createdProdutoId');
+      }
+
+      if (storedUpdatedProdutoId) {
+        setUpdatedProdutoId(storedUpdatedProdutoId);
+        await AsyncStorage.removeItem('updatedProdutoId');
+      }
+
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   useEffect(() => {
-    const fetchFuncionarioData = async () => {
+    const fetchData = async () => {
       try {
         const token = await AsyncStorage.getItem("userToken");
-        const resposta = await axios.get(
-          `http://127.0.0.1:8000/api/dashboard/${idFuncionario}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-
-      const { nome_funcionario, sobrenome_funcionario, foto_funcionario, tipo_funcionario } = resposta.data.dadosFuncionario;
-      setNomeFuncionario(nome_funcionario);
-      setSobrenomeFuncionario(sobrenome_funcionario);
-      setFotoFuncionario(foto_funcionario);
-      setTipoFuncionario(tipo_funcionario);
-      setTotalValorProdutos(resposta.data.totalValorProdutos);
-      setTotalProdutos(resposta.data.totalProdutos);
-      setTotalFuncionarios(resposta.data.totalFuncionarios);
-      setMensagensRecentes(resposta.data.mensagensRecentes);
-      }
-      catch (error) {
-        console.error("Erro ao buscar os dados do funcionario: ", error);
+        if (idFuncionario) {
+          const respostaFuncionario = await axios.get(
+            `http://127.0.0.1:8000/api/dashboard/${idFuncionario}`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          const {
+            nome_funcionario,
+            sobrenome_funcionario,
+            foto_funcionario,
+            tipo_funcionario,
+          } = respostaFuncionario.data.dadosFuncionario;
+          setNomeFuncionario(nome_funcionario);
+          setSobrenomeFuncionario(sobrenome_funcionario);
+          setFotoFuncionario(foto_funcionario);
+          setTipoFuncionario(tipo_funcionario);
+          setTotalValorProdutos(respostaFuncionario.data.totalValorProdutos);
+          setTotalProdutos(respostaFuncionario.data.totalProdutos);
+          setTotalFuncionarios(respostaFuncionario.data.totalFuncionarios);
+          setMensagensRecentes(respostaFuncionario.data.mensagensRecentes);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
       }
     };
-    if (idFuncionario) {
-      fetchFuncionarioData();
-    }
+  
+    fetchData();
   }, [idFuncionario]);
+
+  useEffect(() => {
+    const fetchEstatisticas = async () => {
+      try {
+        const token = await AsyncStorage.getItem("userToken");
+        if (updatedProdutoId || createdProdutoId) {
+          const respostaProduto = await axios.get(
+            `http://127.0.0.1:8000/api/dashboard/${idFuncionario}`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          setTotalValorProdutos(respostaProduto.data.totalValorProdutos);
+          setTotalProdutos(respostaProduto.data.totalProdutos);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados do produto:", error);
+      }
+    };
+
+    fetchEstatisticas();
+  }, [updatedProdutoId, createdProdutoId]);
 
   const handleLogout = async () => { await AsyncStorage.removeItem('userToken');     
   navigation.navigate('Login'); // Navegar de volta para a tela de login };
@@ -394,9 +439,11 @@ export function MenuScreen({ navigation, route }) {
   const [totalProdutos, setTotalProdutos] = useState(0);
   const [valorMedioProdutos, setValorMedioProdutos] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
-  const { idFuncionario } = route.params || {};
+  const { idFuncionario, updatedProdutoId, createdProdutoId } = route.params || {};
 
   console.log("Cód Funcionario: ", idFuncionario);
+  console.log("Produto Atualizado ID: ", updatedProdutoId);
+  console.log("Produto Criado ID: ", createdProdutoId);
 
 
   useEffect(() => {
@@ -419,7 +466,7 @@ export function MenuScreen({ navigation, route }) {
     };
 
     fetchProdutos();
-  }, [idFuncionario]);
+  }, [idFuncionario, updatedProdutoId, createdProdutoId]);
 
   // Função para filtrar produtos com base no texto de busca
   const filterProdutos = (produtos, searchQuery) => {
@@ -714,7 +761,19 @@ export function EditarMenuScreen({ navigation, route }) {
       });
 
       if (resposta.status === 200) {
-        navigation.navigate('VisualizarMenu', { idProduto: route.params.produto.id });
+        const updatedProdutoId = `${route.params.produto.id}_${Date.now()}`;
+
+        // Salvando no AsyncStorage
+        AsyncStorage.setItem('updatedProdutoId', updatedProdutoId.toString())
+          .then(() => {
+            console.log(`Produto atualizado: ${updatedProdutoId}`);
+          })
+          .catch(error => {
+            console.error('Erro ao salvar o produto no AsyncStorage:', error);
+          });
+      
+        // Navega para a tela Menu com o parâmetro updatedProdutoId
+        navigation.navigate('Menu', { updatedProdutoId });
       } else {
         console.error('Erro ao salvar o produto:', resposta.status);
       }
@@ -828,7 +887,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
   const [descricaoProduto, setDescricaoProduto] = useState('');
   const [categoriaProduto, setCategoriaProduto] = useState('');
   const [valorProduto, setValorProduto] = useState('');
-  const [statusProduto, setStatusProduto] = useState('ativo');
+  const [statusProduto, setStatusProduto] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const selectedImageBase64Ref = useRef(null);
   const { idFuncionario } = route.params || {};
@@ -880,8 +939,17 @@ export function CadastrarMenuScreen({ navigation, route }) {
         },
       });
 
-      if (resposta.status === 200) {
-        navigation.navigate("dashboard", { idFuncionario } );
+      if (resposta.status === 201) { // Criando novo produto
+        
+        const newProdutoId = resposta.data.produto.id; // ID do novo produto sendo armazenado na variável newProdutoId e depois sendo passada como parametro
+
+        // salvando no storage
+        AsyncStorage.setItem('createdProdutoId', newProdutoId.toString());
+
+        // console.log(`Status: ${resposta.status} newProdutoId: ${ newProdutoId }`);
+        navigation.navigate("Menu", { idFuncionario, createdProdutoId: newProdutoId });
+        
+
       } else {
         console.error('Erro ao cadastrar o produto:', resposta.status);
       }
@@ -961,6 +1029,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
                 selectedValue={categoriaProduto}
                 onValueChange={(itemValue) => setCategoriaProduto(itemValue)}
               >
+                <Picker.Item label="Selecione a categoria" value="" />
                 <Picker.Item label="Açaí" value="acai" />
                 <Picker.Item label="Picolé" value="picole" />
                 <Picker.Item label="Sorvete de Pote" value="sorvetePote" />
@@ -971,6 +1040,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
                 selectedValue={statusProduto}
                 onValueChange={(itemValue) => setStatusProduto(itemValue)}
               >
+                <Picker.Item label="Selecione o status" value="" />
                 <Picker.Item label="Disponível" value="ativo" />
                 <Picker.Item label="Indisponível" value="inativo" />
               </Picker>
@@ -1472,7 +1542,6 @@ export function EditarFuncionarioScreen({ navigation, route }){
 
   console.log(route.params.funcionario);
 
-
   useEffect(() => {
     if (route.params && route.params.funcionario) {
       const usuario = route.params.funcionario;
@@ -1892,7 +1961,10 @@ function MyTab({ route }) {
       <Tab.Screen
         name="Início"
         component={DashboardScreen}
-        initialParams={{ idFuncionario: route.params.idFuncionario }}
+        initialParams={{ 
+          idFuncionario: route.params.idFuncionario,
+          updatedProdutoId: route.params.updatedProdutoId,
+          createdProdutoId: route.params.createdProdutoId }}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -1984,7 +2056,7 @@ function Routes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Menu"
+        name="MenuTab"
         component={MyTab}
         options={{ headerShown: false }}
       />

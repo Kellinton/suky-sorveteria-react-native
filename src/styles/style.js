@@ -706,7 +706,7 @@ export const editarMenuStyle = ({
     border: 'none',
     padding: 10,
     fontSize: 16,
-    color: 'gray',
+    color: '#03314B',
     fontFamily: 'Roboto_400Regular',
   },
 
