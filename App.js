@@ -84,10 +84,10 @@ export function LoginScreen({ navigation }) {
         const funcionario = resposta.data;
 
         if (funcionario) {
-          console.log(funcionario);
-          console.log(funcionario.usuario.dados_funcionario.idFuncionario);
-          console.log(funcionario.usuario.dados_funcionario.nome);
-          console.log(funcionario.access_token);
+          // console.log(funcionario);
+          // console.log(funcionario.usuario.dados_funcionario.idFuncionario);
+          // console.log(funcionario.usuario.dados_funcionario.nome);
+          // console.log(funcionario.access_token);
 
           const idFuncionario =
             funcionario.usuario.dados_funcionario.idFuncionario;
@@ -441,9 +441,9 @@ export function MenuScreen({ navigation, route }) {
   const [searchQuery, setSearchQuery] = useState('');
   const { idFuncionario, updatedProdutoId, createdProdutoId } = route.params || {};
 
-  console.log("Cód Funcionario: ", idFuncionario);
-  console.log("Produto Atualizado ID: ", updatedProdutoId);
-  console.log("Produto Criado ID: ", createdProdutoId);
+  // console.log("Cód Funcionario: ", idFuncionario);
+  // console.log("Produto Atualizado ID: ", updatedProdutoId);
+  // console.log("Produto Criado ID: ", createdProdutoId);
 
 
   useEffect(() => {
@@ -701,7 +701,7 @@ export function EditarMenuScreen({ navigation, route }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const selectedImageBase64Ref = useRef(null);
 
-  console.log(route.params);
+  // console.log(route.params);
 
   useEffect(() => {
     if (route.params && route.params.produto) {
@@ -891,9 +891,14 @@ export function CadastrarMenuScreen({ navigation, route }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const selectedImageBase64Ref = useRef(null);
   const { idFuncionario } = route.params || {};
+  const [errorModalVisible, setErrorModalVisible] = useState(false); // Estado para controlar a visibilidade do modal de erro
+  const [errorModalMessage, setErrorModalMessage] = useState(''); // Estado para armazenar a mensagem de erro
+  const [successModalVisible, setSuccessModalVisible] = useState(false); // Estado para controlar a visibilidade do modal de sucesso
+  const [newProdutoId, setNewProdutoId] = useState(null); 
 
-  console.log("Cód Funcionario: ", idFuncionario);
-  console.log(route.params);
+  
+  // console.log("Cód Funcionario: ", idFuncionario);
+  // console.log(route.params);
 
   const handleImagePicker = () => {
     const options = {
@@ -939,22 +944,38 @@ export function CadastrarMenuScreen({ navigation, route }) {
         },
       });
 
+
+
       if (resposta.status === 201) { // Criando novo produto
         
         const newProdutoId = resposta.data.produto.id; // ID do novo produto sendo armazenado na variável newProdutoId e depois sendo passada como parametro
 
         // salvando no storage
         AsyncStorage.setItem('createdProdutoId', newProdutoId.toString());
+        
+        setNewProdutoId(newProdutoId); // Armazena o ID do novo produto no estado
+        setSuccessModalVisible(true);
 
         // console.log(`Status: ${resposta.status} newProdutoId: ${ newProdutoId }`);
-        navigation.navigate("Menu", { idFuncionario, createdProdutoId: newProdutoId });
+        // navigation.navigate("Menu", { idFuncionario, createdProdutoId: newProdutoId });
         
+       
 
+      } else if (resposta.status === 422) {
+
+        const errorMessage = Object.values(resposta.data.errors).flat().join('\n');
+        setErrorModalMessage(errorMessage);
+        setErrorModalVisible(true);
       } else {
+
         console.error('Erro ao cadastrar o produto:', resposta.status);
+        setErrorModalMessage('Ocorreu um erro ao cadastrar o produto. Por favor, tente novamente mais tarde.');
+        setErrorModalVisible(true);
       }
     } catch (error) {
       console.error('Erro ao cadastrar o produto:', error);
+      setErrorModalMessage('Verifique se preencheu todos os dados ou tente mais tarde.');
+      setErrorModalVisible(true);
     }
   };
 
@@ -1049,23 +1070,68 @@ export function CadastrarMenuScreen({ navigation, route }) {
                   style={editarMenuStyle.btnCancelar}
                   onPress={() => navigation.goBack()}
                 >
-                  Cancelar
+                  <Text style={{ color: '#8A19D6', fontFamily: 'Roboto_700Bold', }}>
+                    Cancelar
+                  </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   style={editarMenuStyle.btnSalvar}
                   onPress={handleSaveAdd}
                 >
-                  Salvar
+                  <Text style={{ color: 'white', fontFamily: 'Roboto_700Bold', }}>
+                    Salvar
+                  </Text>             
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </View>
       </SafeAreaView>
+
+      {/* Modal de Erro */}
+      <Modal
+        isVisible={errorModalVisible}
+        onBackdropPress={() => setErrorModalVisible(false)}
+      >
+        <View style={loginStyle.errorModalContainer}>
+          <Ionicons name="close-circle-outline" size={60} color="#8A19D6" />
+          <Text style={loginStyle.errorModalTitle}>Erro ao cadastrar!</Text>
+          <Text style={loginStyle.errorModalMessage}>{errorModalMessage}</Text>
+          <TouchableOpacity onPress={() => setErrorModalVisible(false)}>
+            <Text style={loginStyle.errorModalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      {/* Modal de Sucesso */}
+      <Modal
+        isVisible={successModalVisible}
+        onBackdropPress={() => {
+          setSuccessModalVisible(false);
+          if (newProdutoId) { // Verifica se newProdutoId está definido antes de navegar
+            navigation.navigate("Menu", { idFuncionario, createdProdutoId: newProdutoId });
+          }
+        }}
+      >
+        <View style={loginStyle.errorModalContainer}>
+          <Ionicons name="checkmark-circle-outline" size={60} color="#8A19D6" />
+          <Text style={loginStyle.errorModalTitle}>Produto adicionado!</Text>
+          <Text style={loginStyle.errorModalMessage}>O item foi adicionado com sucesso.</Text>
+          <TouchableOpacity onPress={() => {
+            setSuccessModalVisible(false);
+            if (newProdutoId) { // Verifica se newProdutoId está definido antes de navegar
+              navigation.navigate("Menu", { idFuncionario, createdProdutoId: newProdutoId });
+            }
+          }}>
+            <Text style={loginStyle.errorModalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
+
 
 
 export function MensagensScreen({ navigation }) {
