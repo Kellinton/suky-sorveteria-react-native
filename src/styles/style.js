@@ -9,12 +9,11 @@ export const loginStyle = ({
   
   boxFundo: {
     width: '100%',
-    height: '30%',
     color: 'white',
+    height: 280,
   },
  
   img: {
-    position: 'relative',
     width: '100%',
     height: 280,
   },
@@ -26,36 +25,39 @@ export const loginStyle = ({
     fontSize: 15,
     fontWeight: 'normal',
     color: '#fff',
-    fontFamily: 'Roboto_400Regular',
     width: '60%',
     fontSize: 15,
   },
  
-  spanFundo: {
+  txtTitle: {
     fontSize: 25,
     color: '#fff',
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
   },
+  txtParagrafo: {
+    color: '#fff',
+    fontWeight: 'normal',
+  },
+ 
  
   container2: {
     backgroundColor: 'white',
-    height: '70%',
+    transform: [{ translateY: -30 }], 
     textAlign: 'center',
-    marginTop: 30,
     display: 'flex',
     flexDirection: 'column',
     borderWidth: 1,
     borderColor: 'white',
-    borderRadius: 25,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
     width: '100%',
   },
  
   txtLogin: {
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
     fontSize: 30,
     marginBottom: 20,
-    marginTop: 20,
-    fontWeight: 600,
+    marginTop: 60,
     color: '#8A19D6',
     textAlign: 'center',
     },
@@ -70,14 +72,14 @@ export const loginStyle = ({
     backgroundColor: 'blue',
     alignSelf: 'center',
     backgroundColor: '#8A19D6',
-    fontFamily:  'Roboto_700Bold',
+    fontWeight: 'bold',
   },
 
   entrarLogin: {
     color: 'white',
     textAlign: 'center',
     marginTop: 5,
-    fontFamily:  'Roboto_700Bold',
+    fontWeight: 'bold',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -106,7 +108,7 @@ export const loginStyle = ({
  
   txtForgetPassword: {
     color: '#8A19D6',
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
     textAlign: 'end',
     marginRight: 50,
     marginTop: 20,
@@ -134,7 +136,7 @@ export const loginStyle = ({
 
   errorModalButtonText: {
     display: 'flex',
-    width: '15rem',
+    width: 150,
     padding: 10,
     borderRadius: 30,
     marginTop: 20,
@@ -144,7 +146,7 @@ export const loginStyle = ({
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: '#8A19D6',
-    fontFamily:  'Roboto_700Bold',
+    fontWeight: 'bold',
   },
 });
 
@@ -177,23 +179,21 @@ export const dashboardStyle = ({
     fontWeight: 'bold',
     fontSize: 22,
     color: '#03314B',
-    fontFamily: 'Roboto_700Bold',
    },
 
   cargoDash: {
     color: '#8C8C8C',
-    fontFamily: 'Roboto_400Regular',
   },
 
   bannerDash: {
     backgroundColor: '#B66DFF',
     width: '90%',
-    height: 155,
+    height: 150,
     borderRadius: 15,
-    marginTop: 40,
+    marginTop: 25,
     padding: 20,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 
@@ -209,16 +209,15 @@ export const dashboardStyle = ({
     color: 'white',
     textAlign: 'center',
     marginTop: 10,
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
   },
 
   txtBanner: {
     color: 'white',
-    fontFamily: 'Roboto_400Regular',
   },
 
   spanBanner: {
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
     fontSize: 25,
     color: 'white',
   },
@@ -259,13 +258,12 @@ export const dashboardStyle = ({
   tituloEstatisticas: {
     fontSize: 22,
     color: '#03314B',
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
   },
 
   txtBoxEstatisticas: {
     color: 'white',
     fontSize: 14,
-    fontFamily: 'Roboto_400Regular',
   },
 
   boxTituloMensagem: {
@@ -279,11 +277,12 @@ export const dashboardStyle = ({
   tituloMensagem: {
     fontSize: 22,
     color: '#03314B',
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
   },
 
   boxMensagem: {
     width: '90%',
+    height: 80,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
@@ -301,22 +300,22 @@ export const dashboardStyle = ({
 
   imgMensagem: {
     marginRight: '5%',
+    borderRadius: 9999,
   },
 
   nomeMensagem: {
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
     color: '#03314B',
   },
 
   assuntoMensagem: {
-    fontFamily: 'Roboto_400Regular',
     color: '#8C8C8C',
   },
 
   horarioMensagem: {
     marginLeft: '10%',
     marginBottom: '5%',
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
     color: '#03314B',
   },
 
@@ -351,7 +350,6 @@ export const menuStyle = ({
     color: 'white',
     textAlign: 'center',
     marginBottom: '5%',
-    fontFamily: 'Roboto_700Bold',
   },
 
   buscarMenuContainer: {
@@ -463,7 +461,6 @@ export const menuStyle = ({
   },
   txtBoxEstatisticasMenu: {
     color: 'white',
-    fontFamily: 'Roboto_400Regular',
   },
   containerEstatisticasMenu: {
     height: 120,
@@ -511,7 +508,6 @@ export const menuStyle = ({
     justifyContent: 'center',
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
-    fontFamily: 'Roboto_400Regular',
   },
 
   cardMenu: {
@@ -523,12 +519,10 @@ export const menuStyle = ({
   tituloCardMenu: {
     fontWeight: 'bold',
     marginBottom: 5, 
-    fontFamily: 'Roboto_700Bold',
   },
 
   descricaoCardMenu: {
     color: 'gray',
-    fontFamily: 'Roboto_400Regular',
   },
 
   btnCardMenu: {
@@ -604,6 +598,7 @@ export const visualizarMenuStyle = ({
     justifyContent: 'center',
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
+    fontWeight: 'bold',
   },
 
   boxIcons: {
@@ -613,18 +608,19 @@ export const visualizarMenuStyle = ({
 
   nomeProdutoMenu: {
     fontSize: 20,
-    fontWeight: '500',
+    fontWeight: 'normal',
     marginBottom: '5%',
   },
 
   tituloDescricao: {
     fontSize: 18,
     marginBottom: '3%',
-    fontWeight: '500',
+    fontWeight: 'normal',
   },
 
   textoDescricao: {
-    color: '#8C8C8C'
+    color: '#8C8C8C',
+    fontWeight: 'normal',
   },
 
   iconAcaiVisualizarMenu: {
@@ -647,23 +643,18 @@ export const visualizarMenuStyle = ({
     alignItems: 'center',
     borderRadius: 30,
     color: 'white',
-    marginTop: '20%',
   },
 });
 
 export const editarMenuStyle = ({
-  containerEditarMenu: {
-  },
+
   alterarImgEditarMenu: {
     padding: 7,
     borderRadius: 5,
     textAlign: 'center',
     color: 'white',
     justifyContent: 'center',
-    fontFamily: 'Roboto_400Regular',
   },
-
-
 
   inputNomeEditar:{
     width: '100%',
@@ -674,10 +665,8 @@ export const editarMenuStyle = ({
     alignSelf: 'left',
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    fontFamily:  'Roboto_400Regular',
     paddingLeft: 15,
-    borderRadius: 10,
-    fontFamily: 'Roboto_400Regular',
+
   },
 
   inputDescricaoEditar: {
@@ -685,13 +674,11 @@ export const editarMenuStyle = ({
     backgroundColor: 'white',
     marginBottom: 10,
     padding: 15,
-    alignSelf: 'left',
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    fontFamily:  'Roboto_400Regular',
     paddingLeft: 15,
-    borderRadius: 10,
-    fontFamily: 'Roboto_400Regular',
+
+    textAlignVertical: 'top',
   },
 
   selectMenu: {
@@ -701,8 +688,8 @@ export const editarMenuStyle = ({
     border: 'none',
     padding: 10,
     fontSize: 16,
+    backgroundColor: 'white',
     color: '#03314B',
-    fontFamily: 'Roboto_400Regular',
   },
 
   containarBtn:{
@@ -720,7 +707,7 @@ export const editarMenuStyle = ({
     justifyContent: 'center',
     alignItems: 'center',
     color: '#8A19D6',
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
   },
 
   btnSalvar: {
@@ -732,59 +719,11 @@ export const editarMenuStyle = ({
     alignItems: 'center',
     borderRadius: 30,
     color: 'white',
-    fontFamily: 'Roboto_700Bold',
-  },
-});
-
-export const estoqueStyle = ({
-  valorEstoque: {
-    color: '#8A19D6',
     fontWeight: 'bold',
   },
-
-  boxContEstoque: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    right: '5%'
-  },
-
-  btnDiminuirEstoque: {
-    width: 30,
-    height: 30,
-    borderRadius: 10,
-    backgroundColor: '#F1ECFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  btnAdicionarEstoque: {
-    width: 30,
-    height: 30,
-    borderRadius: 10,
-    backgroundColor: '#8A19D6',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  qtdEstoque: {
-    margin: 10,
-    fontSize: 18,
-  },
-
-  addProdutoEstoque: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#8A19D6',
-    borderRadius: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: '-58%',
-    right: '5%',
-  },
 });
+
+
 
 export const visualizarPerfilStyle = ({
   fotoVisualizarPerfil: {
@@ -899,7 +838,7 @@ export const funcionarioStyle = ({
     color: '#03314B',
     fontSize: '22',
     alignItems: 'center',
-    fontFamily: 'Roboto_700Bold',
+    fontWeight: 'bold',
   },
 
   boxNomeFuncionario: {
