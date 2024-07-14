@@ -74,7 +74,7 @@ export function LoginScreen({ navigation }) {
 
     try {
         // const resposta = await axios.post(`http://.8000/api/login?email=?{email}&senha=${senha}`);
-         const resposta = await axios.post(`http://:8000/api/login`, {
+         const resposta = await axios.post(`http:///api/login`, {
            email: email,
            senha: senha,
          });
@@ -188,6 +188,7 @@ export function DashboardScreen({ navigation, route }) {
 
   const [updatedProdutoId, setUpdatedProdutoId] = useState(route.params?.updatedProdutoId || null);
   const [createdProdutoId, setCreatedProdutoId] = useState(route.params?.createdProdutoId || null);
+  const [updatedUsuarioId, setUpdatedUsuarioId] = useState(route.params?.updatedUsuarioId || null);
   
 
 
@@ -209,6 +210,7 @@ export function DashboardScreen({ navigation, route }) {
     const unsubscribe = navigation.addListener('focus', async () => {
       const storedCreatedProdutoId = await AsyncStorage.getItem('createdProdutoId');
       const storedUpdatedProdutoId = await AsyncStorage.getItem('updatedProdutoId');
+      const storedUpdatedUsuarioId = await AsyncStorage.getItem('updatedUsuarioId');
       
 
       if (storedCreatedProdutoId) {
@@ -219,6 +221,11 @@ export function DashboardScreen({ navigation, route }) {
       if (storedUpdatedProdutoId) {
         setUpdatedProdutoId(storedUpdatedProdutoId);
         await AsyncStorage.removeItem('updatedProdutoId');
+      }
+
+      if (storedUpdatedUsuarioId) {
+        setUpdatedUsuarioId(storedUpdatedUsuarioId);
+        await AsyncStorage.removeItem('updatedUsuarioId');
       }
 
     });
@@ -232,7 +239,7 @@ export function DashboardScreen({ navigation, route }) {
         const token = await AsyncStorage.getItem("userToken");
         if (idFuncionario) {
           const respostaFuncionario = await axios.get(
-            `http://:8000/api/dashboard/${idFuncionario}`,
+            `http:///api/dashboard/${idFuncionario}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           const {
@@ -256,19 +263,19 @@ export function DashboardScreen({ navigation, route }) {
     };
   
     fetchData();
-  }, [idFuncionario]);
+  }, [idFuncionario, updatedUsuarioId]);
 
   useEffect(() => {
     const fetchEstatisticas = async () => {
       try {
         const token = await AsyncStorage.getItem("userToken");
         if (updatedProdutoId || createdProdutoId) {
-          const respostaProduto = await axios.get(
-            `http://:8000/api/dashboard/${idFuncionario}`,
+          const resposta = await axios.get(
+            `http:///api/dashboard/${idFuncionario}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
-          setTotalValorProdutos(respostaProduto.data.totalValorProdutos);
-          setTotalProdutos(respostaProduto.data.totalProdutos);
+          setTotalValorProdutos(resposta.data.totalValorProdutos);
+          setTotalProdutos(resposta.data.totalProdutos);
         }
       } catch (error) {
         console.error("Erro ao buscar dados do produto:", error);
@@ -299,12 +306,12 @@ export function DashboardScreen({ navigation, route }) {
             <View style={dashboardStyle.topDashInfo}>
               <View           
               >
-                {fotoFuncionario && (
+
                   <Image
                     source={{ uri: fotoFuncionario }}
                     style={{ width: 50, height: 50, borderRadius: 10 }}
                   />
-                )}
+ 
               </View>
 
               <View style={{ marginLeft: 10 }}>
@@ -435,7 +442,7 @@ export function MenuScreen({ navigation, route }) {
     const fetchProdutos = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http://:8000/api/produtos', {
+        const resposta = await axios.get('http:///api/produtos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -519,7 +526,7 @@ export function MenuScreen({ navigation, route }) {
                       <View key={item.id} style={menuStyle.boxContainerMenu}>
                         <View>
                           <Image
-                            source={{ uri: `http://:8000/storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
+                            source={{ uri: `http:///storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
                             style={{ width: 120, height: 120, borderRadius: 20 }}
                           />
                           <Text style={menuStyle.precoMenu}>R$ {item.valorProduto}</Text>
@@ -588,7 +595,7 @@ export function VisualizarMenuScreen({ navigation }) {
     const fetchProduto = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get(`http://:8000/api/produtos/${idProduto}`, {
+        const resposta = await axios.get(`http:///api/produtos/${idProduto}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -630,7 +637,7 @@ export function VisualizarMenuScreen({ navigation }) {
 
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image
-                source={{ uri: `http://:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
+                source={{ uri: `http:///storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
                 style={{ width: '100%', height: 300, borderRadius: 20, }}
               />
               <Text style={visualizarMenuStyle.precoVisualizarMenu}>R$ {produto.valorProduto}</Text>
@@ -705,7 +712,7 @@ export function EditarMenuScreen({ navigation, route }) {
       setValorProduto(produto.valorProduto);
       setStatusProduto(produto.statusProduto);
       // carrega a imagem atual do produto
-      setSelectedImage(`http://:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
+      setSelectedImage(`http:///storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
     }
   }, [route.params]);
 
@@ -759,7 +766,7 @@ export function EditarMenuScreen({ navigation, route }) {
         formData.append('fotoProduto', selectedImageBase64Ref.current);
       }
 
-      const resposta = await axios.post(`http://:8000/api/produtos/${route.params.produto.id}`, formData, {
+      const resposta = await axios.post(`http:///api/produtos/${route.params.produto.id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -1029,7 +1036,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
         formData.append('fotoProduto', selectedImageBase64Ref.current);
       }
 
-      const resposta = await axios.post('http://:8000/api/produtos', formData, {
+      const resposta = await axios.post('http:///api/produtos', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -1226,7 +1233,7 @@ export function MensagensScreen({ navigation }) {
     const fetchMensagens = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http://:8000/api/contatos', {
+        const resposta = await axios.get('http:///api/contatos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -1340,14 +1347,20 @@ export function MensagensScreen({ navigation }) {
 }
 
 export function EditarPerfilScreen({ navigation, route }) {
+  const [nome, setNome] = useState('');
+  const [sobrenome, setSobrenome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [tokenSenha, setTokenSenha] = useState('');
+  const [updated_at, setUpdated_at] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const selectedImageBase64Ref = useRef(null);
+  const [errorModalVisible, setErrorModalVisible] = useState(false); // Estado para controlar a visibilidade do modal de erro
+  const [errorModalMessage, setErrorModalMessage] = useState(''); // Estado para armazenar a mensagem de erro
+  const [successModalVisible, setSuccessModalVisible] = useState(false); // Estado para controlar a visibilidade do modal de sucesso
+  const [updatedUsuarioId, setUpdatedUsuarioId] = useState(null); 
 
 
-  console.log(route.params.funcionario);
+  // console.log(route.params.funcionario);
 
 
 
@@ -1356,17 +1369,20 @@ export function EditarPerfilScreen({ navigation, route }) {
       const fetchFuncionario = async () => {
         try {
           const token = await AsyncStorage.getItem('userToken');
-          const response = await axios.get(`http://:8000/api/perfil/${route.params.idFuncionario}`, {
+          const response = await axios.get(`http:///api/perfil/${route.params.idFuncionario}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
           const funcionario = response.data;
 
+          setNome(funcionario.nome);
+          setSobrenome(funcionario.sobrenome);
           setEmail(funcionario.email);
           setSenha(funcionario.senha);
-          setTokenSenha(funcionario.token_lembrete);
-          setSelectedImage(`http://:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}`);
+          setUpdated_at(funcionario.updated_at);
+
+          setSelectedImage(`http:///storage/img/funcionarios/${funcionario.fotoFuncionario}`);
         } catch (error) {
           console.error('Erro ao buscar dados do funcionário:', error);
         }
@@ -1376,33 +1392,42 @@ export function EditarPerfilScreen({ navigation, route }) {
     }
   }, [route.params]);
 
-    const handleImagePicker = () => {
-      const options = {
-        mediaType: 'photo',
-        includeBase64: true, // Incluir base64 no resultado
-      };
-
-      launchImageLibrary(options, (resposta) => {
-        if (resposta.didCancel) {
-          console.log('Seleção de imagem cancelada pelo usuário');
-        } else if (resposta.error) {
-          console.log('Erro ao selecionar imagem: ', resposta.error);
-        } else {
-          const base64Image = resposta.assets[0].base64;
-          const uri = resposta.assets[0].uri;
-          console.log('URI da imagem selecionada:', uri);
-          console.log('Imagem base64:', base64Image);
-          selectedImageBase64Ref.current = base64Image;
-          setSelectedImage(uri); // Atualiza a visualização da imagem selecionada
-        }
+  const handleImagePickerUsuario = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+        base64: true,
       });
-    };
+
+
+      if (result.canceled) {
+        console.log('Seleção de imagem cancelada pelo usuário');
+        return;
+      }
+
+      const base64Image = result.assets[0].base64;
+      const uri = result.assets[0].uri;
+
+      // console.log('URI da imagem selecionada:', uri);
+      // console.log('Imagem base64:', base64Image);
+
+      setSelectedImage(uri); // Atualiza o estado com a URI da imagem selecionada
+      selectedImageBase64Ref.current = base64Image; // Armazena base64 na ref para uso posterior
+  
+    } catch (error) {
+      console.error('Erro ao selecionar imagem:', error);
+    }
+  };
 
     const handleSavePerfilEdit = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
         const formData = new FormData();
-  
+        
+        formData.append('nome', nome);
+        formData.append('sobrenome', sobrenome);
         formData.append('email', email);
         formData.append('senha', senha);
   
@@ -1410,7 +1435,7 @@ export function EditarPerfilScreen({ navigation, route }) {
           formData.append('fotoFuncionario', selectedImageBase64Ref.current);
         }
   
-        const response = await axios.post(`http://:8000/api/perfil/${route.params.idFuncionario}`, formData, {
+        const response = await axios.post(`http:///api/perfil/${route.params.idFuncionario}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -1418,16 +1443,45 @@ export function EditarPerfilScreen({ navigation, route }) {
         });
   
         if (response.status === 200) {
-          navigation.navigate('Dashboard');
+          const updatedUsuarioId = `${route.params.idFuncionario}_${Date.now()}`;
+
+
+        AsyncStorage.setItem('updatedUsuarioId', updatedUsuarioId.toString())
+          .then(() => {
+            console.log(`Perfil atualizado: ${updatedUsuarioId}`);
+          })
+          .catch(error => {
+            console.error('Erro ao salvar os dados no AsyncStorage:', error);
+          });
+
+          setUpdatedUsuarioId(updatedUsuarioId); 
+          setSuccessModalVisible(true);
+
+        } else if (resposta.status === 422) {
+
+          const errorMessage = Object.values(resposta.data.errors).flat().join('\n');
+          setErrorModalMessage(errorMessage);
+          setErrorModalVisible(true);
         } else {
-          console.error('Erro ao salvar a atualização:', response.status);
+  
+          console.error('Erro ao atualizar o perfil:', resposta.status);
+          setErrorModalMessage('Ocorreu um erro ao atualizar o perfil. Por favor, tente novamente mais tarde.');
+          setErrorModalVisible(true);
         }
       } catch (error) {
-        console.error('Erro ao salvar a atualização:', error);
+        console.error('Erro ao atualizar o perfil:', error);
+        setErrorModalMessage('Verifique os dados ou tente mais tarde.');
+        setErrorModalVisible(true);
       }
     };
   
-    
+    const handleSuccessModalUsuarioClose = () => {
+      setSuccessModalVisible(false);
+  
+      if (updatedUsuarioId) {
+        navigation.navigate("Início", { updatedUsuarioId: updatedUsuarioId });
+      }
+    };  
 
 
   return (
@@ -1459,7 +1513,7 @@ export function EditarPerfilScreen({ navigation, route }) {
                 </View>
 
 
-                <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
+                <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePickerUsuario}>
                   <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', alignItems: 'center', }}>
                     <Text style={editarMenuStyle.alterarImgEditarMenu}>Selecionar Imagem</Text>
                     <Ionicons name="add" size={20} color="#FFF" />
@@ -1467,6 +1521,30 @@ export function EditarPerfilScreen({ navigation, route }) {
                 </TouchableOpacity>
  
                 <View style={{ flex: 1, }}>
+                  <Text style={{ marginBottom: 5, fontWeight: 'bold', color: 'gray', }}>Nome:</Text>
+                  <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                    <Icon name="person-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                    <TextInput
+                      placeholder="Nome:"
+                      placeholderTextColor="gray"
+                      style={loginStyle.TextInput}
+                      value={nome}
+                      onChangeText={setNome}
+                      underlineColorAndroid="transparent"
+                    />
+                  </View>
+                  <Text style={{ marginBottom: 5, fontWeight: 'bold', color: 'gray', }}>Sobrenome:</Text>
+                  <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
+                    <Icon name="person-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                    <TextInput
+                      placeholder="Sobrenome:"
+                      placeholderTextColor="gray"
+                      style={loginStyle.TextInput}
+                      value={sobrenome}
+                      onChangeText={setSobrenome}
+                      underlineColorAndroid="transparent"
+                    />
+                  </View>  
                   <Text style={{ marginBottom: 5, fontWeight: 'bold', color: 'gray', }}>E-mail:</Text>
                   <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
                     <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
@@ -1494,19 +1572,14 @@ export function EditarPerfilScreen({ navigation, route }) {
                     />
                   </View>
 
-                  <Text style={{  marginBottom: 5, fontWeight: 'bold', color: 'gray', }}>Token para recuperação de senha:</Text>
-                  <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                    <Icon name="key-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
-                    <TextInput
-                    placeholder="Token:"
-                    placeholderTextColor="gray"
-                    style={loginStyle.TextInput}
-                    value={tokenSenha}
-                    editable={false}
-                    selectTextOnFocus={true}
-                    underlineColorAndroid="transparent"
-                  />
+                  <View style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePickerUsuario}>
+                    <View style={{ marginLeft: 5, flexDirection: 'row', gap: 5, alignItems: 'center', }}>
+                      <Ionicons name="time-outline" size={20} color="#FFF" />
+                      <Text style={editarMenuStyle.alterarImgEditarMenu}>Atualizando em {updated_at}</Text>
+                    </View>
                   </View>
+
+
                 </View>
 
                 <View style={editarMenuStyle.containarBtn}>
@@ -1530,6 +1603,36 @@ export function EditarPerfilScreen({ navigation, route }) {
 
           </View>
         </SafeAreaView>
+
+        <Modal
+        isVisible={errorModalVisible}
+        onBackdropPress={() => setErrorModalVisible(false)}
+      >
+        <View style={loginStyle.errorModalContainer}>
+          <Ionicons name="close-circle-outline" size={60} color="#8A19D6" />
+          <Text style={loginStyle.errorModalTitle}>Erro ao atualizar!</Text>
+          <Text style={loginStyle.errorModalMessage}>{errorModalMessage}</Text>
+          <TouchableOpacity onPress={() => setErrorModalVisible(false)}>
+            <Text style={loginStyle.errorModalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      
+      <Modal
+        isVisible={successModalVisible}
+        onBackdropPress={handleSuccessModalUsuarioClose}
+      >
+        <View style={loginStyle.errorModalContainer}>
+          <Ionicons name="checkmark-circle-outline" size={60} color="#8A19D6" />
+          <Text style={loginStyle.errorModalTitle}>Perfil atualizado!</Text>
+          <Text style={loginStyle.errorModalMessage}>Seu perfil foi atualizado com sucesso.</Text>
+          <TouchableOpacity onPress={handleSuccessModalUsuarioClose}>
+            <Text style={loginStyle.errorModalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
       </ScrollView>
     </View>
   );
@@ -1549,7 +1652,7 @@ export function FuncionarioScreen({ navigation, route }) {
     const fetchFuncionarios = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http://:8000/api/funcionarios', {
+        const resposta = await axios.get('http:///api/funcionarios', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -1640,7 +1743,7 @@ export function FuncionarioScreen({ navigation, route }) {
                   onPress={() => navigation.navigate('editarFuncionario', { funcionario })}
                 >
                   <Image 
-                    source={{ uri: `http://:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
+                    source={{ uri: `http:///storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
                     style={{ width: 80, height: 80, borderRadius: 40 }}
                   />
                   <View style={funcionarioStyle.boxNomeFuncionario}>
@@ -1706,7 +1809,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
       setSalarioFuncionario(usuario.salarioFuncionario);
       setTipo_funcionario(usuario.tipo_funcionario);
       setStatusFuncionario(usuario.statusFuncionario);
-      setSelectedImage(`http://:8000/storage/img/funcionarios/${usuario.fotoFuncionario}`);
+      setSelectedImage(`http:///storage/img/funcionarios/${usuario.fotoFuncionario}`);
     }
   }, [route.params]);
 
@@ -1758,7 +1861,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
           formData.append('fotoFuncionario', selectedImageBase64Ref.current);
         }
   
-        const resposta = await axios.post(`http://:8000/api/funcionarios/${route.params.funcionario.id}`, formData, {
+        const resposta = await axios.post(`http:///api/funcionarios/${route.params.funcionario.id}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -2069,7 +2172,8 @@ function MyTab({ route }) {
         initialParams={{ 
           idFuncionario: route.params.idFuncionario,
           updatedProdutoId: route.params.updatedProdutoId,
-          createdProdutoId: route.params.createdProdutoId }}
+          createdProdutoId: route.params.createdProdutoId,
+          updatedUsuarioId: route.params.updatedUsuarioId }}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -2125,6 +2229,15 @@ function MyTab({ route }) {
           headerShown: false,
         }}
       />
+      <Tab.Screen
+        name="EditarPerfil"
+        component={EditarPerfilScreen}  
+        options={{
+          tabBarButton: () => null, 
+          tabBarVisible: false,
+          headerShown: false,
+        }}
+      /> 
        <Tab.Screen
         name="EditarMenu"
         component={EditarMenuScreen}  
