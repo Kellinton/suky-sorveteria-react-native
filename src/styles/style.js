@@ -300,7 +300,7 @@ export const dashboardStyle = ({
 
   imgMensagem: {
     marginRight: '5%',
-    borderRadius: 9999,
+    borderRadius: 10,
   },
 
   nomeMensagem: {

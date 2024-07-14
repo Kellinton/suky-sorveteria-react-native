@@ -74,7 +74,7 @@ export function LoginScreen({ navigation }) {
 
     try {
         // const resposta = await axios.post(`http://.8000/api/login?email=?{email}&senha=${senha}`);
-         const resposta = await axios.post(`http:///api/login`, {
+         const resposta = await axios.post(`http://:8000/api/login`, {
            email: email,
            senha: senha,
          });
@@ -239,7 +239,7 @@ export function DashboardScreen({ navigation, route }) {
         const token = await AsyncStorage.getItem("userToken");
         if (idFuncionario) {
           const respostaFuncionario = await axios.get(
-            `http:///api/dashboard/${idFuncionario}`,
+            `http://:8000/api/dashboard/${idFuncionario}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           const {
@@ -271,7 +271,7 @@ export function DashboardScreen({ navigation, route }) {
         const token = await AsyncStorage.getItem("userToken");
         if (updatedProdutoId || createdProdutoId) {
           const resposta = await axios.get(
-            `http:///api/dashboard/${idFuncionario}`,
+            `http://:8000/api/dashboard/${idFuncionario}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           setTotalValorProdutos(resposta.data.totalValorProdutos);
@@ -442,7 +442,7 @@ export function MenuScreen({ navigation, route }) {
     const fetchProdutos = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http:///api/produtos', {
+        const resposta = await axios.get('http://:8000/api/produtos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -526,7 +526,7 @@ export function MenuScreen({ navigation, route }) {
                       <View key={item.id} style={menuStyle.boxContainerMenu}>
                         <View>
                           <Image
-                            source={{ uri: `http:///storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
+                            source={{ uri: `http://:8000/storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
                             style={{ width: 120, height: 120, borderRadius: 20 }}
                           />
                           <Text style={menuStyle.precoMenu}>R$ {item.valorProduto}</Text>
@@ -595,7 +595,7 @@ export function VisualizarMenuScreen({ navigation }) {
     const fetchProduto = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get(`http:///api/produtos/${idProduto}`, {
+        const resposta = await axios.get(`http://:8000/api/produtos/${idProduto}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -637,7 +637,7 @@ export function VisualizarMenuScreen({ navigation }) {
 
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image
-                source={{ uri: `http:///storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
+                source={{ uri: `http://:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
                 style={{ width: '100%', height: 300, borderRadius: 20, }}
               />
               <Text style={visualizarMenuStyle.precoVisualizarMenu}>R$ {produto.valorProduto}</Text>
@@ -712,7 +712,7 @@ export function EditarMenuScreen({ navigation, route }) {
       setValorProduto(produto.valorProduto);
       setStatusProduto(produto.statusProduto);
       // carrega a imagem atual do produto
-      setSelectedImage(`http:///storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
+      setSelectedImage(`http://:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
     }
   }, [route.params]);
 
@@ -766,7 +766,7 @@ export function EditarMenuScreen({ navigation, route }) {
         formData.append('fotoProduto', selectedImageBase64Ref.current);
       }
 
-      const resposta = await axios.post(`http:///api/produtos/${route.params.produto.id}`, formData, {
+      const resposta = await axios.post(`http://:8000/api/produtos/${route.params.produto.id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -964,7 +964,8 @@ export function CadastrarMenuScreen({ navigation, route }) {
   const [successModalVisible, setSuccessModalVisible] = useState(false); // Estado para controlar a visibilidade do modal de sucesso
   const [newProdutoId, setNewProdutoId] = useState(null); 
 
-  
+
+
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
@@ -1036,7 +1037,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
         formData.append('fotoProduto', selectedImageBase64Ref.current);
       }
 
-      const resposta = await axios.post('http:///api/produtos', formData, {
+      const resposta = await axios.post('http://:8000/api/produtos', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -1233,7 +1234,7 @@ export function MensagensScreen({ navigation }) {
     const fetchMensagens = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http:///api/contatos', {
+        const resposta = await axios.get('http://:8000/api/contatos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -1270,79 +1271,203 @@ export function MensagensScreen({ navigation }) {
               justifyContent: "center",
               alignItems: "center",
               position: "relative",
+              backgroundColor: '#8A19D6',
             }}
           >
             <View style={menuStyle.boxTopoMenu}>
               <Text style={menuStyle.tituloMenu}>Mensagens</Text>
-              <View style={dashboardStyle.containerEstatisticas}>
+              <View style={menuStyle.containerEstatisticasMenu}>
                 <View style={menuStyle.boxEstatisticasMenu}>
-                  <Ionicons name="chatbubble-outline" size={25} color="#FFF" />
-                  <Text>{naoRespondidas}</Text>
-                  <Text style={dashboardStyle.txtBoxEstatisticas}>Ativas</Text>
+                  <Ionicons name="chatbubble" size={25} color="#FFF" />
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>{naoRespondidas}</Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>Ativas</Text>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
                   <Ionicons
-                    name="chatbubble-ellipses-outline"
+                    name="arrow-redo"
                     size={25}
                     color="#FFF"
                   />
-                  <Text>{mensagensRespondidas}</Text>
-                  <Text style={dashboardStyle.txtBoxEstatisticas}>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>{mensagensRespondidas}</Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>
                     Respondidas
                   </Text>
                 </View>
 
                 <View style={menuStyle.boxEstatisticasMenu}>
-                  <Ionicons name="chatbubbles-outline" size={25} color="#FFF" />
-                  <Text>{mensagensTotais}</Text>
-                  <Text style={dashboardStyle.txtBoxEstatisticas}>Totais</Text>
+                  <Ionicons name="chatbubble-ellipses" size={25} color="#FFF" />
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>{mensagensTotais}</Text>
+                  <Text style={menuStyle.txtBoxEstatisticasMenu}>Totais</Text>
                 </View>
               </View>
             </View>
+            <View style={menuStyle.menuContainer}>
+              <View style={menuStyle.buscarMenuContainer}>
+                <View style={menuStyle.buscarMenu}>
+                  <Ionicons name="search-outline" size={18} />
+                  <TextInput
+                    style={menuStyle.titleBuscarMenu}
+                    placeholder="Buscar"
+                    onChangeText={(text) => setSearchQuery(text)}
+                    value={searchQuery}
+                  />
+                </View>
+                <TouchableOpacity
+                  style={menuStyle.btnFiltroMenu}
+                >
+                  <Ionicons name="apps" size={20} color="#FFF" />
+                </TouchableOpacity>
+              </View>
+              <View style={{ alignItems: 'center', }}>
+                <View style={menuStyle.containerMainmenu}>
+                {filterMensagens(mensagens, searchQuery).map((mensagem) => (
+                <TouchableOpacity
+                  key={mensagem.id} // Coloque a chave aqui no TouchableOpacity
+                  onPress={() => navigation.navigate('VisualizarMensagem', { idMensagem: mensagem.id })}
+                >
+                  <View style={dashboardStyle.boxMensagem}>
+                    <View style={dashboardStyle.boxMensagemInfo}>
+                      <Image
+                        source={require("./assets/foto_mensagem.png")}
+                        style={dashboardStyle.imgMensagem}
+                      />
+                      <View style={StyleSheet.mensagem}>
+                        <Text style={dashboardStyle.nomeMensagem}>{mensagem.nomeContato}</Text>
+                        <Text style={dashboardStyle.assuntoMensagem}>{mensagem.mensagemContato}</Text>
+                      </View>
+                    </View>
 
-            <View style={menuStyle.buscarMenu}>
-              <Ionicons name="search-outline" size={18} />
-              <TextInput
-                style={menuStyle.titleBuscarMenu}
-                placeholder="Buscar"
-                onChangeText={(text) => setSearchQuery(text)}
-                value={searchQuery}
-              />
-            </View>
-
-            <View style={dashboardStyle.boxTituloMensagem}>
-              <Text style={dashboardStyle.tituloMensagem}>
-                Todas as Mensagens
-              </Text>
-            </View>
-
-            {filterMensagens(mensagens, searchQuery).map((mensagem) => (
-            <View key={mensagem.id} style={dashboardStyle.boxMensagem}>
-
-              <View style={dashboardStyle.boxMensagemInfo}>
-                <Image
-                  source={require("./assets/foto_mensagem.png")}
-                  style={dashboardStyle.imgMensagem}
-                ></Image>
-
-                <View style={StyleSheet.mensagem}>
-                  <Text style={dashboardStyle.nomeMensagem}>{mensagem.nomeContato}</Text>
-                  <Text style={dashboardStyle.assuntoMensagem}>{mensagem.mensagemContato}</Text>
+                    <View style={dashboardStyle.boxhorarioMensagem}>
+                      <Text style={dashboardStyle.horarioMensagem}>{mensagem.created_at}</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+                ))}
                 </View>
               </View>
-
-              <View style={dashboardStyle.boxhorarioMensagem}>
-                <Text style={dashboardStyle.horarioMensagem}>{mensagem.created_at}</Text>
-              </View>
-
             </View>
-            ))}
-
           </View>
         </SafeAreaView>
       </ScrollView>
     </View>
+  );
+}
+
+export function VisualizarMensagemScreen({ navigation }) {
+  const route = useRoute();
+  const [mensagem, setMensagem] = useState(null);
+
+  useEffect(() => {
+    // Recuperar o ID da mensagem  da rota
+    const { idMensagem } = route.params;
+
+    const fetchMensagem = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        const resposta = await axios.get(`http://:8000/api/contatos/${idMensagem}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setMensagem(resposta.data);
+        console.log(resposta.data);
+
+      } catch (error) {
+        console.error('Erro ao buscar a mensagem:', error);
+      }
+    };
+
+    fetchMensagem();
+  }, [route.params]);
+
+  if (!mensagem) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Carregando...</Text>
+      </View>
+    );
+  }
+
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1,  padding: '5%', }}>
+            <View style={{ flexDirection: 'row', width: '90%', alignItems: 'center', marginBottom: '5%', marginTop: '7%'}}>
+              <View style={{ width: '17%'}}>
+                <TouchableOpacity
+                  style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999, }}
+                  onPress={() => navigation.navigate("Mensagens")}
+                >
+                <Ionicons name="arrow-back" size={20} color="#FFF" />
+              </TouchableOpacity>
+              </View>
+              <View style={{ width: '83%',}}>
+                <Text style={{ fontSize: 25, textAlign: 'center', fontWeight: 'bold',}}>Mensagem</Text>
+              </View>
+            </View>  
+
+            <View style={{ flexDirection: 'row', alignItems:'center', width: '90%',  marginTop: '7%',}}>
+              <Image
+                source={require("./assets/foto_mensagem.png")}
+                style={{ marginRight: '3%', borderRadius: 10, height: 70, width: 70, }}
+              />
+              <View>
+                <Text style={dashboardStyle.nomeDash}>
+                  {mensagem.nomeContato}
+                </Text>
+                <Text style={visualizarMenuStyle.textoDescricao}>E-mail: <Text style={{ color: '#03314B', }}>{mensagem.emailContato}</Text></Text>
+                <Text style={visualizarMenuStyle.textoDescricao}>Assunto: <Text style={{ color: '#03314B', }}>{mensagem.assuntoContato}</Text></Text>
+              </View>
+            </View>   
+            <View style={{ flex: 1, justifyContent: 'space-between', marginTop: '7%',}}>
+              <View style={{ flex: 1, flexGrow: 1, }}>
+                <Text style={{ fontWeight: 'bold', color: '#03314B', fontSize: 22, }}>Mensagem:</Text>
+                <Text>
+                  {mensagem.mensagemContato}
+                </Text>
+              </View>   
+              <View style={visualizarMenuStyle.boxBtnVisualizarMenu}>
+                    <View style={{ marginLeft: 5, flexDirection: 'row', gap: 5, alignItems: 'center', }}>
+                      <Ionicons name="time-outline" size={20} color="#FFF" />
+                      <Text style={editarMenuStyle.alterarImgEditarMenu}>Enviado em {mensagem.contato_created_at}</Text>
+                    </View>
+                  </View>      
+            </View>
+
+            {mensagem.mensagem_resposta && (
+              <>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginTop: '7%', }}>
+                  <Image
+                    source={{ uri: `http://:8000/storage/img/funcionarios/${mensagem.foto_administrador}` }}
+                    style={{ marginRight: '3%', borderRadius: 10, height: 70, width: 70, }}
+                  />
+                  <View>
+                    <Text style={dashboardStyle.nomeDash}>
+                      {mensagem.nome_administrador}
+                    </Text>
+                    <Text style={visualizarMenuStyle.textoDescricao}>{mensagem.tipo_administrador}</Text>
+                  </View>
+                </View>
+                <View style={{ flex: 1, justifyContent: 'space-between', marginTop: '7%', }}>
+                  <View style={{ flex: 1, flexGrow: 1, }}>
+                    <Text style={{ fontWeight: 'bold', color: '#03314B', fontSize: 22, }}>Resposta:</Text>
+                    <Text>
+                      {mensagem.mensagem_resposta}
+                    </Text>
+                  </View>
+                  <View style={visualizarMenuStyle.boxBtnVisualizarMenu} >
+                    <View style={{ marginLeft: 5, flexDirection: 'row', gap: 5, alignItems: 'center', }}>
+                      <Ionicons name="time-outline" size={20} color="#FFF" />
+                      <Text style={editarMenuStyle.alterarImgEditarMenu}>Respondindo em {mensagem.resposta_created_at}</Text>
+                    </View>
+                  </View>
+                </View>
+              </>
+            )}
+        </View>
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 
@@ -1369,7 +1494,7 @@ export function EditarPerfilScreen({ navigation, route }) {
       const fetchFuncionario = async () => {
         try {
           const token = await AsyncStorage.getItem('userToken');
-          const response = await axios.get(`http:///api/perfil/${route.params.idFuncionario}`, {
+          const response = await axios.get(`http://:8000/api/perfil/${route.params.idFuncionario}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -1382,7 +1507,7 @@ export function EditarPerfilScreen({ navigation, route }) {
           setSenha(funcionario.senha);
           setUpdated_at(funcionario.updated_at);
 
-          setSelectedImage(`http:///storage/img/funcionarios/${funcionario.fotoFuncionario}`);
+          setSelectedImage(`http://:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}`);
         } catch (error) {
           console.error('Erro ao buscar dados do funcionário:', error);
         }
@@ -1435,7 +1560,7 @@ export function EditarPerfilScreen({ navigation, route }) {
           formData.append('fotoFuncionario', selectedImageBase64Ref.current);
         }
   
-        const response = await axios.post(`http:///api/perfil/${route.params.idFuncionario}`, formData, {
+        const response = await axios.post(`http://:8000/api/perfil/${route.params.idFuncionario}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -1572,10 +1697,10 @@ export function EditarPerfilScreen({ navigation, route }) {
                     />
                   </View>
 
-                  <View style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePickerUsuario}>
+                  <View style={visualizarMenuStyle.boxBtnVisualizarMenu}>
                     <View style={{ marginLeft: 5, flexDirection: 'row', gap: 5, alignItems: 'center', }}>
                       <Ionicons name="time-outline" size={20} color="#FFF" />
-                      <Text style={editarMenuStyle.alterarImgEditarMenu}>Atualizando em {updated_at}</Text>
+                      <Text style={editarMenuStyle.alterarImgEditarMenu}>Atualizado em {updated_at}</Text>
                     </View>
                   </View>
 
@@ -1646,13 +1771,13 @@ export function FuncionarioScreen({ navigation, route }) {
   const [searchQuery, setSearchQuery] = useState('');
   const { idFuncionario } = route.params || {};
 
-  console.log("Cód Funcionario: ", idFuncionario);
+
 
   useEffect(() => {
     const fetchFuncionarios = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http:///api/funcionarios', {
+        const resposta = await axios.get('http://:8000/api/funcionarios', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -1743,7 +1868,7 @@ export function FuncionarioScreen({ navigation, route }) {
                   onPress={() => navigation.navigate('editarFuncionario', { funcionario })}
                 >
                   <Image 
-                    source={{ uri: `http:///storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
+                    source={{ uri: `http://:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
                     style={{ width: 80, height: 80, borderRadius: 40 }}
                   />
                   <View style={funcionarioStyle.boxNomeFuncionario}>
@@ -1756,15 +1881,6 @@ export function FuncionarioScreen({ navigation, route }) {
           </View>
         </SafeAreaView>
       </ScrollView>
-
-      <View
-        style={[
-          menuStyle.addProduto,
-          { position: "absolute", bottom: 20, right: 20 },
-        ]}
-      >
-        <Ionicons name="add-outline" size={20} color="#FFF" />
-      </View>
     </View>
   );
 }
@@ -1809,7 +1925,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
       setSalarioFuncionario(usuario.salarioFuncionario);
       setTipo_funcionario(usuario.tipo_funcionario);
       setStatusFuncionario(usuario.statusFuncionario);
-      setSelectedImage(`http:///storage/img/funcionarios/${usuario.fotoFuncionario}`);
+      setSelectedImage(`http://:8000/storage/img/funcionarios/${usuario.fotoFuncionario}`);
     }
   }, [route.params]);
 
@@ -1861,7 +1977,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
           formData.append('fotoFuncionario', selectedImageBase64Ref.current);
         }
   
-        const resposta = await axios.post(`http:///api/funcionarios/${route.params.funcionario.id}`, formData, {
+        const resposta = await axios.post(`http://:8000/api/funcionarios/${route.params.funcionario.id}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -2210,8 +2326,9 @@ function MyTab({ route }) {
       />
 
       <Tab.Screen
-        name="Funcionários"
+        name="Funcionarios"
         component={FuncionarioScreen}
+        initialParams={{ idFuncionario: route.params.idFuncionario }}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -2259,6 +2376,15 @@ function MyTab({ route }) {
        <Tab.Screen
         name="VisualizarMenu" 
         component={VisualizarMenuScreen} 
+        options={{
+          tabBarButton: () => null, 
+          tabBarVisible: false,
+          headerShown: false,
+        }}
+      /> 
+      <Tab.Screen
+        name="VisualizarMensagem" 
+        component={VisualizarMensagemScreen} 
         options={{
           tabBarButton: () => null, 
           tabBarVisible: false,
