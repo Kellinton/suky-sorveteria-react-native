@@ -836,7 +836,7 @@ export const funcionarioStyle = ({
 
   nomeFuncionario: {
     color: '#03314B',
-    fontSize: '22',
+    fontSize: 22,
     alignItems: 'center',
     fontWeight: 'bold',
   },

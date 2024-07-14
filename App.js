@@ -73,8 +73,8 @@ export function LoginScreen({ navigation }) {
     }
 
     try {
-        // const resposta = await axios.post(`http://.8000/api/login?email=?{email}&senha=${senha}`);
-         const resposta = await axios.post(`http://:8000/api/login`, {
+        // const resposta = await axios.post(`http://192.168.100.236.8000/api/login?email=?{email}&senha=${senha}`);
+         const resposta = await axios.post(`http:///api/login`, {
            email: email,
            senha: senha,
          });
@@ -239,7 +239,7 @@ export function DashboardScreen({ navigation, route }) {
         const token = await AsyncStorage.getItem("userToken");
         if (idFuncionario) {
           const respostaFuncionario = await axios.get(
-            `http://:8000/api/dashboard/${idFuncionario}`,
+            `http:///api/dashboard/${idFuncionario}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           const {
@@ -271,7 +271,7 @@ export function DashboardScreen({ navigation, route }) {
         const token = await AsyncStorage.getItem("userToken");
         if (updatedProdutoId || createdProdutoId) {
           const resposta = await axios.get(
-            `http://:8000/api/dashboard/${idFuncionario}`,
+            `http:///api/dashboard/${idFuncionario}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           setTotalValorProdutos(resposta.data.totalValorProdutos);
@@ -442,7 +442,7 @@ export function MenuScreen({ navigation, route }) {
     const fetchProdutos = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http://:8000/api/produtos', {
+        const resposta = await axios.get('http:///api/produtos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -526,7 +526,7 @@ export function MenuScreen({ navigation, route }) {
                       <View key={item.id} style={menuStyle.boxContainerMenu}>
                         <View>
                           <Image
-                            source={{ uri: `http://:8000/storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
+                            source={{ uri: `http:///storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
                             style={{ width: 120, height: 120, borderRadius: 20 }}
                           />
                           <Text style={menuStyle.precoMenu}>R$ {item.valorProduto}</Text>
@@ -595,7 +595,7 @@ export function VisualizarMenuScreen({ navigation }) {
     const fetchProduto = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get(`http://:8000/api/produtos/${idProduto}`, {
+        const resposta = await axios.get(`http:///api/produtos/${idProduto}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -637,7 +637,7 @@ export function VisualizarMenuScreen({ navigation }) {
 
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image
-                source={{ uri: `http://:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
+                source={{ uri: `http:///storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
                 style={{ width: '100%', height: 300, borderRadius: 20, }}
               />
               <Text style={visualizarMenuStyle.precoVisualizarMenu}>R$ {produto.valorProduto}</Text>
@@ -712,7 +712,7 @@ export function EditarMenuScreen({ navigation, route }) {
       setValorProduto(produto.valorProduto);
       setStatusProduto(produto.statusProduto);
       // carrega a imagem atual do produto
-      setSelectedImage(`http://:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
+      setSelectedImage(`http:///storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
     }
   }, [route.params]);
 
@@ -766,7 +766,7 @@ export function EditarMenuScreen({ navigation, route }) {
         formData.append('fotoProduto', selectedImageBase64Ref.current);
       }
 
-      const resposta = await axios.post(`http://:8000/api/produtos/${route.params.produto.id}`, formData, {
+      const resposta = await axios.post(`http:///api/produtos/${route.params.produto.id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -1037,7 +1037,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
         formData.append('fotoProduto', selectedImageBase64Ref.current);
       }
 
-      const resposta = await axios.post('http://:8000/api/produtos', formData, {
+      const resposta = await axios.post('http:///api/produtos', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -1234,7 +1234,7 @@ export function MensagensScreen({ navigation }) {
     const fetchMensagens = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http://:8000/api/contatos', {
+        const resposta = await axios.get('http:///api/contatos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -1365,13 +1365,13 @@ export function VisualizarMensagemScreen({ navigation }) {
     const fetchMensagem = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get(`http://:8000/api/contatos/${idMensagem}`, {
+        const resposta = await axios.get(`http:///api/contatos/${idMensagem}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setMensagem(resposta.data);
-        console.log(resposta.data);
+
 
       } catch (error) {
         console.error('Erro ao buscar a mensagem:', error);
@@ -1439,7 +1439,7 @@ export function VisualizarMensagemScreen({ navigation }) {
               <>
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginTop: '7%', }}>
                   <Image
-                    source={{ uri: `http://:8000/storage/img/funcionarios/${mensagem.foto_administrador}` }}
+                    source={{ uri: `http:///storage/img/funcionarios/${mensagem.foto_administrador}` }}
                     style={{ marginRight: '3%', borderRadius: 10, height: 70, width: 70, }}
                   />
                   <View>
@@ -1494,7 +1494,7 @@ export function EditarPerfilScreen({ navigation, route }) {
       const fetchFuncionario = async () => {
         try {
           const token = await AsyncStorage.getItem('userToken');
-          const response = await axios.get(`http://:8000/api/perfil/${route.params.idFuncionario}`, {
+          const response = await axios.get(`http:///api/perfil/${route.params.idFuncionario}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -1507,7 +1507,7 @@ export function EditarPerfilScreen({ navigation, route }) {
           setSenha(funcionario.senha);
           setUpdated_at(funcionario.updated_at);
 
-          setSelectedImage(`http://:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}`);
+          setSelectedImage(`http:///storage/img/funcionarios/${funcionario.fotoFuncionario}`);
         } catch (error) {
           console.error('Erro ao buscar dados do funcionário:', error);
         }
@@ -1560,7 +1560,7 @@ export function EditarPerfilScreen({ navigation, route }) {
           formData.append('fotoFuncionario', selectedImageBase64Ref.current);
         }
   
-        const response = await axios.post(`http://:8000/api/perfil/${route.params.idFuncionario}`, formData, {
+        const response = await axios.post(`http:///api/perfil/${route.params.idFuncionario}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -1769,7 +1769,7 @@ export function FuncionarioScreen({ navigation, route }) {
   const [mediaSalarial, setMediaSalarial] = useState(0);
   const [funcionariosInativos, setFuncionariosInativos] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
-  const { idFuncionario } = route.params || {};
+  const { idFuncionario, updatedFuncionarioId, } = route.params || {};
 
 
 
@@ -1777,7 +1777,7 @@ export function FuncionarioScreen({ navigation, route }) {
     const fetchFuncionarios = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http://:8000/api/funcionarios', {
+        const resposta = await axios.get('http:///api/funcionarios', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -1793,7 +1793,7 @@ export function FuncionarioScreen({ navigation, route }) {
     };
 
     fetchFuncionarios();
-  }, [idFuncionario]);
+  }, [idFuncionario, updatedFuncionarioId]);
 
 
   const filterFuncionarios = (funcionarios, searchQuery) => {
@@ -1805,7 +1805,7 @@ export function FuncionarioScreen({ navigation, route }) {
 
 
   return (
-    <View style={{ flex: 1}}>
+    <View style={{ flex: 1, backgroundColor: "#F4F8FF" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SafeAreaView>
           <View
@@ -1865,11 +1865,11 @@ export function FuncionarioScreen({ navigation, route }) {
                 <TouchableOpacity
                   key={funcionario.id}
                   style={funcionarioStyle.boxFuncionario}
-                  onPress={() => navigation.navigate('editarFuncionario', { funcionario })}
+                  onPress={() => navigation.navigate('EditarFuncionario', { funcionario })}
                 >
                   <Image 
-                    source={{ uri: `http://:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
-                    style={{ width: 80, height: 80, borderRadius: 40 }}
+                    source={{ uri: `http:///storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
+                    style={{ width: 100, height: 100, borderRadius: 9999 }}
                   />
                   <View style={funcionarioStyle.boxNomeFuncionario}>
                     <Text style={funcionarioStyle.nomeFuncionario}>{funcionario.nomeFuncionario}</Text>
@@ -1903,12 +1903,17 @@ export function EditarFuncionarioScreen({ navigation, route }){
   const [statusFuncionario , setStatusFuncionario] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const selectedImageBase64Ref = useRef(null);
+  const [errorModalVisible, setErrorModalVisible] = useState(false); // Estado para controlar a visibilidade do modal de erro
+  const [errorModalMessage, setErrorModalMessage] = useState(''); // Estado para armazenar a mensagem de erro
+  const [successModalVisible, setSuccessModalVisible] = useState(false); // Estado para controlar a visibilidade do modal de sucesso
+  const [updatedFuncionarioId, setUpdatedFuncionarioId] = useState(null); 
 
 
   console.log(route.params.funcionario);
 
   useEffect(() => {
     if (route.params && route.params.funcionario) {
+      
       const usuario = route.params.funcionario;
       setNomeFuncionario(usuario.nomeFuncionario);
       setSobrenomeFuncionario(usuario.sobrenomeFuncionario);
@@ -1925,31 +1930,38 @@ export function EditarFuncionarioScreen({ navigation, route }){
       setSalarioFuncionario(usuario.salarioFuncionario);
       setTipo_funcionario(usuario.tipo_funcionario);
       setStatusFuncionario(usuario.statusFuncionario);
-      setSelectedImage(`http://:8000/storage/img/funcionarios/${usuario.fotoFuncionario}`);
+      setSelectedImage(`http:///storage/img/funcionarios/${usuario.fotoFuncionario}`);
     }
   }, [route.params]);
 
-    const handleImagePicker = () => {
-      const options = {
-        mediaType: 'photo',
-        includeBase64: true, // Incluir base64 no resultado
-      };
-
-      launchImageLibrary(options, (resposta) => {
-        if (resposta.didCancel) {
-          console.log('Seleção de imagem cancelada pelo usuário');
-        } else if (resposta.error) {
-          console.log('Erro ao selecionar imagem: ', resposta.error);
-        } else {
-          const base64Image = resposta.assets[0].base64;
-          const uri = resposta.assets[0].uri;
-          console.log('URI da imagem selecionada:', uri);
-          console.log('Imagem base64:', base64Image);
-          selectedImageBase64Ref.current = base64Image;
-          setSelectedImage(uri); // Atualiza a visualização da imagem selecionada
-        }
+  const handleImagePickerFuncionario = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+        base64: true, 
       });
-    };
+
+
+
+      if (result.canceled) {
+        console.log('Seleção de imagem cancelada pelo usuário');
+        return;
+      }
+
+      const base64Image = result.assets[0].base64;
+      const uri = result.assets[0].uri;
+
+
+
+      setSelectedImage(uri); // Atualiza o estado com a URI da imagem selecionada
+      selectedImageBase64Ref.current = base64Image; // Armazena base64 na ref para uso posterior
+  
+    } catch (error) {
+      console.error('Erro ao selecionar imagem:', error);
+    }
+  };
 
     const handleSaveFuncionarioEdit = async () => {
       try {
@@ -1977,7 +1989,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
           formData.append('fotoFuncionario', selectedImageBase64Ref.current);
         }
   
-        const resposta = await axios.post(`http://:8000/api/funcionarios/${route.params.funcionario.id}`, formData, {
+        const resposta = await axios.post(`http:///api/funcionarios/${route.params.funcionario.id}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -1985,15 +1997,47 @@ export function EditarFuncionarioScreen({ navigation, route }){
         });
   
         if (resposta.status === 200) {
-          navigation.navigate('Funcionários', { idUsuario: route.params.funcionario.id  });
+          const updatedFuncionarioId = `${route.params.funcionario}_${Date.now()}`;
+
+
+          AsyncStorage.setItem('updatedFuncionarioId', updatedFuncionarioId.toString())
+            .then(() => {
+              console.log(`Perfil atualizado: ${updatedFuncionarioId}`);
+            })
+            .catch(error => {
+              console.error('Erro ao salvar os dados no AsyncStorage:', error);
+            });
+  
+            setUpdatedFuncionarioId(updatedFuncionarioId); 
+            setSuccessModalVisible(true);
+         
+        } else if (resposta.status === 422) {
+
+          const errorMessage = Object.values(resposta.data.errors).flat().join('\n');
+          setErrorModalMessage(errorMessage);
+          setErrorModalVisible(true);
         } else {
-          console.error('Erro ao salvar a atualização:', resposta.status);
+  
+          console.error('Erro ao atualizar o funcionário:', resposta.status);
+          setErrorModalMessage('Ocorreu um erro ao atualizar o funcionário. Por favor, tente novamente mais tarde.');
+          setErrorModalVisible(true);
         }
       } catch (error) {
-        console.error('Erro ao salvar a atualização:', error);
+        console.error('Erro ao atualizar o funcionário:', error);
+        setErrorModalMessage('Verifique os dados ou tente mais tarde.');
+        setErrorModalVisible(true);
       }
-    
     };
+
+    const handleSuccessModalUsuarioClose = () => {
+      setSuccessModalVisible(false);
+  
+      if (updatedFuncionarioId) {
+        navigation.navigate("Funcionarios", { updatedFuncionarioId: updatedFuncionarioId });
+      }
+    };  
+    
+    
   
     
 
@@ -2002,13 +2046,13 @@ export function EditarFuncionarioScreen({ navigation, route }){
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <SafeAreaView>
-          <View style={{flex: 1, justifyContent: 'center',  padding: '5%',}}>
+          <View style={{flex: 1, padding: '5%', }}>
       
-              <View style={{ flexDirection: 'row', width: '90%', alignItems: 'center', marginBottom: '5%',}}>
+              <View style={{ flexDirection: 'row', width: '90%', alignItems: 'center', marginBottom: '5%', marginTop: '7%'}}>
                 <View style={{ width: '17%'}}>
                   <TouchableOpacity
                     style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#8A19D6', width: 50, height: 50, borderRadius: 9999, }}
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate("Funcionarios")}
                   >
                   <Ionicons name="arrow-back" size={20} color="#FFF" />
                 </TouchableOpacity>
@@ -2027,8 +2071,8 @@ export function EditarFuncionarioScreen({ navigation, route }){
                 </View>
 
 
-                <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePicker}>
-                  <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', }}>
+                <TouchableOpacity style={visualizarMenuStyle.boxBtnVisualizarMenu} onPress={handleImagePickerFuncionario}>
+                  <View style={{ flexDirection: 'row', gap: 5, justifyContent: 'center', alignItems: 'center', }}>
                     <Text style={editarMenuStyle.alterarImgEditarMenu}>Selecionar Imagem</Text>
                     <Ionicons name="add" size={20} color="#FFF" />
                   </View>
@@ -2038,9 +2082,9 @@ export function EditarFuncionarioScreen({ navigation, route }){
 
               
 
-                <Text style={{ marginBottom: 5, fontWeight: 'bold', color: 'gray', }}>Nome:</Text>
-                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                  <Icon name="person-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                <Text style={{ marginBottom: 5, fontWeight: 'bold', color: 'gray' }}>Nome:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="person-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
                   <TextInput
                     placeholder="Nome:"
                     placeholderTextColor="gray"
@@ -2048,19 +2092,20 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     value={nomeFuncionario}
                     onChangeText={setNomeFuncionario}
                     underlineColorAndroid="transparent"
+                    keyboardType="default" // Aceita texto
                   />
                 </View>
 
-                <Text style={{  marginBottom: 5, fontWeight: 'bold', color: 'gray', }}>Sobrenome:</Text>
-                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10,  }}>
-                  <Icon name="person-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
+                <Text style={{ marginBottom: 5, fontWeight: 'bold', color: 'gray' }}>Sobrenome:</Text>
+                <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center', borderWidth: 1, borderColor: '#64748B', borderRadius: 10, marginBottom: 10 }}>
+                  <Icon name="person-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10 }} />
                   <TextInput
                     placeholder="Sobrenome:"
                     placeholderTextColor="gray"
                     style={loginStyle.TextInput}
                     value={sobrenomeFuncionario}
                     onChangeText={setSobrenomeFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="default" // Aceita texto
                   />
                 </View>
 
@@ -2073,7 +2118,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={email}
                     onChangeText={setEmail}
-                    underlineColorAndroid="transparent"
+                    keyboardType="email-address" // Aceita endereço de email
                   />
                 </View>
 
@@ -2086,8 +2131,6 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={senha}
                     onChangeText={setSenha}
-                    underlineColorAndroid="transparent"
-                    secureTextEntry
                   />
                 </View>
 
@@ -2100,7 +2143,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={foneFuncionario}
                     onChangeText={setFoneFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="phone-pad" // Aceita número de telefone
                   />
                 </View>
 
@@ -2113,7 +2156,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={dataNascFuncionario}
                     onChangeText={setDataNascFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="numeric" // Aceita data (numérica)
                   />
                 </View>
 
@@ -2126,7 +2169,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={enderecoFuncionario}
                     onChangeText={setEnderecoFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="default" // Aceita texto
                   />
                 </View>
 
@@ -2139,7 +2182,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={cidadeFuncionario}
                     onChangeText={setCidadeFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="default" // Aceita texto
                   />
                 </View>
 
@@ -2152,7 +2195,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={estadoFuncionario}
                     onChangeText={setEstadoFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="default" // Aceita texto
                   />
                 </View>
 
@@ -2165,7 +2208,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={cepFuncionario}
                     onChangeText={setCepFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="numeric" // Aceita número (CEP)
                   />
                 </View>
 
@@ -2178,7 +2221,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={dataContratacaoFuncionario}
                     onChangeText={setDataContratacaoFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="numeric" // Aceita data (numérica)
                   />
                 </View>
 
@@ -2191,7 +2234,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={cargoFuncionario}
                     onChangeText={setCargoFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="default" // Aceita texto
                   />
                 </View>
 
@@ -2204,66 +2247,81 @@ export function EditarFuncionarioScreen({ navigation, route }){
                     style={loginStyle.TextInput}
                     value={salarioFuncionario}
                     onChangeText={setSalarioFuncionario}
-                    underlineColorAndroid="transparent"
+                    keyboardType="numeric" // Aceita número (salário)
                   />
                 </View>
 
-                <View style={{ flexDirection:'row', marginBottom: 10, justifyContent: 'space-between'}}>
-                  <View style={{ width: '48%' }}>
+
+
                     <Text style={{ marginBottom: 5, fontWeight: 'bold', color: 'gray', }}>Função:</Text>
-                    <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, }}>
-                      <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
                       <Picker
-                        style={{ borderWidth: '0', }}
                         selectedValue={tipo_funcionario}
                         onValueChange={(itemValue) => setTipo_funcionario(itemValue)}
                       >
                         <Picker.Item label="Administrador" value="administrador" />
                         <Picker.Item label="Assistente" value="assistente" />
                       </Picker>
-                    </View>
-                  </View>
-                  <View style={{ width: '48%' }}>
-                    <Text style={{ marginBottom: 5, fontWeight: 'bold', color: 'gray', }}>Disponibilidade:</Text>
-                    <View style={{ flexDirection: 'row', height: 40, width: '100%', alignItems: 'center',  borderWidth: 1, borderColor: '#64748B', borderRadius: 10, }}>
-                      <Icon name="mail-outline" size={20} color="gray" style={{ color: '#8A19D6', margin: 10, }} />
-                      <Picker
-                        style={{ borderWidth: '0', }}
-                        selectedValue={statusFuncionario}
-                        onValueChange={(itemValue) => setStatusFuncionario(itemValue)}
+                    
+
+                    <Text style={{ marginBottom: 5, fontWeight: 'bold', color: 'gray', }}>Disponibilidade:</Text>                
+                    <Picker
+                      style={{ borderWidth: 1, }}
+                      selectedValue={statusFuncionario}
+                      onValueChange={(itemValue) => setStatusFuncionario(itemValue)}
                       >
-                        <Picker.Item label="Disponível" value="ativo" />
-                        <Picker.Item label="Indisponível" value="inativo" />
-                      </Picker>
-                    </View>                  
-                  </View>
-                </View>
+                      <Picker.Item label="Disponível" value="ativo" />
+                      <Picker.Item label="Indisponível" value="inativo" />
+                    </Picker>
+                    <View style={editarMenuStyle.containarBtn}>
+
+                      <TouchableOpacity
+                        style={editarMenuStyle.btnCancelar}
+                        onPress={() => navigation.navigate("Funcionarios")}
+                      >
+                        <Text style={{ color: '#8A19D6', fontWeight: 'bold', }}>Cancelar</Text>
+                      </TouchableOpacity>
 
 
+                      <TouchableOpacity 
+                        style={editarMenuStyle.btnSalvar}
+                        onPress={handleSaveFuncionarioEdit}
+                      >
+                        <Text style={{ color: 'white', fontWeight: 'bold', }}>Salvar</Text>
+                      </TouchableOpacity>
 
-    
-
-                <View style={editarMenuStyle.containarBtn}>
-
-                  <TouchableOpacity
-                    style={editarMenuStyle.btnCancelar}
-                    onPress={() => navigation.goBack()}
-                  >
-                    <Text style={{ color: '#8A19D6', fontWeight: 'bold', }}>Cancelar</Text>
-                  </TouchableOpacity>
-
-
-                  <TouchableOpacity 
-                    style={editarMenuStyle.btnSalvar}
-                    onPress={handleSaveFuncionarioEdit}
-                  >
-                    <Text style={{ color: 'white', fontWeight: 'bold', }}>Salvar</Text>
-                  </TouchableOpacity>
-
-                </View>
+                    </View>
 
           </View>
         </SafeAreaView>
+        <Modal
+        isVisible={errorModalVisible}
+        onBackdropPress={() => setErrorModalVisible(false)}
+      >
+        <View style={loginStyle.errorModalContainer}>
+          <Ionicons name="close-circle-outline" size={60} color="#8A19D6" />
+          <Text style={loginStyle.errorModalTitle}>Erro ao atualizar!</Text>
+          <Text style={loginStyle.errorModalMessage}>{errorModalMessage}</Text>
+          <TouchableOpacity onPress={() => setErrorModalVisible(false)}>
+            <Text style={loginStyle.errorModalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      
+      <Modal
+        isVisible={successModalVisible}
+        onBackdropPress={handleSuccessModalUsuarioClose}
+      >
+        <View style={loginStyle.errorModalContainer}>
+          <Ionicons name="checkmark-circle-outline" size={60} color="#8A19D6" />
+          <Text style={loginStyle.errorModalTitle}>Funcionário atualizado!</Text>
+          <Text style={loginStyle.errorModalMessage}>Os dados do funcionário foi atualizado com sucesso.</Text>
+          <TouchableOpacity onPress={handleSuccessModalUsuarioClose}>
+            <Text style={loginStyle.errorModalButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
       </ScrollView>
     </View>
   );
@@ -2338,7 +2396,7 @@ function MyTab({ route }) {
       />
 
       <Tab.Screen
-        name="editarFuncionario"
+        name="EditarFuncionario"
         component={EditarFuncionarioScreen}     
         options={{
           tabBarButton: () => null, 
@@ -2432,11 +2490,11 @@ function Routes() {
         component={CadastrarMenuScreen}
         options={{ headerShown: false }}
       /> */}
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Funcionários"
         component={MyTab}
         options={{ headerShown: false }}
-      />
+      /> */}
 
 
 
