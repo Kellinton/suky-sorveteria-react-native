@@ -238,8 +238,8 @@ export const dashboardStyle = ({
   },
 
   boxEstatisticas: {
-    width: '30%',
-    height: 100,
+    width: '31%',
+    height: 120,
     backgroundColor: '#8A19D6',
     borderRadius: 15,
     border: 'none',
@@ -267,7 +267,9 @@ export const dashboardStyle = ({
   },
 
   boxTituloMensagem: {
-    textAlign: 'left',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     width: '90%',
     marginTop: 30,
     marginBottom: 10,
@@ -288,17 +290,19 @@ export const dashboardStyle = ({
     backgroundColor: '#fff',
     padding: 10,
     borderRadius: 15,
-    marginTop: '3%',
+    marginTop: '2%',
     alignItems: 'center',
   },
 
   boxMensagemInfo: {
-    width: '75%',
+    width: '85%',
     flexDirection: 'row',
     alignItems: 'center',
   },
 
   imgMensagem: {
+    width: 50,
+    height: 50,
     marginRight: '5%',
     borderRadius: 10,
   },
@@ -482,7 +486,8 @@ export const menuStyle = ({
   },
 
   boxContainerMenu: {
-
+    backgroundColor: 'white',
+    borderRadius: 20,
     marginBottom: '5%',
     flexDirection: 'row',
   },
