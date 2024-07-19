@@ -21,6 +21,7 @@ import {
   ScrollView,
   FlatList,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -73,8 +74,8 @@ export function LoginScreen({ navigation }) {
     }
 
     try {
-        // const resposta = await axios.post(`http://192.168.100.236.8000/api/login?email=?{email}&senha=${senha}`);
-         const resposta = await axios.post(`http://192.168.100.236:8000/api/login`, {
+        // const resposta = await axios.post(`http://127.0.0.1/api/login?email=?{email}&senha=${senha}`);
+         const resposta = await axios.post(`http:///api/login`, {
            email: email,
            senha: senha,
          });
@@ -107,7 +108,7 @@ export function LoginScreen({ navigation }) {
     <View style={{ flex: 1, alignItems: "center", backgroundColor: 'white',}}>
       <View style={loginStyle.boxFundo}>
         <ImageBackground
-          source={require("./assets/fundoLogin.png")}
+          source={require("./assets/fundo-login.png")}
           style={loginStyle.img}
         ></ImageBackground>
         <View style={loginStyle.txtFundo}>
@@ -240,7 +241,7 @@ export function DashboardScreen({ navigation, route }) {
         const token = await AsyncStorage.getItem("userToken");
         if (idFuncionario) {
           const respostaFuncionario = await axios.get(
-            `http://192.168.100.236:8000/api/dashboard/${idFuncionario}`,
+            `http:///api/dashboard/${idFuncionario}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           const {
@@ -274,7 +275,7 @@ export function DashboardScreen({ navigation, route }) {
         const token = await AsyncStorage.getItem("userToken");
         if (updatedProdutoId || createdProdutoId) {
           const resposta = await axios.get(
-            `http://192.168.100.236:8000/api/dashboard/${idFuncionario}`,
+            `http:///api/dashboard/${idFuncionario}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           setTotalValorProdutos(resposta.data.totalValorProdutos);
@@ -414,9 +415,9 @@ export function DashboardScreen({ navigation, route }) {
 
            {funcionariosRecentes.map((funcionario, index) => (
             <View key={index} style={dashboardStyle.boxMensagem}>
-              <View style={dashboardStyle.boxMensagemInfo}>
+              <View style={{ width: '80%', flexDirection: 'row', alignItems: 'center', }}>
                 <Image
-                  source={{ uri: `http://192.168.100.236:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
+                  source={{ uri: `http:///suky/storage/app/public/img/funcionarios/${funcionario.fotoFuncionario}` }}
                   style={dashboardStyle.imgMensagem}
                 ></Image>
 
@@ -425,11 +426,20 @@ export function DashboardScreen({ navigation, route }) {
                   <Text style={dashboardStyle.assuntoMensagem}>{funcionario.cargoFuncionario}</Text>
                 </View>
               </View>
-
-              <View style={dashboardStyle.boxhorarioMensagem}>
-                <Text style={{ ...dashboardStyle.horarioMensagem , color: funcionario.statusFuncionario === 'Ativo' ? 'green' : 'red' }}>{funcionario.statusFuncionario}</Text>
+              <View style={{ width: '20%',}}>
+              {funcionario.statusFuncionario === 'Ativo' ? (
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#E0F7EB', borderRadius: 10, padding: 4 }}>
+                  <Ionicons name="checkmark-circle" size={20} color="#4AA02C" />
+                  <Text style={{ color: '#4AA02C', marginLeft: 2, }}>Ativo</Text>
+                </View>
+              ) : (
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#F7EBEB', borderRadius: 10, padding: 4 }}>
+                  <Ionicons name="checkmark-circle" size={20} color="#A02C2C" />
+                  <Text style={{ color: '#A02C2C', marginLeft: 2, }}>Inativo</Text>
+                </View>
+              )}
               </View>
-
+        
             </View>
           ))} 
 
@@ -448,12 +458,12 @@ export function DashboardScreen({ navigation, route }) {
             </View>
             </TouchableOpacity>
           </View>
-          <View style={{ backgroundColor: 'white', borderTopRightRadius: 40, borderTopLeftRadius: 40, alignItems: 'center', justifyContent: 'center',}}>
+          <View style={{ backgroundColor: 'white', borderTopRightRadius: 20, borderTopLeftRadius: 20, alignItems: 'center', justifyContent: 'center', width: '90%',}}>
             {produtosRecentes.map((produto, index) => (
-            <View key={produto.id} style={{ backgroundColor: 'white', flexDirection: 'row',  marginBottom: '5%', marginTop: '5%', marginLeft: '5%', borderRadius: 20, }}>
+            <View key={produto.id} style={{ backgroundColor: 'white', flexDirection: 'row', marginTop: '5%', borderRadius: 20, width: '90%', }}>
             <View>
               <Image
-                source={{ uri: `http://192.168.100.236:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
+                source={{ uri: `http:///suky/storage/app/public/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
                 style={{ width: 120, height: 120, borderRadius: 20 }}
               />
               <Text style={menuStyle.precoMenu}>R$ {produto.valorProduto}</Text>
@@ -505,7 +515,7 @@ export function MenuScreen({ navigation, route }) {
     const fetchProdutos = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http://192.168.100.236:8000/api/produtos', {
+        const resposta = await axios.get('http:///api/produtos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -583,13 +593,13 @@ export function MenuScreen({ navigation, route }) {
                   <Ionicons name="apps" size={20} color="#FFF" />
                 </TouchableOpacity>
               </View>
-              <View style={{ alignItems: 'center' }}>
+              <View style={{ alignItems: 'center', width: '100%', }}>
                 <View style={menuStyle.containerMainmenu}>
                   {filterProdutos(produtos, searchQuery).map((item) => (
                       <View key={item.id} style={menuStyle.boxContainerMenu}>
                         <View>
                           <Image
-                            source={{ uri: `http://192.168.100.236:8000/storage/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
+                            source={{ uri: `http:///suky/storage/app/public/img/produtos/${item.categoriaProduto}/${item.fotoProduto}` }}
                             style={{ width: 120, height: 120, borderRadius: 20 }}
                           />
                           <Text style={menuStyle.precoMenu}>R$ {item.valorProduto}</Text>
@@ -658,7 +668,7 @@ export function VisualizarMenuScreen({ navigation }) {
     const fetchProduto = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get(`http://192.168.100.236:8000/api/produtos/${idProduto}`, {
+        const resposta = await axios.get(`http:///api/produtos/${idProduto}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -675,7 +685,10 @@ export function VisualizarMenuScreen({ navigation }) {
   if (!produto) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Carregando...</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <Ionicons name="ice-cream" size={50} color="#8A19D6" style={{ position: 'absolute' }} />
+          <ActivityIndicator size={100} color="#8A19D6" />
+        </View>
       </View>
     );
   }
@@ -700,7 +713,7 @@ export function VisualizarMenuScreen({ navigation }) {
 
             <View style={visualizarMenuStyle.boxImgVisualizarMenu}>
               <Image
-                source={{ uri: `http://192.168.100.236:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
+                source={{ uri: `http:///suky/storage/app/public/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}` }}
                 style={{ width: '100%', height: 300, borderRadius: 20, }}
               />
               <Text style={visualizarMenuStyle.precoVisualizarMenu}>R$ {produto.valorProduto}</Text>
@@ -775,7 +788,7 @@ export function EditarMenuScreen({ navigation, route }) {
       setValorProduto(produto.valorProduto);
       setStatusProduto(produto.statusProduto);
       // carrega a imagem atual do produto
-      setSelectedImage(`http://192.168.100.236:8000/storage/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
+      setSelectedImage(`http:///suky/storage/app/public/img/produtos/${produto.categoriaProduto}/${produto.fotoProduto}`);
     }
   }, [route.params]);
 
@@ -829,7 +842,7 @@ export function EditarMenuScreen({ navigation, route }) {
         formData.append('fotoProduto', selectedImageBase64Ref.current);
       }
 
-      const resposta = await axios.post(`http://192.168.100.236:8000/api/produtos/${route.params.produto.id}`, formData, {
+      const resposta = await axios.post(`http:///api/produtos/${route.params.produto.id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -1100,7 +1113,7 @@ export function CadastrarMenuScreen({ navigation, route }) {
         formData.append('fotoProduto', selectedImageBase64Ref.current);
       }
 
-      const resposta = await axios.post('http://192.168.100.236:8000/api/produtos', formData, {
+      const resposta = await axios.post('http:///api/produtos', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -1297,7 +1310,7 @@ export function MensagensScreen({ navigation }) {
     const fetchMensagens = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http://192.168.100.236:8000/api/contatos', {
+        const resposta = await axios.get('http:///api/contatos', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -1382,7 +1395,7 @@ export function MensagensScreen({ navigation }) {
                   <Ionicons name="apps" size={20} color="#FFF" />
                 </TouchableOpacity>
               </View>
-              <View style={{ alignItems: 'center', }}>
+              <View style={{ alignItems: 'center', width: '100%',}}>
                 <View style={menuStyle.containerMainmenu}>
                 {filterMensagens(mensagens, searchQuery).map((mensagem) => (
                 <TouchableOpacity
@@ -1401,7 +1414,7 @@ export function MensagensScreen({ navigation }) {
                       </View>
                     </View>
 
-                    <View style={dashboardStyle.boxhorarioMensagem}>
+                    <View style={{  width: '40%', alignItems: "flex-end",}}>
                       <Text style={dashboardStyle.horarioMensagem}>{mensagem.created_at}</Text>
                     </View>
                   </View>
@@ -1428,7 +1441,7 @@ export function VisualizarMensagemScreen({ navigation }) {
     const fetchMensagem = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get(`http://192.168.100.236:8000/api/contatos/${idMensagem}`, {
+        const resposta = await axios.get(`http:///api/contatos/${idMensagem}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -1447,7 +1460,10 @@ export function VisualizarMensagemScreen({ navigation }) {
   if (!mensagem) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Carregando...</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <Ionicons name="ice-cream" size={50} color="#8A19D6" style={{ position: 'absolute' }} />
+          <ActivityIndicator size={100} color="#8A19D6" />
+        </View>
       </View>
     );
   }
@@ -1502,7 +1518,7 @@ export function VisualizarMensagemScreen({ navigation }) {
               <>
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginTop: '7%', }}>
                   <Image
-                    source={{ uri: `http://192.168.100.236:8000/storage/img/funcionarios/${mensagem.foto_administrador}` }}
+                    source={{ uri: `http:///suky/storage/app/public/img/funcionarios/${mensagem.foto_administrador}` }}
                     style={{ marginRight: '3%', borderRadius: 10, height: 70, width: 70, }}
                   />
                   <View>
@@ -1557,7 +1573,7 @@ export function EditarPerfilScreen({ navigation, route }) {
       const fetchFuncionario = async () => {
         try {
           const token = await AsyncStorage.getItem('userToken');
-          const response = await axios.get(`http://192.168.100.236:8000/api/perfil/${route.params.idFuncionario}`, {
+          const response = await axios.get(`http:///api/perfil/${route.params.idFuncionario}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -1570,7 +1586,7 @@ export function EditarPerfilScreen({ navigation, route }) {
           setSenha(funcionario.senha);
           setUpdated_at(funcionario.updated_at);
 
-          setSelectedImage(`http://192.168.100.236:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}`);
+          setSelectedImage(`http:///suky/storage/app/public/img/funcionarios/${funcionario.fotoFuncionario}`);
         } catch (error) {
           console.error('Erro ao buscar dados do funcionário:', error);
         }
@@ -1623,7 +1639,7 @@ export function EditarPerfilScreen({ navigation, route }) {
           formData.append('fotoFuncionario', selectedImageBase64Ref.current);
         }
   
-        const response = await axios.post(`http://192.168.100.236:8000/api/perfil/${route.params.idFuncionario}`, formData, {
+        const response = await axios.post(`http:///api/perfil/${route.params.idFuncionario}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
@@ -1840,7 +1856,7 @@ export function FuncionarioScreen({ navigation, route }) {
     const fetchFuncionarios = async () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
-        const resposta = await axios.get('http://192.168.100.236:8000/api/funcionarios', {
+        const resposta = await axios.get('http:///api/funcionarios', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -1931,7 +1947,7 @@ export function FuncionarioScreen({ navigation, route }) {
                   onPress={() => navigation.navigate('EditarFuncionario', { funcionario })}
                 >
                   <Image 
-                    source={{ uri: `http://192.168.100.236:8000/storage/img/funcionarios/${funcionario.fotoFuncionario}` }}
+                    source={{ uri: `http:///suky/storage/app/public/img/funcionarios/${funcionario.fotoFuncionario}` }}
                     style={{ width: 100, height: 100, borderRadius: 9999 }}
                   />
                   <View style={funcionarioStyle.boxNomeFuncionario}>
@@ -1993,7 +2009,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
       setSalarioFuncionario(usuario.salarioFuncionario);
       setTipo_funcionario(usuario.tipo_funcionario);
       setStatusFuncionario(usuario.statusFuncionario);
-      setSelectedImage(`http://192.168.100.236:8000/storage/img/funcionarios/${usuario.fotoFuncionario}`);
+      setSelectedImage(`http:///suky/storage/app/public/img/funcionarios/${usuario.fotoFuncionario}`);
     }
   }, [route.params]);
 
@@ -2052,7 +2068,7 @@ export function EditarFuncionarioScreen({ navigation, route }){
           formData.append('fotoFuncionario', selectedImageBase64Ref.current);
         }
   
-        const resposta = await axios.post(`http://192.168.100.236:8000/api/funcionarios/${route.params.funcionario.id}`, formData, {
+        const resposta = await axios.post(`http:///api/funcionarios/${route.params.funcionario.id}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
